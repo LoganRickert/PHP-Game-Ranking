@@ -13,9 +13,9 @@ class User {
 		$this->teamPoints = $teamPoints;
 		$this->teamStatus = $teamStatus;
 	}
-	
+
 	public function print() {
-		
+		echo "<a href=\"team.php?teamId=$this->teamId\">$this->teamName</a>";
 	}
 
 }
