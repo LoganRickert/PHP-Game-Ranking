@@ -59,7 +59,7 @@ class Html {
 					echo "<li><a href=\"$this->fullSiteRoot/create_team.php\">Create Team</a></li>
 						  <li><a href=\"$this->fullSiteRoot/join_team.php\">Join Team</a></li>";
 				} else {
-					echo "<li><a href=\"$this->fullSiteRoot/leave_team.php\">Leave Team</a></li>";
+					echo "<li><a href=\"$this->fullSiteRoot/leaveTeamSubmit.php\">Leave Team</a></li>";
 				}
 				
 				echo "<li>Hello " . $_SESSION['playerName'] . "! - <a href=\"$this->fullSiteRoot/signout.php\">Sign Out</a></li>";
@@ -116,7 +116,7 @@ class Html {
 	public function printJoinTeam() {
 		echo "
 		<div class=\"post-reply\">
-			<form method=\"post\" action=\"loginSubmit.php\">
+			<form method=\"post\" action=\"joinTeamSubmit.php\">
 				<fieldset>
 					<div class=\"input\">
 						<label for=\"teamId\">Team:</label>
