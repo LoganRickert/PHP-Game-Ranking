@@ -19,7 +19,7 @@ class Database {
 	public function printTeamsAndPlayers() {
 		try {
 			$query = $this->db->prepare("
-				SELECT team_id, team_name, team_points, team_status
+				SELECT team_id, team_name, team_points, team_leader, team_status
 				FROM teams
 				ORDER BY team_points ASC
 			");
@@ -31,7 +31,7 @@ class Database {
 
 		while ($row = $query->fetch()) {
 			// $categoryId, $name
-			$team = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_status']);
+			$team = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
 			echo "<ul><li>";
 			$team->printOut();
 			echo "</li>";
