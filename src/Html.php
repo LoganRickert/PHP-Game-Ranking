@@ -32,12 +32,12 @@ class Html {
 	<header>
 		<div id=\"wrapper\">
 			<div class=\"header-left\">
-				<a href=\"$this->fullSiteRoot/index\">$this->siteName</a>
+				<a href=\"$this->fullSiteRoot\">$this->siteName</a>
 			</div>
 			<nav>
 				<ul>
-					<li><a href=\"$this->fullSiteRoot/Rules\">Rules</a></li>
-					<li><a href=\"$this->fullSiteRoot/Faq\">FAQ</a></li>
+					<li><a href=\"$this->fullSiteRoot\">Rules</a></li>
+					<li><a href=\"$this->fullSiteRoot\">FAQ</a></li>
 				</ul>
 			</nav>
 		</div>
