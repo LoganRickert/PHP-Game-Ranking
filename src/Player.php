@@ -23,7 +23,7 @@ class User {
 	}
 
 	public function print() {
-		
+		echo "<a href=\"player.php?playerId=$this->playerId\">$this->playerName</a>";
 	}
 
 }
