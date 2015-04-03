@@ -9,6 +9,7 @@ Shows ranking for a game.
 * Organize PHP files in index directory
 * Add clean URLs with a .htaccess
 * Deny access to src
+* Seperate DB.php
 
 # SQL Database
 To create the SQL database, run the 'DatabaseCreate' file. It is an export of the database. You can run the code and it 'should' work.
