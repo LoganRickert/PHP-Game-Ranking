@@ -26,7 +26,10 @@ class Team {
 
 	public function printStats() {
 		$db = new Database();
-		echo "<h1>Points</h1>
+		echo "
+		<h1>Team Name</h1>
+		<p>$this->teamName</p>
+		<h1>Points</h1>
 		<p>$this->teamPoints</p>
 		<h1>Team Members</h1>";
 		$db->printPlayers($this->teamId);
