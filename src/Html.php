@@ -46,10 +46,10 @@ class Html {
 				</fieldset>
 			</form>
 			<ul>";
-			if(!isset($_SESSION['username'])) {
+			if(!isset($_SESSION['playerName'])) {
 				echo "<li><a href=\"$this->fullSiteRoot/login.php\">Login</a> <span style=\"color: white\">|</span> <a href=\"$this->fullSiteRoot/signup.php\">Create</a></li>";
 			} else {
-				echo "<li>Hello " . $_SESSION['username'] . "! - <a href=\"$this->fullSiteRoot/signout.php\">Sign Out</a></li>";
+				echo "<li>Hello " . $_SESSION['playerName'] . "! - <a href=\"$this->fullSiteRoot/signout.php\">Sign Out</a></li>";
 			}
 			echo "</ul>
 		</div>";
