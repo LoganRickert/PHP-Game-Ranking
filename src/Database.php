@@ -196,6 +196,25 @@ class Database {
 			echo "Could not connect to database! ".$e;
 			exit;
 		}
+
+		$this->updateTeamId(intval($_SESSION['playerId']), $this->db->lastInsertId());
+	}
+
+	public function updateTeamId($playerId, $teamId) {
+		try {
+			$query = $this->db->prepare("
+				UPDATE players
+				SET team_id = :teamId
+				WHERE player_id = :playerId
+			");
+			$query->execute(array(
+				"playerId" => $playerId,
+				"teamId" => $teamId,
+				));
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
 	}
 
 	public function getHash($playerName) {
