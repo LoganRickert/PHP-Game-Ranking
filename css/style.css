@@ -82,6 +82,11 @@ section ul ul li {
 	padding: 10px 20px;
 }
 
+section form input {
+	padding: 5px;
+	clear: both;
+}
+
 footer {
 	padding: 20px;
 	text-align: center;
