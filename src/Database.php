@@ -180,7 +180,7 @@ class Database {
 		}
 	}
 
-	public function createUser($teamName) {
+	public function createTeam($teamName) {
 		try {
 			$query = $this->db->prepare("
 				INSERT INTO teams
