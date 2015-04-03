@@ -61,9 +61,9 @@ class Html {
 		<div class=\"post-reply\">
 			<form method=\"post\" action=\"signupSubmit.php\">
 				<fieldset>
-						<div class=\"input\"><label for=\"username\">Username:</label><input type=\"text\" name=\"username\" placeholder=\"James T Kirk\" id=\"username\"></div>
-						<div class=\"input\"><label for=\"password\">Password:</label><input type=\"password\" name=\"password\" placeholder=\"Password\" id=\"password\"></div>
-						<div class=\"input\"><label for=\"email\">Email:</label><input type=\"email\" name=\"email\" placeholder=\"cool.email@email.com\" id=\"email\"></div>
+						<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
+						<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
+						<div class=\"input\"><label for=\"playerEmail\">Email:</label><input type=\"email\" name=\"playerEmail\" placeholder=\"cool.email@email.com\" id=\"playerEmail\"></div>
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
 				<div class=\"note\">Please <a href=\"signin.php\">login</a> or <a href=\"signup.php\">create an account</a> to edit and delete your posts</div>
@@ -77,8 +77,8 @@ class Html {
 		<div class=\"post-reply\">
 			<form method=\"post\" action=\"loginSubmit.php\">
 				<fieldset>
-						<div class=\"input\"><label for=\"username\">Username:</label><input type=\"text\" name=\"username\" placeholder=\"James T Kirk\" id=\"username\"></div>
-						<div class=\"input\"><label for=\"password\">Password:</label><input type=\"password\" name=\"password\" placeholder=\"Password\" id=\"password\"></div>
+						<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
+						<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
 				<div class=\"note\">Please <a href=\"signin.php\">login</a> or <a href=\"signup.php\">create an account</a> to edit and delete your posts</div>
