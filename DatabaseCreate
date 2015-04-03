@@ -1,32 +1,42 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+--
+-- Database: `mike`
+--
+CREATE DATABASE IF NOT EXISTS `mike` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `mike`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `players`
+--
+
 CREATE TABLE IF NOT EXISTS `players` (
-`player_id` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL AUTO_INCREMENT,
   `player_name` varchar(50) NOT NULL,
   `team_id` int(11) NOT NULL,
   `player_password` varchar(100) NOT NULL,
   `player_email` varchar(50) NOT NULL,
-  `player_status` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+  `player_status` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`player_id`),
+  UNIQUE KEY `player_email` (`player_email`),
+  UNIQUE KEY `player_name` (`player_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teams`
+--
 
 CREATE TABLE IF NOT EXISTS `teams` (
-`team_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL AUTO_INCREMENT,
   `team_name` varchar(50) NOT NULL,
   `team_points` int(11) NOT NULL DEFAULT '0',
   `team_status` int(11) NOT NULL DEFAULT '0',
-  `team_leader` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-
-ALTER TABLE `players`
- ADD PRIMARY KEY (`player_id`), ADD UNIQUE KEY `player_email` (`player_email`), ADD UNIQUE KEY `player_name` (`player_name`);
-
-ALTER TABLE `teams`
- ADD PRIMARY KEY (`team_id`), ADD UNIQUE KEY `team_name` (`team_name`);
-
-
-ALTER TABLE `players`
-MODIFY `player_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
-ALTER TABLE `teams`
-MODIFY `team_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  `team_leader` int(11) NOT NULL,
+  PRIMARY KEY (`team_id`),
+  UNIQUE KEY `team_name` (`team_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
