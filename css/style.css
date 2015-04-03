@@ -70,6 +70,18 @@ section {
 	padding: 20px;
 }
 
+section a {
+	text-decoration: none;
+}
+
+section ul li {
+	padding: 10px 0;
+}
+
+section ul ul li {
+	padding: 10px 20px;
+}
+
 footer {
 	padding: 20px;
 	text-align: center;
