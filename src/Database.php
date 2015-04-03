@@ -19,7 +19,7 @@ class Database {
 	public function printTeamsAndPlayers() {
 		try {
 			$query = $this->db->prepare("
-				SELECT team_id, team_name, team_points
+				SELECT team_id, team_name, team_points, team_status
 				FROM teams
 				ORDER BY team_points ASC
 			");
@@ -31,16 +31,19 @@ class Database {
 
 		while ($row = $query->fetch()) {
 			// $categoryId, $name
-			$team = new Team($row['team_id'], $row['team_name'], $row['team_points']);
-			$team->print();
+			$team = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_status']);
+			echo "<ul><li>";
+			$team->printOut();
+			echo "</li>";
 			$this->printPlayers($team->getTeamId());
+			echo "</ul>";
 		}
 	}
 
 	public function printPlayers($teamId) {
 		try {
 			$query = $this->db->prepare("
-				SELECT player_id, player_name
+				SELECT player_id, player_name, player_email, team_id, player_status
 				FROM players
 				WHERE team_id = ?
 			");
@@ -53,8 +56,10 @@ class Database {
 
 		while ($row = $query->fetch()) {
 			// $categoryId, $name
-			$player = new Player($row['player_id'], $row['player_name'], $row['team_id']);
-			$player->print();
+			$player = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status']);
+			echo "<li>";
+			$player->printOut();
+			echo "</li>";
 		}
 	}
 
