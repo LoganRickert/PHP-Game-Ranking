@@ -1,74 +1,32 @@
--- phpMyAdmin SQL Dump
--- version 4.2.11
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Apr 03, 2015 at 04:27 AM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
---
--- Database: `mike`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `players`
---
 
 CREATE TABLE IF NOT EXISTS `players` (
 `player_id` int(11) NOT NULL,
   `player_name` varchar(50) NOT NULL,
-  `player_email` varchar(50) NOT NULL,
-  `player_password` varchar(100) NOT NULL,
   `team_id` int(11) NOT NULL,
+  `player_password` varchar(100) NOT NULL,
+  `player_email` varchar(50) NOT NULL,
   `player_status` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `teams`
---
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `teams` (
 `team_id` int(11) NOT NULL,
   `team_name` varchar(50) NOT NULL,
-  `team_points` int(11) NOT NULL,
-  `team_status` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `team_points` int(11) NOT NULL DEFAULT '0',
+  `team_status` int(11) NOT NULL DEFAULT '0',
+  `team_leader` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `players`
---
 ALTER TABLE `players`
- ADD PRIMARY KEY (`player_id`), ADD UNIQUE KEY `player_name` (`player_name`,`player_email`);
+ ADD PRIMARY KEY (`player_id`), ADD UNIQUE KEY `player_email` (`player_email`), ADD UNIQUE KEY `player_name` (`player_name`);
 
---
--- Indexes for table `teams`
---
 ALTER TABLE `teams`
- ADD PRIMARY KEY (`team_id`);
+ ADD PRIMARY KEY (`team_id`), ADD UNIQUE KEY `team_name` (`team_name`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `players`
---
 ALTER TABLE `players`
-MODIFY `player_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `teams`
---
+MODIFY `player_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 ALTER TABLE `teams`
 MODIFY `team_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
