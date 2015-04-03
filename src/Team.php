@@ -1,6 +1,6 @@
 <?PHP
 
-class User {
+class Team {
 
 	private $teamId;
 	private $teamName;
