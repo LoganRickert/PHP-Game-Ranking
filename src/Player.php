@@ -9,11 +9,10 @@ class Player {
 	private $teamId;
 	private $playerStatus;
 
-	public function __construct($playerId, $playerName, $playerEmail, $playerPassword, $teamId, $playerStatus) {
+	public function __construct($playerId, $playerName, $playerEmail, $teamId, $playerStatus) {
 		$this->playerId = $playerId;
 		$this->playerName = $playerName;
 		$this->playerEmail = $playerEmail;
-		$this->playerPassword = $playerPassword;
 		$this->teamId = $teamId;
 		$this->playerStatus = $playerStatus;
 	}
