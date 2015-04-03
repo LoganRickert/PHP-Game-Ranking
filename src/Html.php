@@ -32,7 +32,7 @@ class Html {
 	<header>
 		<div id=\"wrapper\">
 			<div class=\"header-left\">
-				<a href=\"$this->fullSiteRoot/index.php\">$this->siteName</a>
+				<a href=\"$this->fullSiteRoot/index\">$this->siteName</a>
 			</div>
 			<nav>
 				<ul>
@@ -51,18 +51,28 @@ class Html {
 			</form>
 			<ul>";
 			if(!isset($_SESSION['playerName'])) {
-				echo "<li><a href=\"$this->fullSiteRoot/login.php\">Login</a><span style=\"color: white\">|</span> <a href=\"$this->fullSiteRoot/signup.php\">Create</a></li>";
+				echo "
+				<li>
+				<a href=\"$this->fullSiteRoot/login\">Login</a>
+				<span style=\"color: white\">|</span> 
+				<a href=\"$this->fullSiteRoot/signup\">Create</a>
+				</li>";
 			} else {
 				$db = new Database();
 
 				if($db->getTeamId(intval($_SESSION['playerId'])) == 0) {
-					echo "<li><a href=\"$this->fullSiteRoot/create_team.php\">Create Team</a></li>
-						  <li><a href=\"$this->fullSiteRoot/join_team.php\">Join Team</a></li>";
+					echo "<li><a href=\"$this->fullSiteRoot/create_team\">Create Team</a></li>
+						  <li><a href=\"$this->fullSiteRoot/join_team\">Join Team</a></li>";
 				} else {
 					echo "<li><a href=\"$this->fullSiteRoot/leaveTeamSubmit.php\">Leave Team</a></li>";
 				}
 				
-				echo "<li>Hello <a href=\"$this->fullSiteRoot/player.php?playerId=" . $_SESSION['playerId'] . "\"> " . $_SESSION['playerName'] . "</a>! - <a href=\"$this->fullSiteRoot/signout.php\">Sign Out</a></li>";
+				echo "
+				<li>Hello <a href=\"$this->fullSiteRoot/player/" . $_SESSION['playerId'] . "\"> 
+				" . $_SESSION['playerName'] . "</a>!
+				 - 
+				 <a href=\"$this->fullSiteRoot/signout\">Sign Out</a>
+				 </li>";
 			}
 			echo "</ul>
 		</div>

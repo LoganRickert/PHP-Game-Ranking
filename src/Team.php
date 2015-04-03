@@ -25,7 +25,7 @@ class Team {
 	}
 
 	public function printOut() {
-		echo "<a href=\"team.php?teamId=$this->teamId\">$this->teamName</a> - $this->teamPoints points";
+		echo "<a href=\"team/$this->teamId\">$this->teamName</a> - $this->teamPoints points";
 	}
 
 	public function printStats() {

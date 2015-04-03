@@ -22,7 +22,7 @@ class Player {
 	}
 
 	public function printOut() {
-		echo "<a href=\"player.php?playerId=$this->playerId\">$this->playerName</a>";
+		echo "<a href=\"player/$this->playerId\">$this->playerName</a>";
 	}
 
 	public function printStats() {
