@@ -185,7 +185,7 @@ class Database {
 			$query = $this->db->prepare("
 				SELECT player_password
 				FROM players
-				WHERE player_password = ?
+				WHERE player_name = ?
 				LIMIT 1
 			");
 			$query->bindParam(1, $playerName);
