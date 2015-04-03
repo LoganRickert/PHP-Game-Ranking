@@ -5,7 +5,7 @@ class Team {
 	private $teamId;
 	private $teamName;
 	private $teamPoints;
-	private $teamStatus
+	private $teamStatus;
 
 	public function __construct($teamId, $teamName, $teamPoints, $teamStatus) {
 		$this->teamId = $teamId;
