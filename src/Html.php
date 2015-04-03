@@ -62,7 +62,7 @@ class Html {
 					echo "<li><a href=\"$this->fullSiteRoot/leaveTeamSubmit.php\">Leave Team</a></li>";
 				}
 				
-				echo "<li>Hello " . $_SESSION['playerName'] . "! - <a href=\"$this->fullSiteRoot/signout.php\">Sign Out</a></li>";
+				echo "<li>Hello <a href=\"$this->fullSiteRoot/player.php?playerId=" . $_SESSION['playerId'] . "\"> " . $_SESSION['playerName'] . "</a>! - <a href=\"$this->fullSiteRoot/signout.php\">Sign Out</a></li>";
 			}
 			echo "</ul>
 		</div>

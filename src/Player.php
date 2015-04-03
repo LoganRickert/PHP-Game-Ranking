@@ -31,7 +31,12 @@ class Player {
 		<h1>Name</h1>
 		<p>$this->playerName</p>
 		<h1>Team</h1>";
-		echo "<p>" . $db->loadteam($this->teamId)->getTeamName() . "</p>";
+		if($this->teamId == 0) {
+			echo "<p>Not part of a team.<p>";
+		} else {
+			echo "<p>" . $db->loadteam($this->teamId)->getTeamName() . "</p>";
+		}
+		
 	}
 
 }
