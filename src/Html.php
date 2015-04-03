@@ -47,8 +47,17 @@ class Html {
 			</form>
 			<ul>";
 			if(!isset($_SESSION['playerName'])) {
-				echo "<li><a href=\"$this->fullSiteRoot/login.php\">Login</a> <span style=\"color: white\">|</span> <a href=\"$this->fullSiteRoot/signup.php\">Create</a></li>";
+				echo "<li><a href=\"$this->fullSiteRoot/login.php\">Login</a><span style=\"color: white\">|</span> <a href=\"$this->fullSiteRoot/signup.php\">Create</a></li>";
 			} else {
+				$db = new Database();
+
+				if($db->getTeamId(intval($_SESSION['playerId'])) == 0) {
+					echo "<li><a href=\"$this->fullSiteRoot/create_team.php\">Create Team</a></li>
+						  <li><a href=\"$this->fullSiteRoot/join_team.php\">Join Team</a></li>";
+				} else {
+					echo "<li><a href=\"$this->fullSiteRoot/leave_team.php\">Leave Team</a></li>";
+				}
+				
 				echo "<li>Hello " . $_SESSION['playerName'] . "! - <a href=\"$this->fullSiteRoot/signout.php\">Sign Out</a></li>";
 			}
 			echo "</ul>
