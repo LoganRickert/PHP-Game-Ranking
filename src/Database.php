@@ -165,7 +165,7 @@ class Database {
 		try {
 			$query = $this->db->prepare("
 				INSERT INTO players
-				(player_name, player_password, player_password)
+				(player_name, player_password, player_email)
 				VALUES
 				(:playerName, :playerPassword, :playerEmail)
 			");
