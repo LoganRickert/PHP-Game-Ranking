@@ -3,12 +3,12 @@
 include './src/Constants.php';
 include './autoloader.php';
 
-if(isset($_SESSION['playerName'])) {
+$db = new Database();
+
+if($db->getTeamId(intval($_SESSION['playerId'])) != 0) {
 	header("Location: index.php");
 	exit();
 }
-
-$db = new Database();
 
 if(!isset($_POST['teamName'])) {
 	$error_message = htmlspecialchars("You did not fill in all of the fields!");
