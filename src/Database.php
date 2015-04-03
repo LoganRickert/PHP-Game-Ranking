@@ -54,6 +54,8 @@ class Database {
 			exit;
 		}
 
+		echo "<ul>";
+
 		while ($row = $query->fetch()) {
 			// $categoryId, $name
 			$player = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status']);
@@ -61,6 +63,8 @@ class Database {
 			$player->printOut();
 			echo "</li>";
 		}
+
+		echo "</ul>";
 	}
 
 	private function printPagimation($count = 0, $id, $page, $link) {
@@ -135,15 +139,15 @@ class Database {
 		}
 	}
 
-	public function loadUser($userId) {
+	public function loadUser($playerId) {
 		try {
 			$query = $this->db->prepare("
-				SELECT points, group_id, user_time, user_id, username
-				FROM user
-				WHERE user_id = ?
+				SELECT player_id, player_name, player_email, team_id, player_status
+				FROM players
+				WHERE player_id = ?
 				LIMIT 1
 			");
-			$query->bindParam(1, $userId);
+			$query->bindParam(1, $playerId);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
@@ -151,25 +155,24 @@ class Database {
 		}
 
 		while ($row = $query->fetch()) {
-			$user = new User($userId, $row['username'], $row['group_id'], $row['points'], $row['user_time']);
+			$player = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status']);
 		}
 
-		return $user;
+		return $player;
 	}
 
-	public function createUser($username, $password, $email) {
+	public function createUser($playerName, $playerPassword, $playerEmail) {
 		try {
 			$query = $this->db->prepare("
-				INSERT INTO user
-				(username, password, email, user_time)
+				INSERT INTO players
+				(player_name, player_password, player_password)
 				VALUES
-				(:username, :password, :email, :user_time)
+				(:playerName, :playerPassword, :playerEmail)
 			");
 			$query->execute(array(
-				"username" => $username,
-				"password" => $password,
-				"email" => $email,
-				"user_time" => time(),
+				"playerName" => $playerName,
+				"playerPassword" => $playerPassword,
+				"playerEmail" => $playerEmail
 				));
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
@@ -177,15 +180,15 @@ class Database {
 		}
 	}
 
-	public function getHash($username) {
+	public function getHash($playerName) {
 		try {
 			$query = $this->db->prepare("
-				SELECT password
-				FROM user
-				WHERE username = ?
+				SELECT player_password
+				FROM players
+				WHERE player_password = ?
 				LIMIT 1
 			");
-			$query->bindParam(1, $username);
+			$query->bindParam(1, $playerName);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
@@ -193,19 +196,19 @@ class Database {
 		}
 
 		while ($row = $query->fetch()) {
-			return $row['password'];
+			return $row['player_password'];
 		}
 	}
 
-	public function doesUsernameExist($username) {
+	public function doesUsernameExist($playerName) {
 		try {
 			$query = $this->db->prepare("
-				SELECT user_id
-				FROM user
-				WHERE username = ?
+				SELECT player_id
+				FROM players
+				WHERE player_name = ?
 				LIMIT 1
 			");
-			$query->bindParam(1, $username);
+			$query->bindParam(1, $playerName);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
@@ -219,15 +222,15 @@ class Database {
 		return false;
 	}
 
-	public function doesEmailExist($email) {
+	public function doesEmailExist($playerEmail) {
 		try {
 			$query = $this->db->prepare("
-				SELECT user_id
-				FROM user
-				WHERE email = ?
+				SELECT player_id
+				FROM players
+				WHERE player_email = ?
 				LIMIT 1
 			");
-			$query->bindParam(1, $username);
+			$query->bindParam(1, $playerEmail);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
@@ -241,15 +244,15 @@ class Database {
 		return false;
 	}
 
-	public function getUserId($username) {
+	public function getUserId($playerName) {
 		try {
 			$query = $this->db->prepare("
-				SELECT user_id
-				FROM user
-				WHERE username = ?
+				SELECT player_id
+				FROM players
+				WHERE player_name = ?
 				LIMIT 1
 			");
-			$query->bindParam(1, $username);
+			$query->bindParam(1, $playerName);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
@@ -257,7 +260,7 @@ class Database {
 		}
 
 		while ($row = $query->fetch()) {
-			return $row['user_id'];
+			return $row['player_id'];
 		}
 	}
 }
