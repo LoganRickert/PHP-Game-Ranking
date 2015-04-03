@@ -68,3 +68,10 @@ nav ul li a {
 section {
 	clear: both;
 }
+
+footer {
+	padding: 20px;
+	text-align: center;
+	line-height: 150%;
+	font-size: 14px;
+}
