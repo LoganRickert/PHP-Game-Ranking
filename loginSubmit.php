@@ -24,7 +24,7 @@ if(!$db->doesUsernameExist($username)) {
 	exit();
 }
 
-$password = htmlspecialchars(trim($_POST['password']));
+$password = htmlspecialchars(trim($_POST['playerPassword']));
 
 if(strlen($password) > 50) {
 	$thread_name_length = htmlspecialchars(strlen($password));
