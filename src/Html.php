@@ -87,7 +87,7 @@ class Html {
 		<div class=\"post-reply\">
 			<form method=\"post\" action=\"createTeamSubmit.php\">
 				<fieldset>
-					<div class=\"input\"><label for=\"teamName\">Username:</label><input type=\"text\" name=\"teamName\" placeholder=\"Le Boffin Team\" id=\"teamName\"></div>
+					<div class=\"input\"><label for=\"teamName\">Team name:</label><input type=\"text\" name=\"teamName\" placeholder=\"Le Boffin Team\" id=\"teamName\"></div>
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
 		</div>
