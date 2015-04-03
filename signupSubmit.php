@@ -18,9 +18,9 @@ if(!isset($_POST['playerName']) || !isset($_POST['playerPassword']) || !isset($_
 
 $username = htmlspecialchars(trim(($_POST['playerName'])));
 
-if(strlen($username) > 50){
+if(strlen($username) > 64){
 	$thread_name_length = htmlspecialchars(strlen($username));
-	$error_message = htmlspecialchars("Your username is too long! The limit is 50 characters. You currently have ".$thread_name_length." characters.");
+	$error_message = htmlspecialchars("Your username is too long! The limit is 64 characters. You currently have ".$thread_name_length." characters.");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }

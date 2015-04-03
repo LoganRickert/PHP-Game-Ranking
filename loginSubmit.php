@@ -26,9 +26,9 @@ if(!$db->doesUsernameExist($username)) {
 
 $password = htmlspecialchars(trim($_POST['playerPassword']));
 
-if(strlen($password) > 50) {
+if(strlen($password) > 64) {
 	$thread_name_length = htmlspecialchars(strlen($password));
-	$error_message = htmlspecialchars("Your password is too long! The max is 50 characters. You currently have ".$thread_name_length." characters.");
+	$error_message = htmlspecialchars("Your password is too long! The max is 64 characters. You currently have ".$thread_name_length." characters.");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }

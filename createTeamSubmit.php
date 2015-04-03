@@ -18,9 +18,9 @@ if(!isset($_POST['teamName'])) {
 
 $teamName = htmlspecialchars(trim(($_POST['teamName'])));
 
-if(strlen($teamName) > 50){
+if(strlen($teamName) > 64){
 	$thread_name_length = htmlspecialchars(strlen($teamName));
-	$error_message = htmlspecialchars("Your team name is too long! The limit is 50 characters. You currently have ".$thread_name_length." characters.");
+	$error_message = htmlspecialchars("Your team name is too long! The limit is 64 characters. You currently have ".$thread_name_length." characters.");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }
