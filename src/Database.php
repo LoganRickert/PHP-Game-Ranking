@@ -144,7 +144,7 @@ class Database {
 			$query = $this->db->prepare("
 				SELECT team_id, team_name
 				FROM teams
-				ORDER BY team_points ASC
+				ORDER BY team_points DESC
 			");
 			$query->execute();
 		} catch (Exception $e) {
