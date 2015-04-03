@@ -5,14 +5,14 @@ class Team {
 	private $teamId;
 	private $teamName;
 	private $teamPoints;
-	private $leaderId;
+	private $teamLeader;
 	private $teamStatus;
 
-	public function __construct($teamId, $teamName, $teamPoints, $leaderId, $teamStatus) {
+	public function __construct($teamId, $teamName, $teamPoints, $teamLeader, $teamStatus) {
 		$this->teamId = $teamId;
 		$this->teamName = $teamName;
 		$this->teamPoints = $teamPoints;
-		$this->leaderId = $leaderId;
+		$this->teamLeader = $teamLeader;
 		$this->teamStatus = $teamStatus;
 	}
 
