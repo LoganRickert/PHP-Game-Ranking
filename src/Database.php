@@ -220,6 +220,28 @@ class Database {
 		}
 	}
 
+	public function doesTeamNameExist($teamName) {
+		try {
+			$query = $this->db->prepare("
+				SELECT team_id
+				FROM teams
+				WHERE team_name = ?
+				LIMIT 1
+			");
+			$query->bindParam(1, $teamName);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		while ($row = $query->fetch()) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public function doesUsernameExist($playerName) {
 		try {
 			$query = $this->db->prepare("
