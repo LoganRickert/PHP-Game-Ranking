@@ -70,9 +70,9 @@ class Html {
 		<div class=\"post-reply\">
 			<form method=\"post\" action=\"signupSubmit.php\">
 				<fieldset>
-						<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
-						<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
-						<div class=\"input\"><label for=\"playerEmail\">Email:</label><input type=\"email\" name=\"playerEmail\" placeholder=\"cool.email@email.com\" id=\"playerEmail\"></div>
+					<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
+					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
+					<div class=\"input\"><label for=\"playerEmail\">Email:</label><input type=\"email\" name=\"playerEmail\" placeholder=\"cool.email@email.com\" id=\"playerEmail\"></div>
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
 				<div class=\"note\">Please <a href=\"signin.php\">login</a> or <a href=\"signup.php\">create an account</a> to edit and delete your posts</div>
@@ -81,13 +81,27 @@ class Html {
 		";
 	}
 
+	
+	public function printCreateTeam() {
+		echo "
+		<div class=\"post-reply\">
+			<form method=\"post\" action=\"createTeamSubmit.php\">
+				<fieldset>
+					<div class=\"input\"><label for=\"teamName\">Username:</label><input type=\"text\" name=\"teamName\" placeholder=\"Le Boffin Team\" id=\"teamName\"></div>
+				</fieldset>
+				<input type=\"submit\" class=\"submit\">
+		</div>
+		";
+	}
+
+
 	public function printLogin() {
 		echo "
 		<div class=\"post-reply\">
 			<form method=\"post\" action=\"loginSubmit.php\">
 				<fieldset>
-						<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
-						<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
+					<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
+					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
 				<div class=\"note\">Please <a href=\"signin.php\">login</a> or <a href=\"signup.php\">create an account</a> to edit and delete your posts</div>
