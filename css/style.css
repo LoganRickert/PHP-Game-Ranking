@@ -42,14 +42,27 @@ nav ul li a {
 
 .nav-search {
 	clear: both;
+	border-bottom: 1px solid #ccc;
+	float: left;
+	width: 100%;
 }
 
 .nav-search form {
 	float: left;
+	padding: 15px 20px;
+}
+
+.nav-search form input {
+	padding: 5px;
 }
 
 .nav-search ul {
 	float: right;
+}
+
+.nav-search ul li {
+	float: left;
+	padding: 20px;
 }
 
 section {
