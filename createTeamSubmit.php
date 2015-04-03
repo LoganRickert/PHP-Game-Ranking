@@ -16,23 +16,23 @@ if(!isset($_POST['teamName'])) {
 	exit();
 }
 
-$username = htmlspecialchars(trim(($_POST['playerName'])));
+$teamName = htmlspecialchars(trim(($_POST['teamName'])));
 
-if(strlen($username) > 50){
-	$thread_name_length = htmlspecialchars(strlen($username));
+if(strlen($teamName) > 50){
+	$thread_name_length = htmlspecialchars(strlen($teamName));
 	$error_message = htmlspecialchars("Your team name is too long! The limit is 50 characters. You currently have ".$thread_name_length." characters.");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }
 
-if(strlen($username) < 3) {
-	$thread_name_length = htmlspecialchars(strlen($username));
+if(strlen($teamName) < 3) {
+	$thread_name_length = htmlspecialchars(strlen($teamName));
 	$error_message = htmlspecialchars("Your team name is too short! The minimum is 3 characters. You currently have ".$thread_name_length." characters.");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }
 
-if($db->doesTeamNameExist($username)) {
+if($db->doesTeamNameExist($teamName)) {
 	$error_message = htmlspecialchars("That team name already exists!");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
