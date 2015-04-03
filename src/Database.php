@@ -180,6 +180,24 @@ class Database {
 		}
 	}
 
+	public function createUser($teamName) {
+		try {
+			$query = $this->db->prepare("
+				INSERT INTO teams
+				(team_name, team_leader)
+				VALUES
+				(:teamName, :leaderId)
+			");
+			$query->execute(array(
+				"teamName" => $teamName,
+				"leaderId" => intval($_SESSION['playerId']),
+				));
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+	}
+
 	public function getHash($playerName) {
 		try {
 			$query = $this->db->prepare("
