@@ -21,7 +21,7 @@ class Player {
 		return $this->username;
 	}
 
-	public function print() {
+	public function printOut() {
 		echo "<a href=\"player.php?playerId=$this->playerId\">$this->playerName</a>";
 	}
 

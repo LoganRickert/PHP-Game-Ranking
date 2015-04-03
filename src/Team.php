@@ -14,7 +14,7 @@ class Team {
 		$this->teamStatus = $teamStatus;
 	}
 
-	public function print() {
+	public function printOut() {
 		echo "<a href=\"team.php?teamId=$this->teamId\">$this->teamName</a>";
 	}
 
