@@ -179,6 +179,28 @@ class Database {
 		return $player;
 	}
 
+	public function loadTeam($teamId) {
+		try {
+			$query = $this->db->prepare("
+				SELECT team_id, team_name, team_points, team_status, team_leader
+				FROM teams
+				WHERE team_id = ?
+				LIMIT 1
+			");
+			$query->bindParam(1, $teamId);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		while ($row = $query->fetch()) {
+			$team = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
+		}
+
+		return $team;
+	}
+
 	public function createUser($playerName, $playerPassword, $playerEmail) {
 		try {
 			$query = $this->db->prepare("
