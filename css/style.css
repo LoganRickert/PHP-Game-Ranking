@@ -1,3 +1,6 @@
+html {
+	font-family: 'Lato', sans-serif;
+}
 #wrapper {
 	max-width: 960px;
 	margin: 0 auto;

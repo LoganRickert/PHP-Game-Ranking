@@ -18,7 +18,7 @@ class Html {
 	<meta charset=\"utf-8\" />
 	<title>$this->title</title>
 	<script type=\"text/javascript\" src=\"http://code.jquery.com/jquery-latest.min.js\"></script>
-	<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 	<!--[if lt IE 9]>
 		<script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script>
 	<![endif]-->
