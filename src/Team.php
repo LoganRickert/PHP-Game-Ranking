@@ -20,6 +20,10 @@ class Team {
 		return $this->teamId;
 	}
 
+	public function getTeamName() {
+		return $this->teamName;
+	}
+
 	public function printOut() {
 		echo "<a href=\"team.php?teamId=$this->teamId\">$this->teamName</a> - $this->teamPoints points";
 	}

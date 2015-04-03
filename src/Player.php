@@ -25,4 +25,13 @@ class Player {
 		echo "<a href=\"player.php?playerId=$this->playerId\">$this->playerName</a>";
 	}
 
+	public function printStats() {
+		$db = new Database();
+		echo "
+		<h1>Name</h1>
+		<p>$this->playerName</p>
+		<h1>Team</h1>";
+		echo "<p>" . $db->loadteam($this->teamId)->getTeamName() . "</p>";
+	}
+
 }

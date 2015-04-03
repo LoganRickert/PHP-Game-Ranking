@@ -157,7 +157,7 @@ class Database {
 		}
 	}
 
-	public function loadUser($playerId) {
+	public function loadPlayer($playerId) {
 		try {
 			$query = $this->db->prepare("
 				SELECT player_id, player_name, player_email, team_id, player_status
@@ -328,6 +328,28 @@ class Database {
 				LIMIT 1
 			");
 			$query->bindParam(1, $teamId);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		while ($row = $query->fetch()) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function doesPlayerIdExist($playerId) {
+		try {
+			$query = $this->db->prepare("
+				SELECT player_name
+				FROM players
+				WHERE player_id = ?
+				LIMIT 1
+			");
+			$query->bindParam(1, $playerId);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
