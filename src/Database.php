@@ -200,6 +200,26 @@ class Database {
 		}
 	}
 
+	public function getTeamId($playerId) {
+		try {
+			$query = $this->db->prepare("
+				SELECT team_id
+				FROM players
+				WHERE player_id = ?
+				LIMIT 1
+			");
+			$query->bindParam(1, $playerId);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		while ($row = $query->fetch()) {
+			return $row['team_id'];
+		}
+	}
+
 	public function doesUsernameExist($playerName) {
 		try {
 			$query = $this->db->prepare("
