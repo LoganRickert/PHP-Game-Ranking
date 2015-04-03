@@ -61,7 +61,8 @@ class Html {
 				echo "<li>Hello " . $_SESSION['playerName'] . "! - <a href=\"$this->fullSiteRoot/signout.php\">Sign Out</a></li>";
 			}
 			echo "</ul>
-		</div>";
+		</div>
+		<section>";
 		
 	}
 
@@ -112,6 +113,7 @@ class Html {
 
 	public function printFooter() {
 		echo "
+		</section>
 		<footer>
 			<h1>Powered by MyOwnSoftware &copy;<br />Created by Logan</h1>
 		</footer>
