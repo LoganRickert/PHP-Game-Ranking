@@ -3,3 +3,26 @@ RewriteRule ^team/$ team.php
 RewriteRule ^team$ team.php
 RewriteRule ^team/([0-9]+)/$ team.php?teamId=$1
 RewriteRule ^team/([0-9]+)$ team.php?teamId=$1
+
+RewriteRule ^player/$ player.php
+RewriteRule ^player$ player.php
+RewriteRule ^player/([0-9]+)/$ player.php?playerId=$1
+RewriteRule ^player/([0-9]+)$ player.php?playerId=$1
+
+RewriteRule ^join_team/$ join_team.php
+RewriteRule ^join_team$ join_team.php
+
+RewriteRule ^create_team/$ create_team.php
+RewriteRule ^create_team$ create_team.php
+
+RewriteRule ^signout/$ signout.php
+RewriteRule ^signout$ signout.php
+
+RewriteRule ^login/$ login.php
+RewriteRule ^login$ login.php
+
+RewriteRule ^signup/$ signup.php
+RewriteRule ^signup$ signup.php
+
+RewriteRule ^index/$ index.php
+RewriteRule ^index$ index.php
