@@ -29,16 +29,20 @@ class Html {
 	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1\">
 </head>
 <body>
+	<header>
+		<div id=\"wrapper\">
+			<div class=\"header-left\">
+				<a href=\"$this->fullSiteRoot/index.php\">$this->siteName</a>
+			</div>
+			<nav>
+				<ul>
+					<li><a href=\"$this->fullSiteRoot/Rules\">Rules</a></li>
+					<li><a href=\"$this->fullSiteRoot/Faq\">FAQ</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
 	<div id=\"wrapper\">
-		<header>
-			<a href=\"$this->fullSiteRoot/index.php\">$this->siteName</a>
-		</header>
-		<nav>
-			<ul>
-				<li><a href=\"$this->fullSiteRoot/Rules\">Rules</a></li>
-				<li><a href=\"$this->fullSiteRoot/Faq\">FAQ</a></li>
-			</ul>
-		</nav>
 		<div class=\"nav-search\">
 			<form>
 				<fieldset>
