@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^team/$ team.php
+RewriteRule ^team$ team.php
+RewriteRule ^team/([0-9]+)/$ team.php?teamId=$1
+RewriteRule ^team/([0-9]+)$ team.php?teamId=$1

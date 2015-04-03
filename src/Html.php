@@ -22,10 +22,10 @@ class Html {
 	<!--[if lt IE 9]>
 		<script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script>
 	<![endif]-->
-	<link rel=\"StyleSheet\" href=\"css/reset.css\" type=\"text/css\">
-	<link rel=\"StyleSheet\" href=\"css/style.css\" type=\"text/css\">
-	<link rel=\"stylesheet\" media=\"(max-width: 1200px)\" href=\"css/tablet.css\" />
-	<link rel=\"stylesheet\" media=\"(max-width: 1250px)\" href=\"css/phone.css\" />
+	<link rel=\"StyleSheet\" href=\"$this->fullSiteRoot/css/reset.css\" type=\"text/css\">
+	<link rel=\"StyleSheet\" href=\"$this->fullSiteRoot/css/style.css\" type=\"text/css\">
+	<link rel=\"stylesheet\" media=\"(max-width: 1200px)\" href=\"$this->fullSiteRoot/css/tablet.css\" />
+	<link rel=\"stylesheet\" media=\"(max-width: 1250px)\" href=\"$this->fullSiteRoot/css/phone.css\" />
 	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1\">
 </head>
 <body>
