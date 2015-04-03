@@ -139,6 +139,24 @@ class Database {
 		}
 	}
 
+	public function printTeamsArray() {
+		try {
+			$query = $this->db->prepare("
+				SELECT team_id, team_name
+				FROM teams
+				ORDER BY team_points ASC
+			");
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		while ($row = $query->fetch()) {
+			echo "<option value=" . $row['team_id'] . ">" . $row['team_name'] . "</option>";	
+		}
+	}
+
 	public function loadUser($playerId) {
 		try {
 			$query = $this->db->prepare("

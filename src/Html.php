@@ -113,6 +113,25 @@ class Html {
 		";
 	}
 
+	public function printJoinTeam() {
+		echo "
+		<div class=\"post-reply\">
+			<form method=\"post\" action=\"loginSubmit.php\">
+				<fieldset>
+					<div class=\"input\">
+						<label for=\"teamId\">Team:</label>
+						<select type=\"text\" name=\"teamId\" id=\"teamid\"></div>";
+						$db = new Database();
+
+						$db->printTeamsArray();
+				echo "</select>
+				</fieldset>
+				<input type=\"submit\" class=\"submit\">
+				</form>
+		</div>
+		";
+	}
+
 	public function printFooter() {
 		echo "
 		</section>
