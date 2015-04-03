@@ -1,5 +1,5 @@
 #wrapper {
-	width: 960px;
+	max-width: 960px;
 	margin: 0 auto;
 }
 
@@ -67,6 +67,7 @@ nav ul li a {
 
 section {
 	clear: both;
+	padding: 20px;
 }
 
 footer {
