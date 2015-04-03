@@ -104,6 +104,7 @@ class Html {
 					<div class=\"input\"><label for=\"teamName\">Team name:</label><input type=\"text\" name=\"teamName\" placeholder=\"Le Boffin Team\" id=\"teamName\"></div>
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
+			<form>
 		</div>
 		";
 	}
@@ -121,6 +122,38 @@ class Html {
 				</form>
 		</div>
 		";
+	}
+
+	public function printTeamOut($teamName, $teamPoints, $teamId) {
+		echo "<a href=\"" . $this->fullSiteRoot . "/team/$teamId\">$teamName</a> - $teamPoints points";
+	}
+
+	public function printTeamStats($teamName, $teamPoints, $teamId) {
+		$db = new Database();
+		echo "
+		<h1>Team Name</h1>
+		<p>$teamName</p>
+		<h1>Points</h1>
+		<p>$teamPoints</p>
+		<h1>Team Members</h1>";
+		$db->printPlayers($teamId);
+	}
+
+	public function printPlayerOut($playerName, $playerId) {
+		echo "<a href=\"" . $this->fullSiteRoot . "/player/$playerId\">$playerName</a>";
+	}
+
+	public function printPlayerStats($playerName, $teamId, $playerId) {
+		$db = new Database();
+		echo "
+		<h1>Name</h1>
+		<p>$playerName</p>
+		<h1>Team</h1>";
+		if($teamId == 0) {
+			echo "<p>Not part of a team.<p>";
+		} else {
+			echo "<p><a href=\"" . $this->fullSiteRoot . "/team/$teamId\">" . $db->loadteam($teamId)->getTeamName() . "</a></p>";
+		}
 	}
 
 	public function printJoinTeam() {

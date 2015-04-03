@@ -22,21 +22,13 @@ class Player {
 	}
 
 	public function printOut() {
-		echo "<a href=\"player/$this->playerId\">$this->playerName</a>";
+		$html = new Html("");
+		$html->printPlayerOut($this->playerName, $this->playerId);
 	}
 
 	public function printStats() {
-		$db = new Database();
-		echo "
-		<h1>Name</h1>
-		<p>$this->playerName</p>
-		<h1>Team</h1>";
-		if($this->teamId == 0) {
-			echo "<p>Not part of a team.<p>";
-		} else {
-			echo "<p>" . $db->loadteam($this->teamId)->getTeamName() . "</p>";
-		}
-		
+		$html = new Html("");
+		$html->printPlayerStats($this->playerName, $this->teamId, $this->playerId);
 	}
 
 }

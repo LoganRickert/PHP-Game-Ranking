@@ -25,18 +25,13 @@ class Team {
 	}
 
 	public function printOut() {
-		echo "<a href=\"team/$this->teamId\">$this->teamName</a> - $this->teamPoints points";
+		$html = new Html("");
+		$html->printTeamOut($this->teamName, $this->teamPoints, $this->teamId);
 	}
 
 	public function printStats() {
-		$db = new Database();
-		echo "
-		<h1>Team Name</h1>
-		<p>$this->teamName</p>
-		<h1>Points</h1>
-		<p>$this->teamPoints</p>
-		<h1>Team Members</h1>";
-		$db->printPlayers($this->teamId);
+		$html = new Html("");
+		$html->printTeamStats($this->teamName, $this->teamPoints, $this->teamId);
 	}
 
 }
