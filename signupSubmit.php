@@ -77,6 +77,6 @@ $hash = crypt($password, $salt);
 $db->createUser($username, $hash, $email);
 
 $_SESSION['playerName'] = $username;
-$_SESSION['player_id'] = $db->getUserId($username);
+$_SESSION['playerId'] = $db->getUserId($username);
 header("Location: index.php");
 exit();
