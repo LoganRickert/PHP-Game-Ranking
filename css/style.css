@@ -1,0 +1,28 @@
+#wrapper {
+	width: 960px;
+	margin: 0 auto;
+}
+
+header {
+	float: left;
+}
+
+nav {
+	float: right;
+}
+
+.nav-search {
+	clear: both;
+}
+
+.nav-search form {
+	float: left;
+}
+
+.nav-search ul {
+	float: right;
+}
+
+section {
+	clear: both;
+}
