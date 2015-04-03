@@ -10,9 +10,9 @@ $html->printHeader();
 $db = new Database();
 
 if(!isset($_REQUEST['playerId'])) {
-	echo "Team not found!";
+	echo "Player not found!";
 } else if(!$db->doesPlayerIdExist(intval($_REQUEST['playerId']))) {
-	echo "Team not found!";
+	echo "Player not found!";
 } else {
 	$db->loadPlayer(intval($_REQUEST['playerId']))->printStats();
 }
