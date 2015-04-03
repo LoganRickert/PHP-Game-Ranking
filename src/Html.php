@@ -80,7 +80,6 @@ class Html {
 					<div class=\"input\"><label for=\"playerEmail\">Email:</label><input type=\"email\" name=\"playerEmail\" placeholder=\"cool.email@email.com\" id=\"playerEmail\"></div>
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
-				<div class=\"note\">Please <a href=\"signin.php\">login</a> or <a href=\"signup.php\">create an account</a> to edit and delete your posts</div>
 			</form>
 		</div>
 		";
@@ -109,8 +108,7 @@ class Html {
 					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
-				<div class=\"note\">Please <a href=\"signin.php\">login</a> or <a href=\"signup.php\">create an account</a> to edit and delete your posts</div>
-			</form>
+				</form>
 		</div>
 		";
 	}
