@@ -83,11 +83,15 @@ section a {
 	color: blue;
 }
 
+section ul {
+	padding: 10px 0;
+}
+
 section ul li {
 	padding: 10px 0;
 }
 
-section ul ul li {
+section ul li {
 	padding: 10px 20px;
 }
 

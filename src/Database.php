@@ -32,11 +32,8 @@ class Database {
 		while ($row = $query->fetch()) {
 			// $categoryId, $name
 			$team = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
-			echo "<ul><li>";
 			$team->printOut();
-			echo "</li>";
 			$this->printPlayers($team->getTeamId());
-			echo "</ul>";
 		}
 	}
 
