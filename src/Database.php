@@ -172,6 +172,18 @@ class Database {
 	}
 
 	public function updateTeamId($playerId, $teamId) {
+		if($teamId == 0) {
+			$tempTeamId = $this->loadPlayer($playerId)->getTeamId();
+			if($this->getTeamCount($tempTeamId) > 0) {;
+				$this->updateTeamLeaderNext($tempTeamId, $playerId);
+			} else {
+				$this->updateTeamLeader($tempTeamId, 0);
+			}
+		} else {
+			if($this->getTeamCount($teamId) == 0) {;
+				$this->updateTeamLeader($teamId, $playerId);
+			}
+		}
 		try {
 			$query = $this->db->prepare("
 				UPDATE players
@@ -185,6 +197,82 @@ class Database {
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
 			exit;
+		}
+	}
+
+	public function updateTeamLeader($teamId, $playerId) {
+		try {
+			$query = $this->db->prepare("
+				UPDATE teams
+				SET team_leader = :playerId
+				WHERE team_id = :teamId
+			");
+			$query->execute(array(
+				"playerId" => $playerId,
+				"teamId" => $teamId,
+				));
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+	}
+
+	public function updateTeamLeaderNext($teamId, $playerId) {
+		try {
+			$query = $this->db->prepare("
+				UPDATE teams
+				SET team_leader = :playerId
+				WHERE team_id = :teamId
+			");
+			$query->execute(array(
+				"playerId" => $this->getFirstPlayerInTeam($teamId, $playerId),
+				"teamId" => $teamId,
+				));
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+	}
+
+	public function getFirstPlayerInTeam($teamId, $playerId) {
+		try {
+			$query = $this->db->prepare("
+				SELECT player_id
+				FROM players
+				WHERE team_id = :teamId
+				AND player_id != :playerId
+			");
+			$query->execute(array(
+				"playerId" => $playerId,
+				"teamId" => $teamId,
+				));
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		while ($row = $query->fetch()) {
+			return $row['player_id'];
+		}
+	}
+
+	public function getTeamCount($teamId) {
+		try {
+			$query = $this->db->prepare("
+				SELECT count(player_id) AS count
+				FROM players
+				WHERE team_id = :teamId
+			");
+			$query->execute(array(
+				"teamId" => $teamId,
+				));
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		while ($row = $query->fetch()) {
+			return $row['count'];
 		}
 	}
 

@@ -128,7 +128,7 @@ class Html {
 		echo "<a href=\"" . $this->fullSiteRoot . "/team/$teamId\">$teamName</a> - $teamPoints points";
 	}
 
-	public function printTeamStats($teamName, $teamPoints, $teamId) {
+	public function printTeamStats($teamName, $teamPoints, $teamId, $teamLeader) {
 		$db = new Database();
 		$players = $db->getPlayers($teamId);
 		echo "
@@ -139,7 +139,11 @@ class Html {
 		<h1>Team Members</h1>
 		<ul>";
 		foreach($players as $player) {
-			echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a></li>";
+			if($player->getPlayerId() == $teamLeader) {
+				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">[Leader] " . $player->getPlayerName() . "</a></li>";
+			} else {
+				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a></li>";
+			}
 		}
 		echo "</ul>";
 	}
