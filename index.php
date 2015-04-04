@@ -9,6 +9,6 @@ $html->printHeader();
 
 $db = new Database();
 
-$db->printTeamsAndPlayers();
+$html->printTeamsAndPlayers();
 
 $html->printFooter();

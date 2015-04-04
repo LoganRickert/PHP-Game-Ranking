@@ -16,7 +16,7 @@ class Database {
 		$this->db = $db;
 	}
 
-	public function printTeamsAndPlayers() {
+	public function teamsAndPlayers() {
 		try {
 			$query = $this->db->prepare("
 				SELECT team_id, team_name, team_points, team_leader, team_status
@@ -29,15 +29,20 @@ class Database {
 			exit;
 		}
 
+		$teamsAndPlayers = array();
+
 		while ($row = $query->fetch()) {
-			// $categoryId, $name
 			$team = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
-			$team->printOut();
-			$this->printPlayers($team->getTeamId());
+			$teamsAndPlayers[] = array(
+				$team,
+				$this->getPlayers($team->getTeamId())
+			);
 		}
+
+		return $teamsAndPlayers;
 	}
 
-	public function printPlayers($teamId) {
+	public function getPlayers($teamId) {
 		try {
 			$query = $this->db->prepare("
 				SELECT player_id, player_name, player_email, team_id, player_status
@@ -51,17 +56,14 @@ class Database {
 			exit;
 		}
 
-		echo "<ul>";
+		$playerArray = array();
 
 		while ($row = $query->fetch()) {
 			// $categoryId, $name
-			$player = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status']);
-			echo "<li>";
-			$player->printOut();
-			echo "</li>";
+			$playerArray[] = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status']);
 		}
 
-		echo "</ul>";
+		return $playerArray;
 	}
 
 	private function printPagimation($count = 0, $id, $page, $link) {

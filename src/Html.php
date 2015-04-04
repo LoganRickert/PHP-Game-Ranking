@@ -130,13 +130,33 @@ class Html {
 
 	public function printTeamStats($teamName, $teamPoints, $teamId) {
 		$db = new Database();
+		$players = $db->getPlayers($teamId);
 		echo "
 		<h1>Team Name</h1>
 		<p>$teamName</p>
 		<h1>Points</h1>
 		<p>$teamPoints</p>
-		<h1>Team Members</h1>";
-		$db->printPlayers($teamId);
+		<h1>Team Members</h1>
+		<ul>";
+		foreach($players as $player) {
+			echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a></li>";
+		}
+		echo "</ul>";
+	}
+
+	public function printTeamsAndPlayers() {
+		$db = new Database();
+		$teamsAndPlayers = $db->teamsAndPlayers();
+		echo "<ul>";
+		foreach($teamsAndPlayers as $team) {
+			echo "<li><a href=\"" . $this->fullSiteRoot . "/team/" . $team[0]->getTeamId() . "\">" . $team[0]->getTeamName() . "</a></li>
+			<ul>";
+			foreach($team[1] as $player) {
+				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a></li>";
+			}
+			echo "</ul>";
+		}
+		echo "</ul>";
 	}
 
 	public function printPlayerOut($playerName, $playerId) {

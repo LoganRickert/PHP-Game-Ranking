@@ -17,8 +17,12 @@ class Player {
 		$this->playerStatus = $playerStatus;
 	}
 
-	public function getUsername() {
-		return $this->username;
+	public function getPlayerName() {
+		return $this->playerName;
+	}
+
+	public function getPlayerId() {
+		return $this->playerId;
 	}
 
 	public function printOut() {
