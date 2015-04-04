@@ -149,7 +149,7 @@ class Html {
 		$teamsAndPlayers = $db->getTeamsAndPlayers();
 		echo "<ul>";
 		foreach($teamsAndPlayers as $team) {
-			echo "<li><a href=\"" . $this->fullSiteRoot . "/team/" . $team[0]->getTeamId() . "\">" . $team[0]->getTeamName() . "</a></li>
+			echo "<li><a href=\"" . $this->fullSiteRoot . "/team/" . $team[0]->getTeamId() . "\">" . $team[0]->getTeamName() . "</a> - " . $team[0]->getTeamPoints() . " points</li>
 			<ul>";
 			foreach($team[1] as $player) {
 				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a></li>";
