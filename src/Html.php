@@ -163,6 +163,16 @@ class Html {
 		echo "<a href=\"" . $this->fullSiteRoot . "/player/$playerId\">$playerName</a>";
 	}
 
+	public function printTeamsOptions() {
+		$db = new Database();
+
+		$teams = $db->getTeams();
+
+		foreach($teams as $team) {
+			echo "<option value=" . $team->getTeamId() . ">" . $team->getTeamName() . "</option>";	
+		}
+	}
+
 	public function printPlayerStats($playerName, $teamId, $playerId) {
 		$db = new Database();
 		echo "
@@ -184,9 +194,7 @@ class Html {
 					<div class=\"input\">
 						<label for=\"teamId\">Team:</label>
 						<select type=\"text\" name=\"teamId\" id=\"teamid\"></div>";
-						$db = new Database();
-
-						$db->printTeamsArray();
+						$this->printTeamsOptions();
 				echo "</select>
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">

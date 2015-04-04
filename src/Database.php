@@ -66,10 +66,10 @@ class Database {
 		return $playerArray;
 	}
 
-	public function printTeamsArray() {
+	public function getTeams() {
 		try {
 			$query = $this->db->prepare("
-				SELECT team_id, team_name
+				SELECT team_id, team_name, team_points, team_leader, team_status
 				FROM teams
 				ORDER BY team_points DESC
 			");
@@ -79,9 +79,13 @@ class Database {
 			exit;
 		}
 
+		$teams = array();
+
 		while ($row = $query->fetch()) {
-			echo "<option value=" . $row['team_id'] . ">" . $row['team_name'] . "</option>";	
+			$teams[] = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
 		}
+
+		return $teams;
 	}
 
 	public function loadPlayer($playerId) {
