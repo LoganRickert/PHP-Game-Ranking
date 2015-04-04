@@ -35,7 +35,7 @@ class Team {
 
 	public function printStats() {
 		$html = new Html("");
-		$html->printTeamStats($this->teamName, $this->teamPoints, $this->teamId);
+		$html->printTeamStats($this->teamName, $this->teamPoints, $this->teamId, $this->teamLeader);
 	}
 
 }
