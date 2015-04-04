@@ -34,6 +34,7 @@ if($player->getTeamId() != $teamId) {
 	exit();
 }
 
-$db->updateTeamId($player->getTeamId(), 0);
+$db->updateTeamId($player->getPlayerId(), 0);
+
 header("Location: team/".$teamId);
 exit();

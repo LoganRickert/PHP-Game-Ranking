@@ -174,7 +174,7 @@ class Database {
 	public function updateTeamId($playerId, $teamId) {
 		if($teamId == 0) {
 			$tempTeamId = $this->loadPlayer($playerId)->getTeamId();
-			if($this->getTeamCount($tempTeamId) > 0) {;
+			if($this->getTeamCount($tempTeamId) > 0) {
 				$this->updateTeamLeaderNext($tempTeamId, $playerId);
 			} else {
 				$this->updateTeamLeader($tempTeamId, 0);
