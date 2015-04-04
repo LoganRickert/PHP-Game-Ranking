@@ -146,7 +146,7 @@ class Html {
 
 	public function printTeamsAndPlayers() {
 		$db = new Database();
-		$teamsAndPlayers = $db->teamsAndPlayers();
+		$teamsAndPlayers = $db->getTeamsAndPlayers();
 		echo "<ul>";
 		foreach($teamsAndPlayers as $team) {
 			echo "<li><a href=\"" . $this->fullSiteRoot . "/team/" . $team[0]->getTeamId() . "\">" . $team[0]->getTeamName() . "</a></li>

@@ -16,7 +16,7 @@ class Database {
 		$this->db = $db;
 	}
 
-	public function teamsAndPlayers() {
+	public function getTeamsAndPlayers() {
 		try {
 			$query = $this->db->prepare("
 				SELECT team_id, team_name, team_points, team_leader, team_status
