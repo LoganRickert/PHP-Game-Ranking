@@ -142,7 +142,13 @@ class Html {
 			if($player->getPlayerId() == $teamLeader) {
 				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">[Leader] " . $player->getPlayerName() . "</a></li>";
 			} else {
-				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a></li>";
+				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a>";
+
+				if($teamLeader == $_SESSION['playerId']) {
+					echo " - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a></li>";
+				} else {
+					echo "</li>";
+				}
 			}
 		}
 		echo "</ul>";
