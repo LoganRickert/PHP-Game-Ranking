@@ -28,6 +28,10 @@ class Team {
 		return $this->teamPoints;
 	}
 
+	public function getTeamLeader() {
+		return $this->teamLeader;
+	}
+
 	public function printOut() {
 		$html = new Html("");
 		$html->printTeamOut($this->teamName, $this->teamPoints, $this->teamId);
