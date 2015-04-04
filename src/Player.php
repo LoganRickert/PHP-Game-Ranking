@@ -25,6 +25,10 @@ class Player {
 		return $this->playerId;
 	}
 
+	public function getTeamId() {
+		return $this->teamId;
+	}
+
 	public function printOut() {
 		$html = new Html("");
 		$html->printPlayerOut($this->playerName, $this->playerId);
