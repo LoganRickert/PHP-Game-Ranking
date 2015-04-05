@@ -17,8 +17,6 @@ if(!($db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP)) {
 	exit();
 }
 
-$postArray = array();
-
 if(count($_POST) > 3) {
 	$i = 1;
 

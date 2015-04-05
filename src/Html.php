@@ -350,6 +350,36 @@ class Html {
 		";
 	}
 
+	public function printCreateEvents() {
+		echo "
+		<div class=\"post-reply\">
+			<h1>Create Event</h1>
+			<form method=\"post\" action=\"createEventSubmit.php\">
+				<fieldset>
+					<div class=\"input\">
+						<label for=\"eventName\">Name:</label>
+						<input type=\"text\" name=\"eventName\" id=\"eventName\" placeholder=\"Hack Vim\">
+					</div>
+					<div class=\"input\">
+						<label for=\"eventPassword\">Password:</label>
+						<input type=\"text\" name=\"eventPassword\" id=\"eventPassword\" placeholder=\"superCoolPassword123\">
+					</div>
+					<div class=\"input\">
+						<label for=\"eventAmount\">Points Amount:</label>
+						<input type=\"text\" name=\"eventAmount\" id=\"eventAmount\" placeholder=\"9001\">
+					</div>
+					<div class=\"input\">
+						<label for=\"eventId\">Event ID:</label>
+						<input type=\"text\" name=\"eventId\" id=\"eventId\" placeholder=\"1\" value=\"". CURRENT_EVENT ."\">
+					</div>
+				</fieldset>
+				<input type=\"submit\" class=\"submit\">
+			</form>
+			<p><a href=\"events.php\">Update Events</a></p>
+		</div>
+		";
+	}
+
 	public function printPagimation($count = 0, $id, $page, $link) {
 		if($count > MAX_REPLIES_PER_PAGE) {
 			echo "

@@ -308,6 +308,30 @@ class Database {
 	}
 
 	/*
+		Creates a new player and adds them to the database.
+	*/
+	public function insertEvent($eventName, $eventPassword, $eventAmount, $eventId) {
+		// Inserts player information into the database.
+		try {
+			$query = $this->db->prepare("
+				INSERT INTO points_events
+				(event_name, point_password, point_amount, point_event)
+				VALUES
+				(:eventName, :eventPassword, :eventAmount, :eventId)
+			");
+			$query->execute(array(
+				"eventName" => $eventName,
+				"eventPassword" => $eventPassword,
+				"eventAmount" => $eventAmount,
+				"eventId" => $eventId
+				));
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+	}
+
+	/*
 		Creates a new team and adds it to the database.
 	*/
 	public function createTeam($teamName) {
