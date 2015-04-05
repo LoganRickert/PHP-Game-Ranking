@@ -500,6 +500,36 @@ class Database {
 	}
 
 	/*
+		Returns boolean if the team name is already in the database.
+	*/
+	public function doesEventPasswordExist($password) {
+		try {
+			$query = $this->db->prepare("
+				SELECT points_password
+				FROM points_events
+				WHERE points_password = ?
+				AND points_event = ?
+				LIMIT 1
+			");
+			$query->bindParam(1, $password);
+			$currentEvent = CURRENT_EVENT;
+			$query->bindParam(2, $currentEvent);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		$doesExist = false;
+
+		while ($row = $query->fetch()) {
+			$doesExist = true;
+		}
+
+		return $doesExist;
+	}
+
+	/*
 		Returns boolean if the team id exists.
 	*/
 	public function doesTeamIdExist($teamId) {

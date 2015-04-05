@@ -44,9 +44,9 @@ class Html {
 	</header>
 	<div id=\"wrapper\">
 		<div class=\"nav-search\">
-			<form>
+			<form method=\"POST\" action=\"passwordCheckSubmit.php\">
 				<fieldset>
-					<input type=\"text\" name=\"search\" placeholder=\"Search\">
+					<input type=\"text\" name=\"passwordCheck\" placeholder=\"Enter Password\">
 				</fieldset>
 			</form>
 			<ul>";
