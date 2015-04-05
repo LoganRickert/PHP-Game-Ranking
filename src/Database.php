@@ -29,9 +29,9 @@ class Database {
 		// Get all of team information
 		try {
 			$query = $this->db->prepare("
-				SELECT team_id, team_name, team_points, team_leader, team_status
+				SELECT team_id, team_name, team_leader, team_status
 				FROM teams
-				ORDER BY team_points DESC
+				ORDER BY team_id ASC
 			");
 			$query->execute();
 		} catch (Exception $e) {
@@ -46,7 +46,7 @@ class Database {
 		// Fills the team and player arrays
 		// Each Query fetch is one column in array.
 		while ($row = $query->fetch()) {
-			$team = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
+			$team = new Team($row['team_id'], $row['team_name'], $this->countPoints($row['team_id']), $row['team_leader'], $row['team_status']);
 			$teamsAndPlayers[] = array(
 				$team,
 				$this->getPlayers($team->getTeamId())
@@ -93,9 +93,9 @@ class Database {
 		// Gets all of the team information
 		try {
 			$query = $this->db->prepare("
-				SELECT team_id, team_name, team_points, team_leader, team_status
+				SELECT team_id, team_name, team_leader, team_status
 				FROM teams
-				ORDER BY team_points DESC
+				ORDER BY team_id ASC
 			");
 			$query->execute();
 		} catch (Exception $e) {
@@ -108,10 +108,44 @@ class Database {
 
 		// Fill array with team objects.
 		while ($row = $query->fetch()) {
-			$teams[] = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
+			$teams[] = new Team($row['team_id'], $row['team_name'], $this->countPoints($row['team_id']), $row['team_leader'], $row['team_status']);
 		}
 
 		return $teams;
+	}
+
+	/*
+		Gets the count of how many points a team have and returns it.
+	*/
+	public function countPoints($teamId) {
+		// Get all of team information
+		try {
+			$query = $this->db->prepare("
+				SELECT SUM(points_amount) as point_count
+				FROM points_obtained
+					JOIN points_events
+						ON points_obtained.point_id = points_events.point_id
+				WHERE team_id = ?
+				AND points_event = ?
+			");
+			$query->bindParam(1, $teamId);
+			$currentEvent = CURRENT_EVENT;
+			$query->bindParam(2, $currentEvent);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		while ($row = $query->fetch()) {
+			$amount = $row['point_count'];
+		}
+
+		if(!isset($amount)) {
+			$amount = 0; 
+		}
+
+		return $amount;
 	}
 
 	/*
@@ -145,7 +179,7 @@ class Database {
 	public function loadTeam($teamId) {
 		try {
 			$query = $this->db->prepare("
-				SELECT team_id, team_name, team_points, team_status, team_leader
+				SELECT team_id, team_name, team_status, team_leader
 				FROM teams
 				WHERE team_id = ?
 				LIMIT 1
@@ -159,7 +193,7 @@ class Database {
 
 		// Creates the team instance and returns it.
 		while ($row = $query->fetch()) {
-			return new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
+			return new Team($row['team_id'], $row['team_name'], $this->countPoints($row['team_id']), $row['team_leader'], $row['team_status']);
 		}
 	}
 
