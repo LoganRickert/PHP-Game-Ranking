@@ -151,6 +151,37 @@ class Database {
 	}
 
 	/*
+		Returns an array of all of the challenges.
+	*/
+	public function getAllChallenges() {
+		// Gets all of the team information
+		try {
+			$query = $this->db->prepare("
+				SELECT challenge_id, challenge_password, challenge_amount, event_id, challenge_name, challenge_description
+				FROM challenges
+				WHERE event_id = ?
+				ORDER BY challenge_amount ASC
+			");
+			$currentEvent = CURRENT_EVENT;
+			$query->bindParam(1, $currentEvent);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		// The array to be returned.
+		$challenges = array();
+
+		// Fill array with team objects.
+		while ($row = $query->fetch()) {
+			$challenges[] = new Challenge($row['challenge_id'], $row['challenge_password'], $row['challenge_amount'], $row['event_id'], $row['challenge_name'], $row['challenge_description']);
+		}
+
+		return $challenges;
+	}
+
+	/*
 		Gets the count of how many points a team have and returns it.
 	*/
 	public function countPoints($teamId) {

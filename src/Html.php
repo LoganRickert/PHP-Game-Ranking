@@ -37,12 +37,12 @@ class Html {
 			</div>
 			<nav>
 				<ul>
-					<li><a href=\"$this->fullSiteRoot\">Rules</a></li>
+					<li><a href=\"$this->fullSiteRoot/challenge\">Challenges</a></li>
 					<li><a href=\"$this->fullSiteRoot\">FAQ</a></li>";
 
 					// If they are an admin, give them this option.
 					if(isset($_SESSION['playerId']) && $db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP) {
-						echo "<li><a href=\"$this->fullSiteRoot/challenges\">Challenges</a></li>";
+						echo "<li><a href=\"$this->fullSiteRoot/challenges\">Edit Challenges</a></li>";
 					}
 
 					echo "
@@ -269,7 +269,20 @@ class Html {
 	}
 
 	public function getChallengeOut($challengeId, $challengeName, $challengeAmount) {
-		return "<a href=\"" . $this->fullSiteRoot . "/challenge/$challengeId\">$challengeName</a> - ($this->challengeAmount) points";
+		return "<a href=\"" . $this->fullSiteRoot . "/challenge/$challengeId\">$challengeName</a> - ($challengeAmount) points";
+	}
+
+	public function printAllChallenges() {
+		$db = new Database();
+		$challenges = $db->getAllChallenges();
+
+		echo "<ul>";
+		$i = 1;
+		foreach($challenges as $challenge) {
+			echo "<li>$i. ".$this->getChallengeOut($challenge->getChallengeId(), $challenge->getChallengeName(), $challenge->getChallengeAmount())."</li>";
+			$i++;
+		}
+		echo "</ul>";
 	}
 
 	public function printTeamsOptions() {

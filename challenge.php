@@ -9,11 +9,18 @@ $html->printHeader();
 
 $db = new Database();
 
-// Checks to make sure the team exists. If they don't, tell the user.
-if(!isset($_REQUEST['challengeId']) || !$db->doesChallengeIdExist(intval($_REQUEST['challengeId']))) {
-	echo "Challenge not found!";
+
+
+// If a challenge number isn't given, list all.
+if(!isset($_REQUEST['challengeId'])) {
+	$html->printAllChallenges();
 } else {
-	$db->loadChallenge(intval($_REQUEST['challengeId']))->printStats();
+	// Checks to make sure the challenge exists.
+	if(!$db->doesChallengeIdExist(intval($_REQUEST['challengeId']))) {
+		echo "Challenge not found!";
+	} else {
+		$db->loadChallenge(intval($_REQUEST['challengeId']))->printStats();
+	}
 }
 
 $html->printFooter();
