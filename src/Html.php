@@ -60,16 +60,17 @@ class Html {
 			} else {
 				$db = new Database();
 
+				$player = $db->loadPlayer(intval($_SESSION['playerId']));
+
 				if($db->getTeamId(intval($_SESSION['playerId'])) == 0) {
 					echo "<li><a href=\"$this->fullSiteRoot/create_team\">Create Team</a></li>
 						  <li><a href=\"$this->fullSiteRoot/join_team\">Join Team</a></li>";
 				} else {
-					echo "<li><a href=\"$this->fullSiteRoot/leaveTeamSubmit.php\">Leave Team</a></li>";
+					echo "<li><a href=\"$this->fullSiteRoot/leaveTeamSubmit.php\">Leave " . $db->loadTeam($player->getTeamId())->getTeamname() . "</a></li>";
 				}
 				
 				echo "
-				<li>Hello <a href=\"$this->fullSiteRoot/player/" . $_SESSION['playerId'] . "\"> 
-				" . $_SESSION['playerName'] . "</a>!
+				<li>Hello " . $this->getPlayerOut($player->getPlayerName(), $player->getPlayerId(), $player->getGroupId()) . "!
 				 - 
 				 <a href=\"$this->fullSiteRoot/signout\">Sign Out</a>
 				 </li>";
