@@ -23,3 +23,6 @@ define("DB_PASSWORD","");
 
 // The admin group
 define("ADMIN_GROUP", 2);
+
+// Which event are we currently on
+define("CURRENT_EVENT", 1);
