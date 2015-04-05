@@ -418,6 +418,31 @@ class Database {
 	}
 
 	/*
+		Updates the information for an event.
+	*/
+	public function updateEvent($pointId, $eventName, $pointPassword, $pointAmount) {
+		// Updates the information
+		try {
+			$query = $this->db->prepare("
+				UPDATE points_events
+				SET point_password = :pointPassword,
+				point_amount = :pointAmount,
+				event_name = :eventName
+				WHERE point_id = :pointId
+			");
+			$query->execute(array(
+				"pointId" => $pointId,
+				"eventName" => $eventName,
+				"pointPassword" => $pointPassword,
+				"pointAmount" => $pointAmount,
+				));
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+	}
+
+	/*
 		Updates the leader of a team to a random person who isn't playerId
 	*/
 	public function updateTeamLeaderNext($teamId, $playerId) {
