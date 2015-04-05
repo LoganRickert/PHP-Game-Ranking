@@ -8,13 +8,15 @@ class Player {
 	private $playerPassword;
 	private $teamId;
 	private $playerStatus;
+	private $groupId;
 
-	public function __construct($playerId, $playerName, $playerEmail, $teamId, $playerStatus) {
+	public function __construct($playerId, $playerName, $playerEmail, $teamId, $playerStatus, $groupId) {
 		$this->playerId = $playerId;
 		$this->playerName = $playerName;
 		$this->playerEmail = $playerEmail;
 		$this->teamId = $teamId;
 		$this->playerStatus = $playerStatus;
+		$this->groupId = $groupId;
 	}
 
 	public function getPlayerName() {
@@ -27,6 +29,10 @@ class Player {
 
 	public function getTeamId() {
 		return $this->teamId;
+	}
+
+	public function getGroupId() {
+		return $this->groupId;
 	}
 
 	/*

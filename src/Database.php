@@ -63,7 +63,7 @@ class Database {
 		// Gets all of player information
 		try {
 			$query = $this->db->prepare("
-				SELECT player_id, player_name, player_email, team_id, player_status
+				SELECT player_id, player_name, player_email, team_id, player_status, group_id
 				FROM players
 				WHERE team_id = ?
 			");
@@ -80,7 +80,7 @@ class Database {
 		// Fill array with player objects.
 		while ($row = $query->fetch()) {
 			// $categoryId, $name
-			$playerArray[] = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status']);
+			$playerArray[] = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status'], $row['group_id']);
 		}
 
 		return $playerArray;
@@ -121,7 +121,7 @@ class Database {
 		// Gets the information for player
 		try {
 			$query = $this->db->prepare("
-				SELECT player_id, player_name, player_email, team_id, player_status
+				SELECT player_id, player_name, player_email, team_id, player_status, group_id
 				FROM players
 				WHERE player_id = ?
 				LIMIT 1
@@ -135,7 +135,7 @@ class Database {
 
 		// Creates the player instance and returns it.
 		while ($row = $query->fetch()) {
-			return $player = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status']);
+			return $player = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status'], $row['group_id']);
 		}
 	}
 
@@ -411,6 +411,30 @@ class Database {
 		// Returns the group_id
 		while ($row = $query->fetch()) {
 			return $row['group_id'];
+		}
+	}
+
+	/*
+		Gets the group color for group with groupId
+	*/
+	public function getGroupColor($groupId) {
+		try {
+			$query = $this->db->prepare("
+				SELECT group_color
+				FROM groups
+				WHERE group_id = ?
+				LIMIT 1
+			");
+			$query->bindParam(1, $groupId);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		// Returns the group_id
+		while ($row = $query->fetch()) {
+			return $row['group_color'];
 		}
 	}
 

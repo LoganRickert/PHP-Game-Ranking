@@ -124,8 +124,8 @@ class Html {
 		";
 	}
 
-	public function printTeamOut($teamName, $teamPoints, $teamId) {
-		echo "<a href=\"" . $this->fullSiteRoot . "/team/$teamId\">$teamName</a> - $teamPoints points";
+	public function getTeamOut($teamName, $teamPoints, $teamId) {
+		return "<a href=\"" . $this->fullSiteRoot . "/team/$teamId\">$teamName</a> - $teamPoints points";
 	}
 
 	public function printTeamStats($teamName, $teamPoints, $teamId, $teamLeader) {
@@ -139,20 +139,21 @@ class Html {
 		<h1>Team Members</h1>
 		<ul>";
 		foreach($players as $player) {
+			$playerName = $this->getPlayerOut($player->getPlayerName(), $player->getPlayerId(), $player->getGroupId());
 			if(isset($_SESSION['playerId']) && $db->getGroupId($_SESSION['playerId']) == ADMIN_GROUP) {
 				if($player->getPlayerId() == $teamLeader) {
-					echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">[Leader] " . $player->getPlayerName() . "</a>
+					echo "<li>$playerName
 					 - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
 					&middot; <a href=\"" . $this->fullSiteRoot . "/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
 				} else {
-					echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a>
+					echo "<li>$playerName
 					 - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
 					&middot; <a href=\"" . $this->fullSiteRoot . "/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
 				}
 			} else if($player->getPlayerId() == $teamLeader) {
-				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">[Leader] " . $player->getPlayerName() . "</a></li>";
+				echo "<li>$playerName</li>";
 			} else {
-				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a>";
+				echo "<li>$playerName";
 
 				if(isset($_SESSION['playerId']) && $teamLeader == $_SESSION['playerId']) {
 					echo " - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
@@ -170,18 +171,19 @@ class Html {
 		$teamsAndPlayers = $db->getTeamsAndPlayers();
 		echo "<ul>";
 		foreach($teamsAndPlayers as $team) {
-			echo "<li><a href=\"" . $this->fullSiteRoot . "/team/" . $team[0]->getTeamId() . "\">" . $team[0]->getTeamName() . "</a> - " . $team[0]->getTeamPoints() . " points</li>
+			echo "<li>" . $this->getTeamOut($team[0]->getTeamName(), $team[0]->getTeamPoints(), $team[0]->getTeamId()) . "</li>
 			<ul>";
 			foreach($team[1] as $player) {
-				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a></li>";
+				echo "<li>" . $this->getPlayerOut($player->getPlayerName(), $player->getPlayerId(), $player->getGroupId()) . "</li>";
 			}
 			echo "</ul>";
 		}
 		echo "</ul>";
 	}
 
-	public function printPlayerOut($playerName, $playerId) {
-		echo "<a href=\"" . $this->fullSiteRoot . "/player/$playerId\">$playerName</a>";
+	public function getPlayerOut($playerName, $playerId, $groupId) {
+		$db = new Database();
+		return "<a style=\"color: " . $db->getGroupColor($groupId) . "\" href=\"" . $this->fullSiteRoot . "/player/$playerId\">$playerName</a>";
 	}
 
 	public function printTeamsOptions() {
@@ -203,7 +205,8 @@ class Html {
 		if($teamId == 0) {
 			echo "<p>Not part of a team.<p>";
 		} else {
-			echo "<p><a href=\"" . $this->fullSiteRoot . "/team/$teamId\">" . $db->loadteam($teamId)->getTeamName() . "</a></p>";
+			$team = $db->loadteam($teamId);
+			echo "<p>" . $this->getTeamOut($team->getTeamName(), $team->getTeamPoints(), $teamId) . "</p>";
 		}
 	}
 
