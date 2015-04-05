@@ -310,20 +310,21 @@ class Database {
 	/*
 		Creates a new player and adds them to the database.
 	*/
-	public function insertChallenge($challengeName, $challengePassword, $challengeAmount, $eventId) {
+	public function insertChallenge($challengeName, $challengePassword, $challengeAmount, $eventId, $challengeDescription) {
 		// Inserts player information into the database.
 		try {
 			$query = $this->db->prepare("
 				INSERT INTO challenges
-				(challenge_name, challenge_password, challenge_amount, event_id)
+				(challenge_name, challenge_password, challenge_amount, event_id, challenge_description)
 				VALUES
-				(:challengeName, :challengePassword, :challengeAmount, :eventId)
+				(:challengeName, :challengePassword, :challengeAmount, :eventId, :challengeDescription)
 			");
 			$query->execute(array(
 				"challengeName" => $challengeName,
 				"challengePassword" => $challengePassword,
 				"challengeAmount" => $challengeAmount,
-				"eventId" => $eventId
+				"eventId" => $eventId,
+				"challengeDescription" => $challengeDescription
 				));
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
@@ -444,14 +445,15 @@ class Database {
 	/*
 		Updates the information for an event.
 	*/
-	public function updateChallenge($challengeId, $challengeName, $challengePassword, $challengeAmount) {
+	public function updateChallenge($challengeId, $challengeName, $challengePassword, $challengeAmount, $challengeDescription) {
 		// Updates the information
 		try {
 			$query = $this->db->prepare("
 				UPDATE challenges
 				SET challenge_password = :challengePassword,
 				challenge_amount = :challengeAmount,
-				challenge_name = :challengeName
+				challenge_name = :challengeName,
+				challenge_description = :challengeDescription
 				WHERE challenge_id = :challengeId
 			");
 			$query->execute(array(
@@ -459,6 +461,7 @@ class Database {
 				"challengeName" => $challengeName,
 				"challengePassword" => $challengePassword,
 				"challengeAmount" => $challengeAmount,
+				"challengeDescription" => $challengeDescription,
 				));
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;

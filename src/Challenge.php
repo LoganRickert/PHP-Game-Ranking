@@ -33,4 +33,8 @@ class Challenge {
 	public function getChallengeAmount() {
 		return $this->challengeAmount;
 	}
+
+	public function getChallengeDescription() {
+		return $this->challengeDescription;
+	}
 }

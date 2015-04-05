@@ -339,6 +339,11 @@ class Html {
 							<input type=\"text\" name=\"challenge". $count ."b\" id=\"challenge". $count ."b\" value=\"". $challenge->getChallengeName() ."\">
 							<input type=\"text\" name=\"challenge". $count ."c\" id=\"challenge". $count ."c\" value=\"". $challenge->getChallengePassword() ."\">
 							<input type=\"text\" name=\"challenge". $count ."d\" id=\"challenge". $count ."d\" value=\"". $challenge->getChallengeAmount() ."\">
+						</div>
+						
+						<label for=\"challenge". $count ."e\">Description:</label>
+						<div class=\"challenge-edit-textarea\">
+							<textarea name=\"challenge". $count ."e\" id=\"challenge". $count ."e\">". $challenge->getChallengeDescription() ."</textarea>
 						</div>";
 						$count++;
 					}
@@ -372,6 +377,10 @@ class Html {
 						<label for=\"eventId\">Event ID:</label>
 						<input type=\"text\" name=\"eventId\" id=\"eventId\" placeholder=\"1\" value=\"". CURRENT_EVENT ."\">
 					</div>
+					<label for=\"challengeDescription\">Description:</label>
+						<div class=\"challenge-edit-textarea\">
+							<textarea name=\"challengeDescription\" id=\"challengeDescription\"></textarea>
+						</div>
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
 			</form>

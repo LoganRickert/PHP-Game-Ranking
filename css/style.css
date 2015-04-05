@@ -112,6 +112,14 @@ section form input {
 	border: 1px solid #999;
 }
 
+section form .challenge-edit-textarea textarea {
+	padding: 10px;
+	margin: 15px 0;
+	width: 400px;
+	height: 150px;
+	font-family: 'Lato', sans-serif;
+}
+
 section h1 {
 	font-size: 20px;
 	padding: 10px 0;

@@ -17,11 +17,11 @@ if(!($db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP)) {
 	exit();
 }
 
-if(count($_POST) > 3) {
+if(count($_POST) > 0) {
 	$i = 1;
 
-	while($i <= count($_POST) / 4) {
-		$db->updateChallenge($_POST["challenge" . $i . "a"], $_POST["challenge" . $i . "b"], $_POST["challenge" . $i . "c"], $_POST["challenge" . $i . "d"]);
+	while($i <= count($_POST) / 5) {
+		$db->updateChallenge($_POST["challenge" . $i . "a"], $_POST["challenge" . $i . "b"], $_POST["challenge" . $i . "c"], $_POST["challenge" . $i . "d"], $_POST["challenge" . $i . "e"]);
 		$i++;
 	}
 }
