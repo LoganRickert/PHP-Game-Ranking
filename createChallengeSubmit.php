@@ -18,26 +18,26 @@ if(!($db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP)) {
 }
 
 // Checks to make sure all fields were filled out.
-if(!isset($_POST['eventName']) || !isset($_POST['eventPassword']) || !isset($_POST['eventAmount']) || !isset($_POST['eventId'])) {
+if(!isset($_POST['challengeName']) || !isset($_POST['challengePassword']) || !isset($_POST['challengeAmount']) || !isset($_POST['eventId'])) {
 	$error_message = htmlspecialchars("You did not fill in all of the fields!");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }
 
-// Sanitizes eventName
-$eventName = htmlspecialchars(trim(($_POST['eventName'])));
+// Sanitizes challengeName
+$challengeName = htmlspecialchars(trim(($_POST['challengeName'])));
 
-// Sanitizes eventPassword
-$eventPassword = htmlspecialchars(trim(($_POST['eventPassword'])));
+// Sanitizes challengePassword
+$challengePassword = htmlspecialchars(trim(($_POST['challengePassword'])));
 
-// Sanitizes eventAmount
-$eventAmount = intval(trim(($_POST['eventAmount'])));
+// Sanitizes challengeAmount
+$challengeAmount = intval(trim(($_POST['challengeAmount'])));
 
 // Sanitizes eventId
 $eventId = intval(trim(($_POST['eventId'])));
 
-$db->insertEvent($eventName, $eventPassword, $eventAmount, $eventId);
+$db->insertChallenge($challengeName, $challengePassword, $challengeAmount, $eventId);
 
 // Go back to team page.
-header("Location: events.php");
+header("Location: challenges.php");
 exit();

@@ -17,7 +17,7 @@ if(!($db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP)) {
 	exit();
 }
 
-$html = new Html("Create Events");
+$html = new Html("Create Challenge");
 
 $html->printHeader();
 

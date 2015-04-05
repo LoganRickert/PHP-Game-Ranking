@@ -42,7 +42,7 @@ class Html {
 
 					// If they are an admin, give them this option.
 					if(isset($_SESSION['playerId']) && $db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP) {
-						echo "<li><a href=\"$this->fullSiteRoot/events.php\">Events</a></li>";
+						echo "<li><a href=\"$this->fullSiteRoot/challenges.php\">Challenges</a></li>";
 					}
 
 					echo "
@@ -323,29 +323,29 @@ class Html {
 	public function printEvents() {
 		$db = new Database();
 
-		$events = $db->loadAllEvents(CURRENT_EVENT);
+		$events = $db->loadAllChallenges(CURRENT_EVENT);
 
 		echo "
 		<div class=\"post-reply\">
 			<h1>Update Event information</h1>
-			<form method=\"post\" action=\"eventsUpdateSubmit.php\">
+			<form method=\"post\" action=\"challengesUpdateSubmit.php\">
 				<fieldset>";
 					$count = 1;
 					foreach($events as $event) {
 						echo "
 						<div class=\"input\">
 							<label for=\"event". $count ."b\">Event ". $count .":</label>
-							<input type=\"hidden\" style=\"display: hidden\" name=\"event". $count ."a\" id=\"event". $count ."a\" value=\"". $event->getPointId() ."\">
-							<input type=\"text\" name=\"event". $count ."b\" id=\"event". $count ."b\" value=\"". $event->getEventName() ."\">
-							<input type=\"text\" name=\"event". $count ."c\" id=\"event". $count ."c\" value=\"". $event->getPointPassword() ."\">
-							<input type=\"text\" name=\"event". $count ."d\" id=\"event". $count ."d\" value=\"". $event->getPointAmount() ."\">
+							<input type=\"hidden\" style=\"display: hidden\" name=\"event". $count ."a\" id=\"event". $count ."a\" value=\"". $event->getChallengeId() ."\">
+							<input type=\"text\" name=\"event". $count ."b\" id=\"event". $count ."b\" value=\"". $event->getChallengeName() ."\">
+							<input type=\"text\" name=\"event". $count ."c\" id=\"event". $count ."c\" value=\"". $event->getChallengePassword() ."\">
+							<input type=\"text\" name=\"event". $count ."d\" id=\"event". $count ."d\" value=\"". $event->getChallengeAmount() ."\">
 						</div>";
 						$count++;
 					}
 		  echo "</fieldset>
 				<input type=\"submit\" class=\"submit\">
 			</form>
-			<p><a href=\"create_event.php\">Create New Event</a></p>
+			<p><a href=\"create_challenge.php\">Create New Challenge</a></p>
 		</div>
 		";
 	}
@@ -353,20 +353,20 @@ class Html {
 	public function printCreateEvents() {
 		echo "
 		<div class=\"post-reply\">
-			<h1>Create Event</h1>
-			<form method=\"post\" action=\"createEventSubmit.php\">
+			<h1>Create Challenge</h1>
+			<form method=\"post\" action=\"createChallengeSubmit.php\">
 				<fieldset>
 					<div class=\"input\">
-						<label for=\"eventName\">Name:</label>
-						<input type=\"text\" name=\"eventName\" id=\"eventName\" placeholder=\"Hack Vim\">
+						<label for=\"challengeName\">Name:</label>
+						<input type=\"text\" name=\"challengeName\" id=\"challengeName\" placeholder=\"Hack Vim\">
 					</div>
 					<div class=\"input\">
-						<label for=\"eventPassword\">Password:</label>
-						<input type=\"text\" name=\"eventPassword\" id=\"eventPassword\" placeholder=\"superCoolPassword123\">
+						<label for=\"challengePassword\">Password:</label>
+						<input type=\"text\" name=\"challengePassword\" id=\"challengePassword\" placeholder=\"superCoolPassword123\">
 					</div>
 					<div class=\"input\">
-						<label for=\"eventAmount\">Points Amount:</label>
-						<input type=\"text\" name=\"eventAmount\" id=\"eventAmount\" placeholder=\"9001\">
+						<label for=\"challengeAmount\">Points Amount:</label>
+						<input type=\"text\" name=\"challengeAmount\" id=\"challengeAmount\" placeholder=\"9001\">
 					</div>
 					<div class=\"input\">
 						<label for=\"eventId\">Event ID:</label>
@@ -375,7 +375,7 @@ class Html {
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
 			</form>
-			<p><a href=\"events.php\">Update Events</a></p>
+			<p><a href=\"events.php\">Update Challenges</a></p>
 		</div>
 		";
 	}

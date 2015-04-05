@@ -93,12 +93,12 @@ class Database {
 		// Gets all of player information
 		try {
 			$query = $this->db->prepare("
-				SELECT time, point_amount, event_name
+				SELECT time, challenge_amount, challenge_name
 				FROM points_obtained
-				JOIN points_events
-					ON points_events.point_id = points_obtained.point_id
+				JOIN challenges
+					ON challenges.challenge_id = points_obtained.challenge_id
 				WHERE team_id = ?
-				AND point_event = ?
+				AND event_id = ?
 				ORDER BY time ASC
 			");
 			$query->bindParam(1, $teamId);
@@ -116,7 +116,7 @@ class Database {
 		// Fill array with player objects.
 		while ($row = $query->fetch()) {
 			// $categoryId, $name
-			$pointsObtainedArray[] = array($row['time'], $row['point_amount'], $row['event_name']);
+			$pointsObtainedArray[] = array($row['time'], $row['challenge_amount'], $row['challenge_name']);
 		}
 
 		return $pointsObtainedArray;
@@ -157,12 +157,12 @@ class Database {
 		// Get all of team information
 		try {
 			$query = $this->db->prepare("
-				SELECT SUM(point_amount) as point_count
+				SELECT SUM(challenge_amount) as point_count
 				FROM points_obtained
-					JOIN points_events
-						ON points_obtained.point_id = points_events.point_id
+					JOIN challenges
+						ON points_obtained.challenge_id = challenges.challenge_id
 				WHERE team_id = ?
-				AND point_event = ?
+				AND event_id = ?
 			");
 			$query->bindParam(1, $teamId);
 			$currentEvent = CURRENT_EVENT;
@@ -234,17 +234,17 @@ class Database {
 	}
 
 	/*
-		Loads an instance of an event with the event password $eventPassword and returns it.
+		Loads an instance of a challenge with the challenge password $challengePassword and returns it.
 	*/
-	public function loadEvent($eventPassword) {
+	public function loadChallenge($challengePassword) {
 		try {
 			$query = $this->db->prepare("
-				SELECT point_id, point_password, point_amount, point_event, event_name
-				FROM points_events
-				WHERE point_password = ?
+				SELECT challenge_id, challenge_password, challenge_amount, event_id, challenge_name, challenge_description
+				FROM challenges
+				WHERE challenge_password = ?
 				LIMIT 1
 			");
-			$query->bindParam(1, $eventPassword);
+			$query->bindParam(1, $challengePassword);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
@@ -253,35 +253,35 @@ class Database {
 
 		// Creates the team instance and returns it.
 		while ($row = $query->fetch()) {
-			return new Event($row['point_id'], $row['point_password'], $row['point_amount'], $row['point_event'], $row['event_name']);
+			return new Challenge($row['challenge_id'], $row['challenge_password'], $row['challenge_amount'], $row['event_id'], $row['challenge_name'], $row['challenge_description']);
 		}
 	}
 
 	/*
-		Loads an instance of all events and returns an array.
+		Loads an instance of all challenges and returns an array.
 	*/
-	public function loadAllEvents($pointEvent) {
+	public function loadAllChallenges($eventId) {
 		try {
 			$query = $this->db->prepare("
-				SELECT point_id, point_password, point_amount, point_event, event_name
-				FROM points_events
-				WHERE point_event = ?
+				SELECT challenge_id, challenge_password, challenge_amount, event_id, challenge_name, challenge_description
+				FROM challenges
+				WHERE event_id = ?
 			");
-			$query->bindParam(1, $pointEvent);
+			$query->bindParam(1, $eventId);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
 			exit;
 		}
 
-		$events = array();
+		$challenges = array();
 
 		// Creates the team instance and returns it.
 		while ($row = $query->fetch()) {
-			$events[] = new Event($row['point_id'], $row['point_password'], $row['point_amount'], $row['point_event'], $row['event_name']);
+			$challenges[] = new Challenge($row['challenge_id'], $row['challenge_password'], $row['challenge_amount'], $row['event_id'], $row['challenge_name'], $row['challenge_description']);
 		}
 
-		return $events;
+		return $challenges;
 	}
 
 	/*
@@ -310,19 +310,19 @@ class Database {
 	/*
 		Creates a new player and adds them to the database.
 	*/
-	public function insertEvent($eventName, $eventPassword, $eventAmount, $eventId) {
+	public function insertChallenge($challengeName, $challengePassword, $challengeAmount, $eventId) {
 		// Inserts player information into the database.
 		try {
 			$query = $this->db->prepare("
-				INSERT INTO points_events
-				(event_name, point_password, point_amount, point_event)
+				INSERT INTO challenges
+				(challenge_name, challenge_password, challenge_amount, event_id)
 				VALUES
-				(:eventName, :eventPassword, :eventAmount, :eventId)
+				(:challengeName, :challengePassword, :challengeAmount, :eventId)
 			");
 			$query->execute(array(
-				"eventName" => $eventName,
-				"eventPassword" => $eventPassword,
-				"eventAmount" => $eventAmount,
+				"challengeName" => $challengeName,
+				"challengePassword" => $challengePassword,
+				"challengeAmount" => $challengeAmount,
 				"eventId" => $eventId
 				));
 		} catch (Exception $e) {
@@ -359,18 +359,18 @@ class Database {
 	/*
 		Inserts a row for points being obtained
 	*/
-	public function insertPoints($pointId, $teamId) {
+	public function insertPoints($challengeId, $teamId) {
 		// Inserts team information into the database.
 		try {
 			$query = $this->db->prepare("
 				INSERT INTO points_obtained
-				(team_id, point_id, player_id, time)
+				(team_id, challenge_id, player_id, time)
 				VALUES
-				(:teamId, :pointId, :playerId, :time)
+				(:teamId, :challengeId, :playerId, :time)
 			");
 			$query->execute(array(
 				"teamId" => $teamId,
-				"pointId" => $pointId,
+				"challengeId" => $challengeId,
 				"playerId" => intval($_SESSION['playerId']),
 				"time" => time(),
 				));
@@ -444,21 +444,21 @@ class Database {
 	/*
 		Updates the information for an event.
 	*/
-	public function updateEvent($pointId, $eventName, $pointPassword, $pointAmount) {
+	public function updateChallenge($challengeId, $challengeName, $challengePassword, $challengeAmount) {
 		// Updates the information
 		try {
 			$query = $this->db->prepare("
-				UPDATE points_events
-				SET point_password = :pointPassword,
-				point_amount = :pointAmount,
-				event_name = :eventName
-				WHERE point_id = :pointId
+				UPDATE challenges
+				SET challenge_password = :challengePassword,
+				challenge_amount = :challengeAmount,
+				challenge_name = :challengeName
+				WHERE challenge_id = :challengeId
 			");
 			$query->execute(array(
-				"pointId" => $pointId,
-				"eventName" => $eventName,
-				"pointPassword" => $pointPassword,
-				"pointAmount" => $pointAmount,
+				"challengeId" => $challengeId,
+				"challengeName" => $challengeName,
+				"challengePassword" => $challengePassword,
+				"challengeAmount" => $challengeAmount,
 				));
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
@@ -662,13 +662,13 @@ class Database {
 	/*
 		Returns boolean if the team name is already in the database.
 	*/
-	public function doesEventPasswordExist($password) {
+	public function doesChallengePasswordExist($password) {
 		try {
 			$query = $this->db->prepare("
-				SELECT point_password
-				FROM points_events
-				WHERE point_password = ?
-				AND point_event = ?
+				SELECT challenge_password
+				FROM challenges
+				WHERE challenge_password = ?
+				AND event_id = ?
 				LIMIT 1
 			");
 			$query->bindParam(1, $password);
@@ -692,16 +692,16 @@ class Database {
 	/*
 		Returns boolean if the team already has the event
 	*/
-	public function doesTeamHaveEvent($pointId, $teamId) {
+	public function doesTeamHaveChallenge($challengeId, $teamId) {
 		try {
 			$query = $this->db->prepare("
-				SELECT point_id
+				SELECT challenge_id
 				FROM points_obtained
-				WHERE point_id = ?
+				WHERE challenge_id = ?
 				AND team_id = ?
 				LIMIT 1
 			");
-			$query->bindParam(1, $pointId);
+			$query->bindParam(1, $challengeId);
 			$query->bindParam(2, $teamId);
 			$query->execute();
 		} catch (Exception $e) {
