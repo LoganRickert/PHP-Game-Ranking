@@ -151,7 +151,7 @@ class Html {
 	          ";
  
 			    foreach($pointsObtained as $pointObtained) {
-			    	echo "['$pointObtained[0]', $pointObtained[1]],\n";
+			    	echo "['" .date("D H:i", $pointObtained[0]). "', $pointObtained[1]],\n";
 			    }
 
 	    echo "
@@ -159,7 +159,7 @@ class Html {
 
 	        var options = {
 	          title: 'Point to Point',
-	          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+	          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
 	          vAxis: {minValue: 0}
 	        };
 
@@ -182,7 +182,7 @@ class Html {
  				$totalPoints = 0;
 			    foreach($pointsObtained as $pointObtained) {
 			    	$totalPoints += $pointObtained[1];
-			    	echo "['$pointObtained[0]', $totalPoints],\n";
+			    	echo "['" .date("D H:i", $pointObtained[0]). "', $totalPoints],\n";
 			    }
 
 	    echo "
@@ -190,7 +190,7 @@ class Html {
 
 	        var options = {
 	          title: 'Points Over Time',
-	          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+	          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
 	          vAxis: {minValue: 0}
 	        };
 
