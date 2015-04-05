@@ -43,9 +43,9 @@ CREATE TABLE IF NOT EXISTS `players` (
 
 CREATE TABLE IF NOT EXISTS `points_events` (
 `point_id` int(11) NOT NULL,
-  `points_password` varchar(50) NOT NULL,
-  `points_amount` int(11) NOT NULL,
-  `points_event` int(11) NOT NULL
+  `point_password` varchar(50) NOT NULL,
+  `point_amount` int(11) NOT NULL,
+  `point_event` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
