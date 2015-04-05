@@ -19,8 +19,16 @@
     </section>
 
     <section class="main-content">
-      <h3>
-<a id="setting-up-sql-database" class="anchor" href="#setting-up-sql-database" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up SQL database</h3>
+      <h1>
+<a id="game-rankings" class="anchor" href="#game-rankings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Game Rankings</h1>
+
+<h2>
+<a id="github-pages" class="anchor" href="#github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Github Pages</h2>
+
+<p>You can view the Github page here: <a href="https://loganrickert.github.io/PHP-Game-Ranking/">https://loganrickert.github.io/PHP-Game-Ranking/</a></p>
+
+<h2>
+<a id="setting-up-sql-database" class="anchor" href="#setting-up-sql-database" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up SQL database</h2>
 
 <p>The SQL was written for MySQL. To set up the database from PHPMyAdmin, goto PHPMyAdmin, click on the 'SQL' tab, and paste in the contents of the file DatabaseCreate and press go in the bottom right-hand corner.</p>
 
@@ -32,8 +40,19 @@ define("DB_USER","root");
 define("DB_PASSWORD","");
 </code></pre>
 
-<h3>
-<a id="basics" class="anchor" href="#basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h3>
+<p>To give an account admin status, go to the database 'groups' and create two groups, a default group and an admin group. Go to 'players' and set the group_id = the group_id of the admin group. Currently, you can only do this manually.</p>
+
+<p>If the admin group id is not 2, please update the src/Constants file.</p>
+
+<pre><code>// The admin group
+define("ADMIN_GROUP", 2);
+</code></pre>
+
+<h2>
+<a id="basics" class="anchor" href="#basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h2>
+
+<h4>
+<a id="defaults" class="anchor" href="#defaults" aria-hidden="true"><span class="octicon octicon-link"></span></a>Defaults</h4>
 
 <ul>
 <li>You can create accounts</li>
@@ -48,31 +67,56 @@ define("DB_PASSWORD","");
 <li>If the team is empty and you join, you are the leader of the team</li>
 <li>If you are the team leader, you can kick people from the team</li>
 <li>If you are the team leader, you can promote another team member to leader (You lose your leader position).</li>
-<li>Admin Group can kick anyone from any team and promote anyone to team leader</li>
-<li>Default group / Admin group name colors can be customized.</li>
 <li>The site uses a .htaccess that uses clean URLs.</li>
 </ul>
 
-<h3>
-<a id="walk-through" class="anchor" href="#walk-through" aria-hidden="true"><span class="octicon octicon-link"></span></a>Walk Through</h3>
+<h4>
+<a id="admins" class="anchor" href="#admins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Admins</h4>
 
-<p>The website is written with PHP classes. There are two main classes: Player and Team.</p>
+<ul>
+<li>Admins can kick anyone from any team and promote anyone to team leader</li>
+<li>Admins can a list of events and change their name, password or point amount (view events.php)</li>
+<li>Admins can create a new event</li>
+</ul>
 
-<pre><code>private $teamId;
-private $teamName;
-private $teamPoints;
-private $teamLeader;
-private $teamStatus;
+<h2>
+<a id="walk-through" class="anchor" href="#walk-through" aria-hidden="true"><span class="octicon octicon-link"></span></a>Walk Through</h2>
+
+<p>The website is written with PHP classes. There are three main classes: Player, Event and Team.</p>
+
+<pre><code>private $teamId;        // The identification number for the team. This number is unique.
+private $teamName;      // The name of the team. This is unique.
+private $teamPoints;    // The number of points a team has. This row is no longer used.
+                        // Instead, points_obtained where team_id = teamId are summed together.
+private $teamLeader;    // Indicates who the team leader is by playerId.
+private $teamStatus;    // Not yet used for anything. Thinking about is_banned, is_playing, etc.
 </code></pre>
 
-<pre><code>private $playerId;
-private $playerName;
-private $playerEmail;
-private $playerPassword;
-private $teamId;
-private $playerStatus;
-private $groupId;
+<pre><code>private $playerId;      // The identification number for a player. This number is unique.
+private $playerName;    // The name of the player. This name is unique.
+private $playerEmail;   // Email of the player. This email is a valid email. This email is unique. This field currently has no uses.
+private $playerPassword;// The hashed password of the player. Hashed using bcrypt.
+private $teamId;        // The id of the team the player is on. teamId 0 means no team.
+private $playerStatus;  // The Not yet used for anything. Thinking about is_banned, is_playing, etc.
+private $groupId;       // The group id of the player.
 </code></pre>
+
+<pre><code>private $pointId;       // The identification of the event
+private $pointPassword; // The password that corrisponds to the event. This password is stored in plain text.
+private $pointAmount;   // The amount of points the event is worth
+private $pointEvent;    // The id of the overall event that the site is currently on. Integer value.
+private $eventName;     // The name of the event.
+</code></pre>
+
+<h4>
+<a id="create-event" class="anchor" href="#create-event" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create Event:</h4>
+
+<p>To create a new event, first create an account. Manually set the group_id for that user to the group_id of the admin group inside of the SQL database. Back at the website, at the very top right hand corner, click on 'Events'. If any events have already been created, you will see them listed here. You can very easily edit any event and click the submit button to save the changes. Click on 'create new event'. Type in the information. Once done, click submit. Your event has now been added to the unlockable event list.</p>
+
+<h4>
+<a id="unlock-event" class="anchor" href="#unlock-event" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unlock Event:</h4>
+
+<p>To unlock an event, go to the sub header bar and click on the 'enter password' input box. Type in a password and press enter. If the password is in the events list and the team you are in has not already activated the password, the team will unlock the event. This will add a row into the points_obtained table, recording which event was unlocked, by whom, by which team, and the unix ephoch time it was unlocked.</p>
 
 <p>To create an instance of a class, do the following:</p>
 
@@ -116,8 +160,8 @@ $html-&gt;printFooter();
 
 <p>Only two things are stored in SESSION: playerName and playerId.</p>
 
-<h3>
-<a id="naming-conventions" class="anchor" href="#naming-conventions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naming Conventions</h3>
+<h2>
+<a id="naming-conventions" class="anchor" href="#naming-conventions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naming Conventions</h2>
 
 <p>PHP files that output HTML should be lowercase with underscores for spaces. PHP files that are used as scripts should be camel casing. PHP varibles should be camel casing. SQL names should be lowercase with underscores for spaces. PHP classes should start with an uppercase and be camel casing. Here are some examples:</p>
 
@@ -128,10 +172,10 @@ MySuperCoolClass.php
 player_coolness (SQL name)
 </code></pre>
 
-<h3>
-<a id="plans" class="anchor" href="#plans" aria-hidden="true"><span class="octicon octicon-link"></span></a>Plans</h3>
+<h2>
+<a id="plans" class="anchor" href="#plans" aria-hidden="true"><span class="octicon octicon-link"></span></a>Plans</h2>
 
-<p>Currently, I am not too sure where this project will go. Right now I am going to be concentrating on points. Displaying them, adding them, etc. One thing I do have on my mind to add is md5 sum checking when submitting a form to stop remote site injection.</p>
+<p>Not too sure yet.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/LoganRickert/PHP-Game-Ranking">Game Rankings</a> is maintained by <a href="https://github.com/LoganRickert">LoganRickert</a>.</span>
