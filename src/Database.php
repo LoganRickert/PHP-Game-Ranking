@@ -391,6 +391,30 @@ class Database {
 	}
 
 	/*
+		Gets the group id for the player with the player id playerId.
+	*/
+	public function getGroupId($playerId) {
+		try {
+			$query = $this->db->prepare("
+				SELECT group_id
+				FROM players
+				WHERE player_id = ?
+				LIMIT 1
+			");
+			$query->bindParam(1, $playerId);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		// Returns the group_id
+		while ($row = $query->fetch()) {
+			return $row['group_id'];
+		}
+	}
+
+	/*
 		Returns boolean if the team name is already in the database.
 	*/
 	public function doesTeamNameExist($teamName) {

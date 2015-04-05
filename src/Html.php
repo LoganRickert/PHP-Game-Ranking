@@ -139,7 +139,17 @@ class Html {
 		<h1>Team Members</h1>
 		<ul>";
 		foreach($players as $player) {
-			if($player->getPlayerId() == $teamLeader) {
+			if(isset($_SESSION['playerId']) && $db->getGroupId($_SESSION['playerId']) == ADMIN_GROUP) {
+				if($player->getPlayerId() == $teamLeader) {
+					echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">[Leader] " . $player->getPlayerName() . "</a>
+					 - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
+					&middot; <a href=\"" . $this->fullSiteRoot . "/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
+				} else {
+					echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a>
+					 - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
+					&middot; <a href=\"" . $this->fullSiteRoot . "/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
+				}
+			} else if($player->getPlayerId() == $teamLeader) {
 				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">[Leader] " . $player->getPlayerName() . "</a></li>";
 			} else {
 				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a>";

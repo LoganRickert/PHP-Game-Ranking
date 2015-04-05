@@ -22,4 +22,4 @@ define("DB_PASSWORD","");
 // define("MAX_REPLIES_PER_PAGE", 3);
 
 // The admin group
-define("ADMIN_GROUP", 1);
+define("ADMIN_GROUP", 2);
