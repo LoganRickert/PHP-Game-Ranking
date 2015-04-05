@@ -109,6 +109,30 @@ private $groupId;
 $player = $db->loadPlayer($playerId);
 </code></pre>
 
+<p>There are a lot of functions in the Database class. Most could be removed and probably will be. Right now every function is being used somewhere but I am going to remove functions that don't need to be there and can be done using the loadPlayer or loadTeam.</p>
+
+<p>All HTML is inside the Html class. Please do not place any HTML inside of any other classes.</p>
+
+<p>The following is an example of a page that displays the header, footer and displays a simple message:</p>
+
+<pre><code>&#60;?PHP
+
+include './src/Constants.php';
+include './autoloader.php';
+
+$html = new Html("Simple Message");
+
+$html->printHeader();
+
+$db = new Database();
+
+echo "Hello, how are you!";
+
+$html->printFooter();
+</code></pre>
+
+<p>The autoloader is a class that automatically loads a class when you use it. Without this, you would have to include every class php file every time. The literal passed into the HTML class is what the title of the HTML page will be set to.</p>
+
 <!--<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
 
 <pre><code>$ cd your_repo_root/repo_name
