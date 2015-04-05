@@ -76,9 +76,11 @@ private $eventName;		// The name of the event.
 ```
 
 Create Event:
+
 To create a new event, first create an account. Manually set the group_id for that user to the group_id of the admin group inside of the SQL database. Back at the website, at the very top right hand corner, click on 'Events'. If any events have already been created, you will see them listed here. You can very easily edit any event and click the submit button to save the changes. Click on 'create new event'. Type in the information. Once done, click submit. Your event has now been added to the unlockable event list.
 
 Unlock Event:
+
 To unlock an event, go to the sub header bar and click on the 'enter password' input box. Type in a password and press enter. If the password is in the events list and the team you are in has not already activated the password, the team will unlock the event. This will add a row into the points_obtained table, recording which event was unlocked, by whom, by which team, and the unix ephoch time it was unlocked.
 
 To create an instance of a class, do the following:
