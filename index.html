@@ -42,6 +42,14 @@
 <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up SQL database</h3>
 <p>The SQL was written for MySQL. To set up the database from PHPMyAdmin, goto PHPMyAdmin, click on the 'SQL' tab, and paste in the contents of the file and press go in the bottom right-hand corner.</p>
 
+<p>To enter the SQL information, goto src/Constants and change the information:</p>
+
+<pre><code>define("DB_HOST","localhost");
+define("DB_NAME","mike");
+define("DB_USER","root");
+define("DB_PASSWORD","");
+</code></pre>
+
 <h3>
 <a id="basics" class="anchor" href="#basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h3>
 
@@ -65,6 +73,41 @@
 
 <h3>
 <a id="Walk-Through" class="anchor" href="#Walk-Through" aria-hidden="true"><span class="octicon octicon-link"></span></a>Walk Through</h3>
+<p>The website is written with PHP classes. There are two main classes: Player and Team.</p>
+
+<pre><code>private $teamId;
+private $teamName;
+private $teamPoints;
+private $teamLeader;
+private $teamStatus;
+</code></pre>
+
+<pre><code>private $playerId;
+private $playerName;
+private $playerEmail;
+private $playerPassword;
+private $teamId;
+private $playerStatus;
+private $groupId;
+</code></pre>
+
+<p>To create an instance of a class, do the following:</p>
+
+<pre><code>$player = new Player($playerId, $playerName, $playerEmail, $teamId, $playerStatus, $groupId);
+</code></pre>
+
+<p>To get information from the class, you must call a getter. To do this do:</p>
+
+<pre><code>$player->getPlayerId();
+</code></pre>
+
+<p>Note: Some getters may not be there as I haven't needed them. Just copy / paste an existing one if you find yourself needing one.</p>
+
+<p>There is almost no need to create a player or team instance manually. You can just call <code>$db->loadPlayer($playerId)</code> or <code>$db->loadTeam($teamId)</code> and it will return an instance ready to use.</p>
+
+<pre><code>$db = new Database();
+$player = $db->loadPlayer($playerId);
+</code></pre>
 
 <!--<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
 
