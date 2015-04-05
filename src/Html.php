@@ -243,7 +243,7 @@ class Html {
 		<h1>Completed Challenges</h1>
 		<ul>";
 		foreach($pointsObtained as $pointObtained) {
-			echo "<li>- $pointObtained[2] ($pointObtained[1] points)</li>";
+			echo "<li>- <a href=\"" . $this->fullSiteRoot . "/challenge/$pointObtained[3]\">$pointObtained[2]</a> ($pointObtained[1] points)</li>";
 		}
 		echo "</ul>";
 	}
@@ -266,6 +266,10 @@ class Html {
 	public function getPlayerOut($playerName, $playerId, $groupId) {
 		$db = new Database();
 		return "<a style=\"color: " . $db->getGroupColor($groupId) . "\" href=\"" . $this->fullSiteRoot . "/player/$playerId\">$playerName</a>";
+	}
+
+	public function getChallengeOut($challengeId, $challengeName, $challengeAmount) {
+		return "<a href=\"" . $this->fullSiteRoot . "/challenge/$challengeId\">$challengeName</a> - ($this->challengeAmount) points";
 	}
 
 	public function printTeamsOptions() {

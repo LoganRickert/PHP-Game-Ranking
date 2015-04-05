@@ -93,7 +93,7 @@ class Database {
 		// Gets all of player information
 		try {
 			$query = $this->db->prepare("
-				SELECT time, challenge_amount, challenge_name
+				SELECT time, challenge_amount, challenge_name, challenges.challenge_id
 				FROM points_obtained
 				JOIN challenges
 					ON challenges.challenge_id = points_obtained.challenge_id
@@ -116,7 +116,7 @@ class Database {
 		// Fill array with player objects.
 		while ($row = $query->fetch()) {
 			// $categoryId, $name
-			$pointsObtainedArray[] = array($row['time'], $row['challenge_amount'], $row['challenge_name']);
+			$pointsObtainedArray[] = array($row['time'], $row['challenge_amount'], $row['challenge_name'], $row['challenge_id']);
 		}
 
 		return $pointsObtainedArray;

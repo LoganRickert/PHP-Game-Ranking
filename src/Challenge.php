@@ -39,6 +39,14 @@ class Challenge {
 	}
 
 	/*
+		<a href=challenge/$challengeId\">$challengeName</a> - $challengeAmount points
+	*/
+	public function printOut() {
+		$html = new Html("");
+		$html->printTeamOut($this->challengeId, $this->challengeName, $this->challengeAmount);
+	}
+
+	/*
 		Name
 		$challengeName
 		Points
