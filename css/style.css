@@ -127,3 +127,8 @@ footer {
 	line-height: 150%;
 	font-size: 14px;
 }
+
+footer a {
+	text-decoration: none;
+	color: blue;
+}
