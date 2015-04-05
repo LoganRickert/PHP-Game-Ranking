@@ -11,6 +11,7 @@ class Html {
 	}
 
 	public function printHeader($forumName = "", $threadName = "", $forumId = 0) {
+		$db = new Database();
 		echo "
 <!DOCTYPE html>
 <html>
@@ -37,7 +38,14 @@ class Html {
 			<nav>
 				<ul>
 					<li><a href=\"$this->fullSiteRoot\">Rules</a></li>
-					<li><a href=\"$this->fullSiteRoot\">FAQ</a></li>
+					<li><a href=\"$this->fullSiteRoot\">FAQ</a></li>";
+
+					// If they are an admin, give them this option.
+					if($db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP) {
+						echo "<li><a href=\"$this->fullSiteRoot/events.php\">Events</a></li>";
+					}
+
+					echo "
 				</ul>
 			</nav>
 		</div>
@@ -58,8 +66,6 @@ class Html {
 				<a href=\"$this->fullSiteRoot/signup\">Create</a>
 				</li>";
 			} else {
-				$db = new Database();
-
 				$player = $db->loadPlayer(intval($_SESSION['playerId']));
 
 				if($db->getTeamId(intval($_SESSION['playerId'])) == 0) {
@@ -140,68 +146,70 @@ class Html {
 
 		$pointsObtained = $db->getPointsObtained($teamId);
 
-		echo "
-		<script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>
-	    <script type=\"text/javascript\">
-	      google.load(\"visualization\", \"1\", {packages:[\"corechart\"]});
-	      google.setOnLoadCallback(drawChart);
-	      function drawChart() {
-	        var data = google.visualization.arrayToDataTable([
-	          ['Time', 'Points'],
-	          ";
- 
-			    foreach($pointsObtained as $pointObtained) {
-			    	echo "['" .date("D H:i", $pointObtained[0]). "', $pointObtained[1]],\n";
-			    }
+		if($teamPoints > 0) {
+			echo "
+			<script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>
+		    <script type=\"text/javascript\">
+		      google.load(\"visualization\", \"1\", {packages:[\"corechart\"]});
+		      google.setOnLoadCallback(drawChart);
+		      function drawChart() {
+		        var data = google.visualization.arrayToDataTable([
+		          ['Time', 'Points'],
+		          ";
+	 
+				    foreach($pointsObtained as $pointObtained) {
+				    	echo "['" .date("D H:i", $pointObtained[0]). "', $pointObtained[1]],\n";
+				    }
 
-	    echo "
-	        ]);
+		    echo "
+		        ]);
 
-	        var options = {
-	          title: 'Point to Point',
-	          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
-	          vAxis: {minValue: 0},
-	          colors: ['#2980b9']
-	        };
+		        var options = {
+		          title: 'Point to Point',
+		          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
+		          vAxis: {minValue: 0},
+		          colors: ['#2980b9']
+		        };
 
-	        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-	        chart.draw(data, options);
-	      }
-	    </script>
-	    <div id=\"chart_div\" style=\"width: 100%; height: 500px;\"></div>
-	    ";
+		        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+		        chart.draw(data, options);
+		      }
+		    </script>
+		    <div id=\"chart_div\" style=\"width: 100%; height: 500px;\"></div>
+		    ";
 
-	    echo "
-	    <script type=\"text/javascript\">
-	      google.load(\"visualization\", \"1\", {packages:[\"corechart\"]});
-	      google.setOnLoadCallback(drawChart2);
-	      function drawChart2() {
-	        var data = google.visualization.arrayToDataTable([
-	          ['Time', 'Points'],
-	          ";
- 
- 				$totalPoints = 0;
-			    foreach($pointsObtained as $pointObtained) {
-			    	$totalPoints += $pointObtained[1];
-			    	echo "['" .date("D H:i", $pointObtained[0]). "', $totalPoints],\n";
-			    }
+		    echo "
+		    <script type=\"text/javascript\">
+		      google.load(\"visualization\", \"1\", {packages:[\"corechart\"]});
+		      google.setOnLoadCallback(drawChart2);
+		      function drawChart2() {
+		        var data = google.visualization.arrayToDataTable([
+		          ['Time', 'Points'],
+		          ";
+	 
+	 				$totalPoints = 0;
+				    foreach($pointsObtained as $pointObtained) {
+				    	$totalPoints += $pointObtained[1];
+				    	echo "['" .date("D H:i", $pointObtained[0]). "', $totalPoints],\n";
+				    }
 
-	    echo "
-	        ]);
+		    echo "
+		        ]);
 
-	        var options = {
-	          title: 'Points Over Time',
-	          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
-	          vAxis: {minValue: 0},
-	          colors: ['#c0392b']
-	        };
+		        var options = {
+		          title: 'Points Over Time',
+		          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
+		          vAxis: {minValue: 0},
+		          colors: ['#c0392b']
+		        };
 
-	        var chart = new google.visualization.AreaChart(document.getElementById('chart_div2'));
-	        chart.draw(data, options);
-	      }
-	    </script>
-	    <div id=\"chart_div2\" style=\"width: 100%; height: 500px;\"></div>
-	    ";
+		        var chart = new google.visualization.AreaChart(document.getElementById('chart_div2'));
+		        chart.draw(data, options);
+		      }
+		    </script>
+		    <div id=\"chart_div2\" style=\"width: 100%; height: 500px;\"></div>
+		    ";
+		}
 
 		echo "
 		<h1>Team Members</h1>
@@ -219,9 +227,9 @@ class Html {
 					&middot; <a href=\"" . $this->fullSiteRoot . "/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
 				}
 			} else if($player->getPlayerId() == $teamLeader) {
-				echo "<li>$playerName</li>";
+				echo "<li>- [Leader] $playerName</li>";
 			} else {
-				echo "<li>$playerName";
+				echo "<li>- $playerName";
 
 				if(isset($_SESSION['playerId']) && $teamLeader == $_SESSION['playerId']) {
 					echo " - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
@@ -230,6 +238,12 @@ class Html {
 					echo "</li>";
 				}
 			}
+		}
+		echo "</ul>
+		<h1>Points Obtained</h1>
+		<ul>";
+		foreach($pointsObtained as $pointObtained) {
+			echo "<li>- $pointObtained[2] ($pointObtained[1] points)</li>";
 		}
 		echo "</ul>";
 	}
@@ -304,6 +318,26 @@ class Html {
 	</div>   
 </body>
 </html>";
+	}
+
+	public function printEvents() {
+		$db = new Database();
+		
+		echo "
+		<div class=\"post-reply\">
+			<form method=\"post\" action=\"loginSubmit.php\">
+				<fieldset>";
+					echo "
+					<div class=\"input\">
+						<label for=\"event1a\">Event 1:</label>
+						<input type=\"text\" name=\"event1a\" id=\"event1a\">
+						<input type=\"text\" name=\"event1b\" id=\"event1b\">
+					</div>";
+		  echo "</fieldset>
+				<input type=\"submit\" class=\"submit\">
+			</form>
+		</div>
+		";
 	}
 
 	public function printPagimation($count = 0, $id, $page, $link) {
