@@ -38,6 +38,31 @@ CREATE TABLE IF NOT EXISTS `players` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `points_events`
+--
+
+CREATE TABLE IF NOT EXISTS `points_events` (
+`point_id` int(11) NOT NULL,
+  `points_hash` varchar(100) NOT NULL,
+  `points_amount` int(11) NOT NULL,
+  `points_event` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `points_obtained`
+--
+
+CREATE TABLE IF NOT EXISTS `points_obtained` (
+  `team_id` int(11) NOT NULL,
+  `point_id` int(11) NOT NULL,
+  `time` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `teams`
 --
 
@@ -64,6 +89,12 @@ ALTER TABLE `groups`
 --
 ALTER TABLE `players`
  ADD PRIMARY KEY (`player_id`), ADD UNIQUE KEY `player_email` (`player_email`), ADD UNIQUE KEY `player_name` (`player_name`);
+
+--
+-- Indexes for table `points_events`
+--
+ALTER TABLE `points_events`
+ ADD PRIMARY KEY (`point_id`);
 
 --
 -- Indexes for table `teams`
