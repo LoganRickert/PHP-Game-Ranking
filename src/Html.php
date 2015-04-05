@@ -41,7 +41,7 @@ class Html {
 					<li><a href=\"$this->fullSiteRoot\">FAQ</a></li>";
 
 					// If they are an admin, give them this option.
-					if($db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP) {
+					if(isset($_SESSION['playerId']) && $db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP) {
 						echo "<li><a href=\"$this->fullSiteRoot/events.php\">Events</a></li>";
 					}
 
@@ -345,6 +345,7 @@ class Html {
 		  echo "</fieldset>
 				<input type=\"submit\" class=\"submit\">
 			</form>
+			<p><a href=\"create_event.php\">Create New Event</a></p>
 		</div>
 		";
 	}
