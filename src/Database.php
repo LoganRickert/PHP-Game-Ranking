@@ -204,11 +204,11 @@ class Database {
 		try {
 			$query = $this->db->prepare("
 				SELECT point_id, point_password, point_amount, point_event
-				FROM points_event
+				FROM points_events
 				WHERE point_password = ?
 				LIMIT 1
 			");
-			$query->bindParam(1, $teamId);
+			$query->bindParam(1, $eventPassword);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
@@ -259,6 +259,33 @@ class Database {
 			$query->execute(array(
 				"teamName" => $teamName,
 				"leaderId" => intval($_SESSION['playerId']),
+				));
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		// Sets the team leader id to the creator of the team's id.
+		$this->updateTeamId(intval($_SESSION['playerId']), $this->db->lastInsertId());
+	}
+
+	/*
+		Inserts a row for points being obtained
+	*/
+	public function insertPoints($pointId, $teamId) {
+		// Inserts team information into the database.
+		try {
+			$query = $this->db->prepare("
+				INSERT INTO points_obtained
+				(team_id, point_id, player_id, time)
+				VALUES
+				(:teamId, :pointId, :playerId, :time)
+			");
+			$query->execute(array(
+				"teamId" => $teamId,
+				"pointId" => $pointId,
+				"playerId" => intval($_SESSION['playerId']),
+				"time" => time(),
 				));
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
@@ -530,7 +557,7 @@ class Database {
 		try {
 			$query = $this->db->prepare("
 				SELECT point_password
-				FROM point_events
+				FROM points_events
 				WHERE point_password = ?
 				AND point_event = ?
 				LIMIT 1
@@ -538,6 +565,35 @@ class Database {
 			$query->bindParam(1, $password);
 			$currentEvent = CURRENT_EVENT;
 			$query->bindParam(2, $currentEvent);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		$doesExist = false;
+
+		while ($row = $query->fetch()) {
+			$doesExist = true;
+		}
+
+		return $doesExist;
+	}
+
+	/*
+		Returns boolean if the team already has the event
+	*/
+	public function doesTeamHaveEvent($pointId, $teamId) {
+		try {
+			$query = $this->db->prepare("
+				SELECT point_id
+				FROM points_obtained
+				WHERE point_id = ?
+				AND team_id = ?
+				LIMIT 1
+			");
+			$query->bindParam(1, $pointId);
+			$query->bindParam(2, $teamId);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;

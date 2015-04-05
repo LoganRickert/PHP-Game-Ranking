@@ -1,6 +1,6 @@
 <?PHP
 
-class Player {
+class Event {
 
 	private $pointId;
 	private $pointPassword;
@@ -12,6 +12,10 @@ class Player {
 		$this->pointPassword = $pointPassword;
 		$this->pointAmount = $pointAmount;
 		$this->pointEvent = $pointEvent;
+	}
+
+	public function getPointId() {
+		return $this->pointId;
 	}
 
 }

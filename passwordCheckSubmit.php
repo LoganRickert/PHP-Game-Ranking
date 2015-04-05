@@ -26,19 +26,25 @@ if($teamId == 0) {
 	exit();
 }
 
-if($db->doesEventPasswordExist(htmlspecialchars(trim(($_POST['passwordCheck']))))) {
-	// $db->points_added($teamId);
-	echo "Correct";
-	exit;
-} else {
+// Checks to make sure the password matches a password.
+if(!$db->doesEventPasswordExist(htmlspecialchars(trim(($_POST['passwordCheck']))))) {
 	$error_message = htmlspecialchars("That password is incorrect!");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }
 
-// Change their teamId to 0.
-$db->updateTeamId($player->getPlayerId(), 0);
+// Loads the event
+$event = $db->loadEvent(htmlspecialchars(trim($_REQUEST['passwordCheck'])));
+
+// Checks to make sure they have not already gotten those points
+if($db->doesTeamHaveEvent($event->getPointId(), $teamId)) {
+	$error_message = htmlspecialchars("You've already unlocked that password!");
+	header("Location: error.php?error_message=".$error_message);
+	exit();
+}
+
+$db->insertPoints($event->getPointId(), $teamId);
 
 // Go back to team page.
-header("Location: index.php");
+header("Location: team/".$teamId);
 exit();
