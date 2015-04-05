@@ -87,6 +87,41 @@ class Database {
 	}
 
 	/*
+		Returns an array of all the points obtained for that team.
+	*/
+	public function getPointsObtained($teamId) {
+		// Gets all of player information
+		try {
+			$query = $this->db->prepare("
+				SELECT time, point_amount
+				FROM points_obtained
+				JOIN points_events
+					ON points_events.point_id = points_obtained.point_id
+				WHERE team_id = ?
+				AND point_event = ?
+			");
+			$query->bindParam(1, $teamId);
+			$currentEvent = CURRENT_EVENT;
+			$query->bindParam(2, $currentEvent);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		// Array to be returned.
+		$pointsObtainedArray = array();
+
+		// Fill array with player objects.
+		while ($row = $query->fetch()) {
+			// $categoryId, $name
+			$pointsObtainedArray[] = array($row['time'], $row['point_amount']);
+		}
+
+		return $pointsObtainedArray;
+	}
+
+	/*
 		Returns an array of all of the teams.
 	*/
 	public function getTeams() {

@@ -136,7 +136,72 @@ class Html {
 		<h1>Team Name</h1>
 		<p>$teamName</p>
 		<h1>Points</h1>
-		<p>$teamPoints</p>
+		<p>Total Points: $teamPoints</p>";
+
+		$pointsObtained = $db->getPointsObtained($teamId);
+
+		echo "
+		<script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>
+	    <script type=\"text/javascript\">
+	      google.load(\"visualization\", \"1\", {packages:[\"corechart\"]});
+	      google.setOnLoadCallback(drawChart);
+	      function drawChart() {
+	        var data = google.visualization.arrayToDataTable([
+	          ['Time', 'Points'],
+	          ";
+ 
+			    foreach($pointsObtained as $pointObtained) {
+			    	echo "['$pointObtained[0]', $pointObtained[1]],\n";
+			    }
+
+	    echo "
+	        ]);
+
+	        var options = {
+	          title: 'Point to Point',
+	          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+	          vAxis: {minValue: 0}
+	        };
+
+	        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+	        chart.draw(data, options);
+	      }
+	    </script>
+	    <div id=\"chart_div\" style=\"width: 100%; height: 500px;\"></div>
+	    ";
+
+	    echo "
+	    <script type=\"text/javascript\">
+	      google.load(\"visualization\", \"1\", {packages:[\"corechart\"]});
+	      google.setOnLoadCallback(drawChart2);
+	      function drawChart2() {
+	        var data = google.visualization.arrayToDataTable([
+	          ['Time', 'Points'],
+	          ";
+ 
+ 				$totalPoints = 0;
+			    foreach($pointsObtained as $pointObtained) {
+			    	$totalPoints += $pointObtained[1];
+			    	echo "['$pointObtained[0]', $totalPoints],\n";
+			    }
+
+	    echo "
+	        ]);
+
+	        var options = {
+	          title: 'Points Over Time',
+	          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+	          vAxis: {minValue: 0}
+	        };
+
+	        var chart = new google.visualization.AreaChart(document.getElementById('chart_div2'));
+	        chart.draw(data, options);
+	      }
+	    </script>
+	    <div id=\"chart_div2\" style=\"width: 100%; height: 500px;\"></div>
+	    ";
+
+		echo "
 		<h1>Team Members</h1>
 		<ul>";
 		foreach($players as $player) {
