@@ -328,16 +328,17 @@ class Html {
 		echo "
 		<div class=\"post-reply\">
 			<h1>Update Event information</h1>
-			<form method=\"post\" action=\"loginSubmit.php\">
+			<form method=\"post\" action=\"eventsUpdateSubmit.php\">
 				<fieldset>";
 					$count = 1;
 					foreach($events as $event) {
 						echo "
 						<div class=\"input\">
-							<label for=\"event". $count ."a\">Event ". $count .":</label>
-							<input type=\"text\" name=\"event". $count ."a\" id=\"event". $count ."a\" value=\"". $event->getEventName() ."\">
-							<input type=\"text\" name=\"event". $count ."b\" id=\"event". $count ."b\" value=\"". $event->getPointPassword() ."\">
-							<input type=\"text\" name=\"event". $count ."b\" id=\"event". $count ."c\" value=\"". $event->getPointAmount() ."\">
+							<label for=\"event". $count ."b\">Event ". $count .":</label>
+							<input type=\"hidden\" style=\"display: hidden\" name=\"event". $count ."a\" id=\"event". $count ."a\" value=\"". $event->getPointId() ."\">
+							<input type=\"text\" name=\"event". $count ."b\" id=\"event". $count ."b\" value=\"". $event->getEventName() ."\">
+							<input type=\"text\" name=\"event". $count ."c\" id=\"event". $count ."c\" value=\"". $event->getPointPassword() ."\">
+							<input type=\"text\" name=\"event". $count ."d\" id=\"event". $count ."d\" value=\"". $event->getPointAmount() ."\">
 						</div>";
 						$count++;
 					}
