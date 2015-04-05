@@ -160,7 +160,8 @@ class Html {
 	        var options = {
 	          title: 'Point to Point',
 	          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
-	          vAxis: {minValue: 0}
+	          vAxis: {minValue: 0},
+	          colors: ['#2980b9']
 	        };
 
 	        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
@@ -191,7 +192,8 @@ class Html {
 	        var options = {
 	          title: 'Points Over Time',
 	          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
-	          vAxis: {minValue: 0}
+	          vAxis: {minValue: 0},
+	          colors: ['#c0392b']
 	        };
 
 	        var chart = new google.visualization.AreaChart(document.getElementById('chart_div2'));
