@@ -121,12 +121,12 @@ class Database {
 		// Get all of team information
 		try {
 			$query = $this->db->prepare("
-				SELECT SUM(points_amount) as point_count
+				SELECT SUM(point_amount) as point_count
 				FROM points_obtained
 					JOIN points_events
 						ON points_obtained.point_id = points_events.point_id
 				WHERE team_id = ?
-				AND points_event = ?
+				AND point_event = ?
 			");
 			$query->bindParam(1, $teamId);
 			$currentEvent = CURRENT_EVENT;
@@ -194,6 +194,30 @@ class Database {
 		// Creates the team instance and returns it.
 		while ($row = $query->fetch()) {
 			return new Team($row['team_id'], $row['team_name'], $this->countPoints($row['team_id']), $row['team_leader'], $row['team_status']);
+		}
+	}
+
+	/*
+		Loads an instance of an event with the event password $eventPassword and returns it.
+	*/
+	public function loadEvent($eventPassword) {
+		try {
+			$query = $this->db->prepare("
+				SELECT point_id, point_password, point_amount, point_event
+				FROM points_event
+				WHERE point_password = ?
+				LIMIT 1
+			");
+			$query->bindParam(1, $teamId);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		// Creates the team instance and returns it.
+		while ($row = $query->fetch()) {
+			return new Event($row['point_id'], $row['point_password'], -$row['point_amount'], $row['point_event']);
 		}
 	}
 
@@ -505,10 +529,10 @@ class Database {
 	public function doesEventPasswordExist($password) {
 		try {
 			$query = $this->db->prepare("
-				SELECT points_password
-				FROM points_events
-				WHERE points_password = ?
-				AND points_event = ?
+				SELECT point_password
+				FROM point_events
+				WHERE point_password = ?
+				AND point_event = ?
 				LIMIT 1
 			");
 			$query->bindParam(1, $password);
