@@ -322,17 +322,25 @@ class Html {
 
 	public function printEvents() {
 		$db = new Database();
-		
+
+		$events = $db->loadAllEvents(CURRENT_EVENT);
+
 		echo "
 		<div class=\"post-reply\">
+			<h1>Update Event information</h1>
 			<form method=\"post\" action=\"loginSubmit.php\">
 				<fieldset>";
-					echo "
-					<div class=\"input\">
-						<label for=\"event1a\">Event 1:</label>
-						<input type=\"text\" name=\"event1a\" id=\"event1a\">
-						<input type=\"text\" name=\"event1b\" id=\"event1b\">
-					</div>";
+					$count = 1;
+					foreach($events as $event) {
+						echo "
+						<div class=\"input\">
+							<label for=\"event". $count ."a\">Event ". $count .":</label>
+							<input type=\"text\" name=\"event". $count ."a\" id=\"event". $count ."a\" value=\"". $event->getEventName() ."\">
+							<input type=\"text\" name=\"event". $count ."b\" id=\"event". $count ."b\" value=\"". $event->getPointPassword() ."\">
+							<input type=\"text\" name=\"event". $count ."b\" id=\"event". $count ."c\" value=\"". $event->getPointAmount() ."\">
+						</div>";
+						$count++;
+					}
 		  echo "</fieldset>
 				<input type=\"submit\" class=\"submit\">
 			</form>

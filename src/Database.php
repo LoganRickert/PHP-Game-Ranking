@@ -239,7 +239,7 @@ class Database {
 	public function loadEvent($eventPassword) {
 		try {
 			$query = $this->db->prepare("
-				SELECT point_id, point_password, point_amount, point_event
+				SELECT point_id, point_password, point_amount, point_event, event_name
 				FROM points_events
 				WHERE point_password = ?
 				LIMIT 1
@@ -253,8 +253,35 @@ class Database {
 
 		// Creates the team instance and returns it.
 		while ($row = $query->fetch()) {
-			return new Event($row['point_id'], $row['point_password'], -$row['point_amount'], $row['point_event']);
+			return new Event($row['point_id'], $row['point_password'], $row['point_amount'], $row['point_event'], $row['event_name']);
 		}
+	}
+
+	/*
+		Loads an instance of all events and returns an array.
+	*/
+	public function loadAllEvents($pointEvent) {
+		try {
+			$query = $this->db->prepare("
+				SELECT point_id, point_password, point_amount, point_event, event_name
+				FROM points_events
+				WHERE point_event = ?
+			");
+			$query->bindParam(1, $pointEvent);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		$events = array();
+
+		// Creates the team instance and returns it.
+		while ($row = $query->fetch()) {
+			$events[] = new Event($row['point_id'], $row['point_password'], $row['point_amount'], $row['point_event'], $row['event_name']);
+		}
+
+		return $events;
 	}
 
 	/*
