@@ -240,7 +240,7 @@ class Html {
 			}
 		}
 		echo "</ul>
-		<h1>Points Obtained</h1>
+		<h1>Completed Challenges</h1>
 		<ul>";
 		foreach($pointsObtained as $pointObtained) {
 			echo "<li>- $pointObtained[2] ($pointObtained[1] points)</li>";
@@ -327,14 +327,14 @@ class Html {
 
 		echo "
 		<div class=\"post-reply\">
-			<h1>Update Event information</h1>
+			<h1>Update Challenge information</h1>
 			<form method=\"post\" action=\"challengesUpdateSubmit.php\">
 				<fieldset>";
 					$count = 1;
 					foreach($events as $event) {
 						echo "
 						<div class=\"input\">
-							<label for=\"event". $count ."b\">Event ". $count .":</label>
+							<label for=\"event". $count ."b\">Challenge ". $count .":</label>
 							<input type=\"hidden\" style=\"display: hidden\" name=\"event". $count ."a\" id=\"event". $count ."a\" value=\"". $event->getChallengeId() ."\">
 							<input type=\"text\" name=\"event". $count ."b\" id=\"event". $count ."b\" value=\"". $event->getChallengeName() ."\">
 							<input type=\"text\" name=\"event". $count ."c\" id=\"event". $count ."c\" value=\"". $event->getChallengePassword() ."\">
