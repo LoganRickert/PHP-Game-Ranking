@@ -1,7 +1,9 @@
-# Github Pages
+# Game Rankings
+
+## Github Pages
 You can view the Github page here: https://loganrickert.github.io/PHP-Game-Ranking/
 
-# Setting up SQL database
+## Setting up SQL database
 The SQL was written for MySQL. To set up the database from PHPMyAdmin, goto PHPMyAdmin, click on the 'SQL' tab, and paste in the contents of the file DatabaseCreate and press go in the bottom right-hand corner.
 
 To enter the SQL information, goto src/Constants and change the information:
@@ -15,7 +17,7 @@ define("DB_PASSWORD","");
 
 To give an account admin status, go to the database 'groups' and create two groups, a default group and an admin group. Go to 'players' and set the group_id = the group_id of the admin group. Currently, you can only do this manually.
 
-# Basics
+## Basics
 * You can create accounts
 * You can log into accounts
 * You can log out of accounts
@@ -35,7 +37,7 @@ To give an account admin status, go to the database 'groups' and create two grou
 * Admins can a list of events and change their name, password or point amount (view events.php)
 * Admins can create a new event
 
-# Walk Through
+## Walk Through
 The website is written with PHP classes. There are three main classes: Player, Event and Team.
 
 ```
@@ -117,7 +119,7 @@ The autoloader is a class that automatically loads a class when you use it. With
 
 Only two things are stored in SESSION: playerName and playerId.
 
-# Naming Conventions
+## Naming Conventions
 PHP files that output HTML should be lowercase with underscores for spaces. PHP files that are used as scripts should be camel casing. PHP varibles should be camel casing. SQL names should be lowercase with underscores for spaces. PHP classes should start with an uppercase and be camel casing. Here are some examples:
 
 ```
@@ -128,4 +130,4 @@ MySuperCoolClass.php
 player_coolness (SQL name)
 ```
 
-# Plans
+## Plans
