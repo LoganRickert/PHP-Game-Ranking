@@ -3,7 +3,7 @@
 include './src/Constants.php';
 include './autoloader.php';
 
-$html = new Html("View Team");
+$html = new Html("View Challenge");
 
 $html->printHeader();
 
