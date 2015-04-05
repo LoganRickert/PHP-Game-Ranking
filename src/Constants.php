@@ -19,4 +19,7 @@ define("DB_NAME","mike");
 define("DB_USER","root");
 define("DB_PASSWORD","");
 
-// define("MAX_REPLIES_PER_PAGE", 3);a
+// define("MAX_REPLIES_PER_PAGE", 3);
+
+// The admin group
+define("ADMIN_GROUP", 1);
