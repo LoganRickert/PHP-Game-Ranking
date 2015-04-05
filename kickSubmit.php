@@ -3,7 +3,7 @@
 include './src/Constants.php';
 include './autoloader.php';
 
-// Makes sure there is a playerId set.
+// Checks to make sure they are logged in.
 if(!isset($_SESSION['playerId'])) {
 	header("Location: index.php");
 	exit();

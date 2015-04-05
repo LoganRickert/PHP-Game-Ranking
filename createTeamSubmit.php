@@ -3,28 +3,39 @@
 include './src/Constants.php';
 include './autoloader.php';
 
+// Checks to make sure they are logged in.
+if(!isset($_SESSION['playerId'])) {
+	header("Location: index.php");
+	exit();
+}
+
 $db = new Database();
 
+// Checks to make sure they are not part of a team.
 if($db->getTeamId(intval($_SESSION['playerId'])) != 0) {
 	header("Location: index.php");
 	exit();
 }
 
+// Checks to make sure a team name has been sent
 if(!isset($_POST['teamName'])) {
 	$error_message = htmlspecialchars("You did not fill in all of the fields!");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }
 
+// Gets the team name an sanitizes it.
 $teamName = htmlspecialchars(trim(($_POST['teamName'])));
 
-if(strlen($teamName) > 64){
+// Checks to make sure the team name isn't too long
+if(strlen($teamName) > 30){
 	$thread_name_length = htmlspecialchars(strlen($teamName));
-	$error_message = htmlspecialchars("Your team name is too long! The limit is 64 characters. You currently have ".$thread_name_length." characters.");
+	$error_message = htmlspecialchars("Your team name is too long! The limit is 30 characters. You currently have ".$thread_name_length." characters.");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }
 
+// Checks to make sure the team name isn't too short
 if(strlen($teamName) < 3) {
 	$thread_name_length = htmlspecialchars(strlen($teamName));
 	$error_message = htmlspecialchars("Your team name is too short! The minimum is 3 characters. You currently have ".$thread_name_length." characters.");
@@ -32,12 +43,19 @@ if(strlen($teamName) < 3) {
 	exit();
 }
 
+// Checks to make sure the team name doesn't already exist.
 if($db->doesTeamNameExist($teamName)) {
 	$error_message = htmlspecialchars("That team name already exists!");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }
 
+// Create the team.
 $db->createTeam($teamName);
-header("Location: index.php");
+
+// Get the team id for redirection
+$teamId = $db->getTeamId($_SESSION['playerId']);
+
+// Redirection.
+header("Location: team/".$teamId);
 exit();

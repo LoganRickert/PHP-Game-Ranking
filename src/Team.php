@@ -32,11 +32,24 @@ class Team {
 		return $this->teamLeader;
 	}
 
+	/*
+		<a href=team/$teamId\">$teamName</a> - $teamPoints points
+	*/
 	public function printOut() {
 		$html = new Html("");
 		$html->printTeamOut($this->teamName, $this->teamPoints, $this->teamId);
 	}
 
+	/*
+		Team Name
+		$teamName
+		Points
+		$teamPoints
+		Team Members
+		<ul>
+			<li><a href=player/$player->getPlayerId()>$player->getPlayerName()</a></li>
+		</ul>
+	*/
 	public function printStats() {
 		$html = new Html("");
 		$html->printTeamStats($this->teamName, $this->teamPoints, $this->teamId, $this->teamLeader);

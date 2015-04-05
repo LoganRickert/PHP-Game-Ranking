@@ -29,11 +29,24 @@ class Player {
 		return $this->teamId;
 	}
 
+	/*
+		<a href=player/$playerId\">$playerName</a>
+	*/
 	public function printOut() {
 		$html = new Html("");
 		$html->printPlayerOut($this->playerName, $this->playerId);
 	}
 
+	/*
+		Name
+		$playerName
+		Team
+		if($teamId == 0) {
+			Not part of a team.
+		} else {
+			<a href=team/$teamId\">$db->loadteam($teamId)->getTeamName()</a>
+		}
+	*/
 	public function printStats() {
 		$html = new Html("");
 		$html->printPlayerStats($this->playerName, $this->teamId, $this->playerId);

@@ -1,5 +1,10 @@
 <?PHP
 
+/*
+
+	Connects to the database and returns information from the database.
+
+*/
 class Database {
 
 	private $db;
@@ -16,7 +21,12 @@ class Database {
 		$this->db = $db;
 	}
 
+	/*
+		Returns a multidimensional array.
+		array(<team>, array(<players for team>));
+	*/
 	public function getTeamsAndPlayers() {
+		// Get all of team information
 		try {
 			$query = $this->db->prepare("
 				SELECT team_id, team_name, team_points, team_leader, team_status
@@ -29,8 +39,12 @@ class Database {
 			exit;
 		}
 
+		// Create a new array to hold team information and player information.
+		// This is what is returned.
 		$teamsAndPlayers = array();
 
+		// Fills the team and player arrays
+		// Each Query fetch is one column in array.
 		while ($row = $query->fetch()) {
 			$team = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
 			$teamsAndPlayers[] = array(
@@ -42,7 +56,11 @@ class Database {
 		return $teamsAndPlayers;
 	}
 
+	/*
+		Returns an array of all players in the team with the id $teamId.
+	*/
 	public function getPlayers($teamId) {
+		// Gets all of player information
 		try {
 			$query = $this->db->prepare("
 				SELECT player_id, player_name, player_email, team_id, player_status
@@ -56,8 +74,10 @@ class Database {
 			exit;
 		}
 
+		// Array to be returned.
 		$playerArray = array();
 
+		// Fill array with player objects.
 		while ($row = $query->fetch()) {
 			// $categoryId, $name
 			$playerArray[] = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status']);
@@ -66,7 +86,11 @@ class Database {
 		return $playerArray;
 	}
 
+	/*
+		Returns an array of all of the teams.
+	*/
 	public function getTeams() {
+		// Gets all of the team information
 		try {
 			$query = $this->db->prepare("
 				SELECT team_id, team_name, team_points, team_leader, team_status
@@ -79,8 +103,10 @@ class Database {
 			exit;
 		}
 
+		// The array to be returned.
 		$teams = array();
 
+		// Fill array with team objects.
 		while ($row = $query->fetch()) {
 			$teams[] = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
 		}
@@ -88,7 +114,11 @@ class Database {
 		return $teams;
 	}
 
+	/*
+		Loads an instance of a player with a player id of playerId and returns it.
+	*/
 	public function loadPlayer($playerId) {
+		// Gets the information for player
 		try {
 			$query = $this->db->prepare("
 				SELECT player_id, player_name, player_email, team_id, player_status
@@ -103,13 +133,15 @@ class Database {
 			exit;
 		}
 
+		// Creates the player instance and returns it.
 		while ($row = $query->fetch()) {
-			$player = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status']);
+			return $player = new Player($row['player_id'], $row['player_name'], $row['player_email'], $row['team_id'], $row['player_status']);
 		}
-
-		return $player;
 	}
 
+	/*
+		Loads an instance of a team with a team id of teamId and returns it.
+	*/
 	public function loadTeam($teamId) {
 		try {
 			$query = $this->db->prepare("
@@ -125,14 +157,17 @@ class Database {
 			exit;
 		}
 
+		// Creates the team instance and returns it.
 		while ($row = $query->fetch()) {
-			$team = new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
+			return new Team($row['team_id'], $row['team_name'], $row['team_points'], $row['team_leader'], $row['team_status']);
 		}
-
-		return $team;
 	}
 
-	public function createUser($playerName, $playerPassword, $playerEmail) {
+	/*
+		Creates a new player and adds them to the database.
+	*/
+	public function createPlayer($playerName, $playerPassword, $playerEmail) {
+		// Inserts player information into the database.
 		try {
 			$query = $this->db->prepare("
 				INSERT INTO players
@@ -151,7 +186,11 @@ class Database {
 		}
 	}
 
+	/*
+		Creates a new team and adds it to the database.
+	*/
 	public function createTeam($teamName) {
+		// Inserts team information into the database.
 		try {
 			$query = $this->db->prepare("
 				INSERT INTO teams
@@ -168,10 +207,20 @@ class Database {
 			exit;
 		}
 
+		// Sets the team leader id to the creator of the team's id.
 		$this->updateTeamId(intval($_SESSION['playerId']), $this->db->lastInsertId());
 	}
 
+	/*
+		Updates the team id for a player.
+	*/
 	public function updateTeamId($playerId, $teamId) {
+		// If they are leaving the team:
+			// If they are not the last person in the team:
+				// Give a random person on the team leader control.
+			// Else they are the last person on the team, set the team leader to 0.
+		// Else:
+			// If they are joining a team and no one is on it, give them leader.
 		if($teamId == 0) {
 			$tempTeamId = $this->loadPlayer($playerId)->getTeamId();
 			if($this->getTeamCount($tempTeamId) > 0) {
@@ -184,6 +233,8 @@ class Database {
 				$this->updateTeamLeader($teamId, $playerId);
 			}
 		}
+
+		// Update the database with information
 		try {
 			$query = $this->db->prepare("
 				UPDATE players
@@ -200,7 +251,11 @@ class Database {
 		}
 	}
 
+	/*
+		Updates who the team leader is for the team id given.
+	*/
 	public function updateTeamLeader($teamId, $playerId) {
+		// Updates the information
 		try {
 			$query = $this->db->prepare("
 				UPDATE teams
@@ -217,6 +272,9 @@ class Database {
 		}
 	}
 
+	/*
+		Updates the leader of a team to a random person who isn't playerId
+	*/
 	public function updateTeamLeaderNext($teamId, $playerId) {
 		try {
 			$query = $this->db->prepare("
@@ -234,6 +292,9 @@ class Database {
 		}
 	}
 
+	/*
+		Gets a random person from the team who isn't $playerId
+	*/
 	public function getFirstPlayerInTeam($teamId, $playerId) {
 		try {
 			$query = $this->db->prepare("
@@ -251,11 +312,15 @@ class Database {
 			exit;
 		}
 
+		// Returns the player id
 		while ($row = $query->fetch()) {
 			return $row['player_id'];
 		}
 	}
 
+	/*
+		Gets the count of how many people are on the team
+	*/
 	public function getTeamCount($teamId) {
 		try {
 			$query = $this->db->prepare("
@@ -271,11 +336,15 @@ class Database {
 			exit;
 		}
 
+		// Returns the number on the team.
 		while ($row = $query->fetch()) {
 			return $row['count'];
 		}
 	}
 
+	/*
+		Gets a player's password hash.
+	*/
 	public function getHash($playerName) {
 		try {
 			$query = $this->db->prepare("
@@ -291,11 +360,15 @@ class Database {
 			exit;
 		}
 
+		// Returns their password hash.
 		while ($row = $query->fetch()) {
 			return $row['player_password'];
 		}
 	}
 
+	/*
+		Gets the team id for the player with the player id playerId.
+	*/
 	public function getTeamId($playerId) {
 		try {
 			$query = $this->db->prepare("
@@ -311,11 +384,15 @@ class Database {
 			exit;
 		}
 
+		// Returns the team id
 		while ($row = $query->fetch()) {
 			return $row['team_id'];
 		}
 	}
 
+	/*
+		Returns boolean if the team name is already in the database.
+	*/
 	public function doesTeamNameExist($teamName) {
 		try {
 			$query = $this->db->prepare("
@@ -331,13 +408,18 @@ class Database {
 			exit;
 		}
 
+		$doesExist = false;
+
 		while ($row = $query->fetch()) {
-			return true;
+			$doesExist = true;
 		}
 
-		return false;
+		return $doesExist;
 	}
 
+	/*
+		Returns boolean if the team id exists.
+	*/
 	public function doesTeamIdExist($teamId) {
 		try {
 			$query = $this->db->prepare("
@@ -353,13 +435,18 @@ class Database {
 			exit;
 		}
 
+		$doesExist = false;
+
 		while ($row = $query->fetch()) {
-			return true;
+			$doesExist = true;
 		}
 
-		return false;
+		return $doesExist;
 	}
 
+	/*
+		Returns boolean if the player id exists.
+	*/
 	public function doesPlayerIdExist($playerId) {
 		try {
 			$query = $this->db->prepare("
@@ -375,14 +462,19 @@ class Database {
 			exit;
 		}
 
+		$doesExist = false;
+
 		while ($row = $query->fetch()) {
-			return true;
+			$doesExist = true;
 		}
 
-		return false;
+		return $doesExist;
 	}
 
-	public function doesUsernameExist($playerName) {
+	/*
+		Returns boolean if the player name is already in the database.
+	*/
+	public function doesPlayerNameExist($playerName) {
 		try {
 			$query = $this->db->prepare("
 				SELECT player_id
@@ -397,13 +489,18 @@ class Database {
 			exit;
 		}
 
+		$doesExist = false;
+
 		while ($row = $query->fetch()) {
-			return true;
+			$doesExist = true;
 		}
 
-		return false;
+		return $doesExist;
 	}
 
+	/*
+		Returns boolean if the email is already in the database.
+	*/
 	public function doesEmailExist($playerEmail) {
 		try {
 			$query = $this->db->prepare("
@@ -419,13 +516,18 @@ class Database {
 			exit;
 		}
 
+		$doesExist = false;
+
 		while ($row = $query->fetch()) {
-			return true;
+			$doesExist = true;
 		}
 
-		return false;
+		return $doesExist;
 	}
 
+	/*
+		Returns the user id for the player with the player name playerName
+	*/
 	public function getUserId($playerName) {
 		try {
 			$query = $this->db->prepare("
@@ -441,6 +543,7 @@ class Database {
 			exit;
 		}
 
+		// Returns their player id
 		while ($row = $query->fetch()) {
 			return $row['player_id'];
 		}

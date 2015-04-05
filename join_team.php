@@ -3,14 +3,19 @@
 include './src/Constants.php';
 include './autoloader.php';
 
-$db = new Database();
-
-if($db->getTeamId(intval($_SESSION['playerId'])) != 0) {
+// Checks to make sure they are logged in.
+if(!isset($_SESSION['playerId'])) {
 	header("Location: index.php");
 	exit();
 }
 
 $db = new Database();
+
+// If they are already on a team, don't let them try to join one.
+if($db->getTeamId(intval($_SESSION['playerId'])) != 0) {
+	header("Location: index.php");
+	exit();
+}
 
 $html = new Html("Join A Team");
 

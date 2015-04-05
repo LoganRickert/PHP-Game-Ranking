@@ -9,9 +9,9 @@ $html->printHeader();
 
 $db = new Database();
 
-if(!isset($_REQUEST['playerId'])) {
-	echo "Player not found!";
-} else if(!$db->doesPlayerIdExist(intval($_REQUEST['playerId']))) {
+// If the playerId is not set or if the player is not found, display an error.
+// Else, load player information.
+if(!isset($_REQUEST['playerId']) || !$db->doesPlayerIdExist(intval($_REQUEST['playerId']))) {
 	echo "Player not found!";
 } else {
 	$db->loadPlayer(intval($_REQUEST['playerId']))->printStats();

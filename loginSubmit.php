@@ -3,45 +3,63 @@
 include './src/Constants.php';
 include './autoloader.php';
 
-if(isset($_SESSION['playerName'])) {
+// Checks to make sure they are not logged in.
+if(isset($_SESSION['playerId'])) {
 	header("Location: index.php");
 	exit();
 }
 
+// Checks to make sure all information is filled out
 if(!isset($_POST['playerName']) || !isset($_POST['playerPassword'])) {
 	$error_message = htmlspecialchars("You did not fill in all of the fields!");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }
 
+// Sanitizes username
 $username = htmlspecialchars(trim(($_POST['playerName'])));
 
 $db = new Database();
 
-if(!$db->doesUsernameExist($username)) {
+// Checks to make sure player name is less than 30 characters.
+if(strlen($username) > 30){
+	$thread_name_length = htmlspecialchars(strlen($username));
+	$error_message = htmlspecialchars("Your username is too long! The limit is 30 characters. You currently have ".$thread_name_length." characters.");
+	header("Location: error.php?error_message=".$error_message);
+	exit();
+}
+
+// Checks to make sure player name is at least 3 characters.
+if(strlen($username) < 3) {
+	$thread_name_length = htmlspecialchars(strlen($username));
+	$error_message = htmlspecialchars("Your username is too short! The minimum is 3 characters. You currently have ".$thread_name_length." characters.");
+	header("Location: error.php?error_message=".$error_message);
+	exit();
+}
+
+// Checks to make sure username is real
+if(!$db->doesPlayerNameExist($username)) {
 	$error_message = htmlspecialchars("That username does not exist!");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }
 
+// Sanitizes password
 $password = htmlspecialchars(trim($_POST['playerPassword']));
 
-if(strlen($password) > 64) {
+// Makes sure password is not too short
+if(strlen($password) < 4) {
 	$thread_name_length = htmlspecialchars(strlen($password));
-	$error_message = htmlspecialchars("Your password is too long! The max is 64 characters. You currently have ".$thread_name_length." characters.");
+	$error_message = htmlspecialchars("Your password is too short! The minimum is 4 characters. You currently have ".$thread_name_length." characters.");
 	header("Location: error.php?error_message=".$error_message);
 	exit();
 }
 
-if(strlen($password) < 5) {
-	$thread_name_length = htmlspecialchars(strlen($password));
-	$error_message = htmlspecialchars("Your password is too short! The minimum is 5 characters. You currently have ".$thread_name_length." characters.");
-	header("Location: error.php?error_message=".$error_message);
-	exit();
-}
-
+// Gets the user's password hash
 $checkHash = $db->getHash($username);
 
+// If the hash checks out, set player name and id
+// Else, give an error.
 if (hash_equals($checkHash, crypt($password, $checkHash)) ) {
 	$_SESSION['playerName'] = $username;
 	$_SESSION['playerId'] = $db->getUserId($username);
