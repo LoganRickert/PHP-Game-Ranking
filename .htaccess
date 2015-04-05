@@ -38,5 +38,5 @@ RewriteRule ^create_challenge$ create_challenge.php
 RewriteRule ^challenge/$ challenge.php
 RewriteRule ^challenge$ challenge.php
 
-RewriteRule ^challenge/([0-9]+)/$ challenge.php?playerId=$1
-RewriteRule ^challenge/([0-9]+)$ challenge.php?playerId=$1
+RewriteRule ^challenge/([0-9]+)/$ challenge.php?challengeId=$1
+RewriteRule ^challenge/([0-9]+)$ challenge.php?challengeId=$1
