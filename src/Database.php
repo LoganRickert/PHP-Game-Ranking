@@ -291,9 +291,6 @@ class Database {
 			echo "Could not connect to database! ".$e;
 			exit;
 		}
-
-		// Sets the team leader id to the creator of the team's id.
-		$this->updateTeamId(intval($_SESSION['playerId']), $this->db->lastInsertId());
 	}
 
 	/*
