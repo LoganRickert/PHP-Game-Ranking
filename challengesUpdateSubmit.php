@@ -27,5 +27,5 @@ if(count($_POST) > 0) {
 }
 
 // Go back to team page.
-header("Location: challenges.php");
+header("Location: challenges");
 exit();

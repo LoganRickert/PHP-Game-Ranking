@@ -1,11 +1,13 @@
 RewriteEngine On
 RewriteRule ^team/$ team.php
 RewriteRule ^team$ team.php
+
 RewriteRule ^team/([0-9]+)/$ team.php?teamId=$1
 RewriteRule ^team/([0-9]+)$ team.php?teamId=$1
 
 RewriteRule ^player/$ player.php
 RewriteRule ^player$ player.php
+
 RewriteRule ^player/([0-9]+)/$ player.php?playerId=$1
 RewriteRule ^player/([0-9]+)$ player.php?playerId=$1
 
@@ -26,3 +28,15 @@ RewriteRule ^signup$ signup.php
 
 RewriteRule ^index/$ index.php
 RewriteRule ^index$ index.php
+
+RewriteRule ^challenges/$ challenges.php
+RewriteRule ^challenges$ challenges.php
+
+RewriteRule ^create_challenge/$ create_challenge.php
+RewriteRule ^create_challenge$ create_challenge.php
+
+RewriteRule ^challenge/$ challenge.php
+RewriteRule ^challenge$ challenge.php
+
+RewriteRule ^challenge/([0-9]+)/$ challenge.php?playerId=$1
+RewriteRule ^challenge/([0-9]+)$ challenge.php?playerId=$1

@@ -42,5 +42,5 @@ $eventId = intval(trim(($_POST['eventId'])));
 $db->insertChallenge($challengeName, $challengePassword, $challengeAmount, $eventId, $challengeDescription);
 
 // Go back to team page.
-header("Location: challenges.php");
+header("Location: challenges");
 exit();

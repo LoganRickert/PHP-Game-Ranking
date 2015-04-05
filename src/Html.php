@@ -42,7 +42,7 @@ class Html {
 
 					// If they are an admin, give them this option.
 					if(isset($_SESSION['playerId']) && $db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP) {
-						echo "<li><a href=\"$this->fullSiteRoot/challenges.php\">Challenges</a></li>";
+						echo "<li><a href=\"$this->fullSiteRoot/challenges\">Challenges</a></li>";
 					}
 
 					echo "
@@ -350,7 +350,7 @@ class Html {
 		  echo "</fieldset>
 				<input type=\"submit\" class=\"submit\">
 			</form>
-			<p><a href=\"create_challenge.php\">Create New Challenge</a></p>
+			<p><a href=\"create_challenge\">Create New Challenge</a></p>
 		</div>
 		";
 	}
@@ -384,7 +384,7 @@ class Html {
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
 			</form>
-			<p><a href=\"events.php\">Update Challenges</a></p>
+			<p><a href=\"challenges\">Update Challenges</a></p>
 		</div>
 		";
 	}
