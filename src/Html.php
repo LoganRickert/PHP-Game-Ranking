@@ -323,7 +323,7 @@ class Html {
 	public function printEvents() {
 		$db = new Database();
 
-		$events = $db->loadAllChallenges(CURRENT_EVENT);
+		$challenges = $db->loadAllChallenges(CURRENT_EVENT);
 
 		echo "
 		<div class=\"post-reply\">
@@ -331,14 +331,14 @@ class Html {
 			<form method=\"post\" action=\"challengesUpdateSubmit.php\">
 				<fieldset>";
 					$count = 1;
-					foreach($events as $event) {
+					foreach($challenges as $challenge) {
 						echo "
 						<div class=\"input\">
-							<label for=\"event". $count ."b\">Challenge ". $count .":</label>
-							<input type=\"hidden\" style=\"display: hidden\" name=\"event". $count ."a\" id=\"event". $count ."a\" value=\"". $event->getChallengeId() ."\">
-							<input type=\"text\" name=\"event". $count ."b\" id=\"event". $count ."b\" value=\"". $event->getChallengeName() ."\">
-							<input type=\"text\" name=\"event". $count ."c\" id=\"event". $count ."c\" value=\"". $event->getChallengePassword() ."\">
-							<input type=\"text\" name=\"event". $count ."d\" id=\"event". $count ."d\" value=\"". $event->getChallengeAmount() ."\">
+							<label for=\"challenge". $count ."b\">Challenge ". $count .":</label>
+							<input type=\"hidden\" style=\"display: hidden\" name=\"challenge". $count ."a\" id=\"challenge". $count ."a\" value=\"". $challenge->getChallengeId() ."\">
+							<input type=\"text\" name=\"challenge". $count ."b\" id=\"challenge". $count ."b\" value=\"". $challenge->getChallengeName() ."\">
+							<input type=\"text\" name=\"challenge". $count ."c\" id=\"challenge". $count ."c\" value=\"". $challenge->getChallengePassword() ."\">
+							<input type=\"text\" name=\"challenge". $count ."d\" id=\"challenge". $count ."d\" value=\"". $challenge->getChallengeAmount() ."\">
 						</div>";
 						$count++;
 					}

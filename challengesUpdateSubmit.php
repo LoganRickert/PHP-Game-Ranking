@@ -21,7 +21,7 @@ if(count($_POST) > 3) {
 	$i = 1;
 
 	while($i <= count($_POST) / 4) {
-		$db->updateChallenge($_POST["event" . $i . "a"], $_POST["event" . $i . "b"], $_POST["event" . $i . "c"], $_POST["event" . $i . "d"]);
+		$db->updateChallenge($_POST["challenge" . $i . "a"], $_POST["challenge" . $i . "b"], $_POST["challenge" . $i . "c"], $_POST["challenge" . $i . "d"]);
 		$i++;
 	}
 }
