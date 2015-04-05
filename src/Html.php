@@ -218,11 +218,11 @@ class Html {
 			$playerName = $this->getPlayerOut($player->getPlayerName(), $player->getPlayerId(), $player->getGroupId());
 			if(isset($_SESSION['playerId']) && $db->getGroupId($_SESSION['playerId']) == ADMIN_GROUP) {
 				if($player->getPlayerId() == $teamLeader) {
-					echo "<li>$playerName
+					echo "<li>- [Leader] $playerName
 					 - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
 					&middot; <a href=\"" . $this->fullSiteRoot . "/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
 				} else {
-					echo "<li>$playerName
+					echo "<li>- $playerName
 					 - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
 					&middot; <a href=\"" . $this->fullSiteRoot . "/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
 				}
