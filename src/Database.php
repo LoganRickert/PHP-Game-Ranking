@@ -236,7 +236,31 @@ class Database {
 	/*
 		Loads an instance of a challenge with the challenge password $challengePassword and returns it.
 	*/
-	public function loadChallenge($challengePassword) {
+	public function loadChallenge($challengeId) {
+		try {
+			$query = $this->db->prepare("
+				SELECT challenge_id, challenge_password, challenge_amount, event_id, challenge_name, challenge_description
+				FROM challenges
+				WHERE challenge_id = ?
+				LIMIT 1
+			");
+			$query->bindParam(1, $challengeId);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		// Creates the team instance and returns it.
+		while ($row = $query->fetch()) {
+			return new Challenge($row['challenge_id'], $row['challenge_password'], $row['challenge_amount'], $row['event_id'], $row['challenge_name'], $row['challenge_description']);
+		}
+	}
+
+	/*
+		Loads an instance of a challenge with the challenge password $challengePassword and returns it.
+	*/
+	public function loadChallengeWithPassword($challengePassword) {
 		try {
 			$query = $this->db->prepare("
 				SELECT challenge_id, challenge_password, challenge_amount, event_id, challenge_name, challenge_description
@@ -647,6 +671,36 @@ class Database {
 				LIMIT 1
 			");
 			$query->bindParam(1, $teamName);
+			$query->execute();
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+
+		$doesExist = false;
+
+		while ($row = $query->fetch()) {
+			$doesExist = true;
+		}
+
+		return $doesExist;
+	}
+	
+	/*
+		Returns boolean if the challenge id is already in the database.
+	*/
+	public function doesChallengeIdExist($challengeId) {
+		try {
+			$query = $this->db->prepare("
+				SELECT challenge_id
+				FROM challenges
+				WHERE challenge_id = ?
+				AND event_id = ?
+				LIMIT 1
+			");
+			$query->bindParam(1, $challengeId);
+			$currentEvent = CURRENT_EVENT;
+			$query->bindParam(2, $currentEvent);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;

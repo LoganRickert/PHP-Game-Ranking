@@ -37,4 +37,19 @@ class Challenge {
 	public function getChallengeDescription() {
 		return $this->challengeDescription;
 	}
+
+	/*
+		Name
+		$challengeName
+		Points
+		$challengeAmount
+		Description
+		<pre>
+			$challengeDescription
+		</pre>
+	*/
+	public function printStats() {
+		$html = new Html("");
+		$html->printChallengeStats($this->challengeName, $this->challengeAmount, $this->challengeDescription);
+	}
 }

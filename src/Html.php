@@ -292,6 +292,18 @@ class Html {
 		}
 	}
 
+	public function printChallengeStats($challengeName, $challengeAmount, $challengeDescription) {
+		echo "
+		<h1>Name</h1>
+		<p>$challengeName</p>
+		<h1>Points</h1>
+		<p>$challengeAmount</p>
+		<h1>Description</h1>
+		<p><pre>
+$challengeDescription
+		</pre></p>";
+	}
+
 	public function printJoinTeam() {
 		echo "
 		<div class=\"post-reply\">

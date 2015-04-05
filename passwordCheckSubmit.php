@@ -34,7 +34,7 @@ if(!$db->doesChallengePasswordExist(htmlspecialchars(trim(($_POST['passwordCheck
 }
 
 // Loads the challenge
-$challenge = $db->loadChallenge(htmlspecialchars(trim($_REQUEST['passwordCheck'])));
+$challenge = $db->loadChallengeWithPassword(htmlspecialchars(trim($_REQUEST['passwordCheck'])));
 
 // Checks to make sure they have not already gotten those points
 if($db->doesTeamHaveChallenge($challenge->getChallengeId(), $teamId)) {
