@@ -1,45 +1,27 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta charset="UTF-8">
     <title>Game Rankings by LoganRickert</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/LoganRickert/PHP-Game-Ranking">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/LoganRickert/PHP-Game-Ranking/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/LoganRickert/PHP-Game-Ranking/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
+    <section class="page-header">
+      <h1 class="project-name">Game Rankings</h1>
+      <h2 class="project-tagline">Shows ranking for a game.</h2>
+      <a href="https://github.com/LoganRickert/PHP-Game-Ranking" class="btn">View on GitHub</a>
+      <a href="https://github.com/LoganRickert/PHP-Game-Ranking/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/LoganRickert/PHP-Game-Ranking/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <div class="wrapper">
+    <section class="main-content">
+      <h3>
+<a id="setting-up-sql-database" class="anchor" href="#setting-up-sql-database" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up SQL database</h3>
 
-      <section>
-        <div id="title">
-          <h1>Game Rankings</h1>
-          <p>Shows ranking for a game.</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/LoganRickert">LoganRickert</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
-
-        <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up SQL database</h3>
 <p>The SQL was written for MySQL. To set up the database from PHPMyAdmin, goto PHPMyAdmin, click on the 'SQL' tab, and paste in the contents of the file and press go in the bottom right-hand corner.</p>
 
 <p>To enter the SQL information, goto src/Constants and change the information:</p>
@@ -54,25 +36,26 @@ define("DB_PASSWORD","");
 <a id="basics" class="anchor" href="#basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h3>
 
 <ul>
-  <li>You can create accounts</li>
-  <li>You can log into accounts</li>
-  <li>You can log out of accounts</li>
-  <li>You can create a team</li>
-  <li>You can leave a team</li>
-  <li>You can join a team</li>
-  <li>You can view a team page which has the team name, points, and list of team mates</li>
-  <li>You can view a player page which has their name and what team they are apart of.</li>
-  <li>If you create a team, you are the leader of the team</li>
-  <li>If the team is empty and you join, you are the leader of the team</li>
-  <li>If you are the team leader, you can kick people from the team</li>
-  <li>If you are the team leader, you can promote another team member to leader (You lose your leader position).</li>
-  <li>Admin Group can kick anyone from any team and promote anyone to team leader</li>
-  <li>Default group / Admin group name colors can be customized.</li>
-  <li>The site uses a .htaccess that uses clean URLs.</li>
+<li>You can create accounts</li>
+<li>You can log into accounts</li>
+<li>You can log out of accounts</li>
+<li>You can create a team</li>
+<li>You can leave a team</li>
+<li>You can join a team</li>
+<li>You can view a team page which has the team name, points, and list of team mates</li>
+<li>You can view a player page which has their name and what team they are apart of.</li>
+<li>If you create a team, you are the leader of the team</li>
+<li>If the team is empty and you join, you are the leader of the team</li>
+<li>If you are the team leader, you can kick people from the team</li>
+<li>If you are the team leader, you can promote another team member to leader (You lose your leader position).</li>
+<li>Admin Group can kick anyone from any team and promote anyone to team leader</li>
+<li>Default group / Admin group name colors can be customized.</li>
+<li>The site uses a .htaccess that uses clean URLs.</li>
 </ul>
 
 <h3>
-<a id="Walk-Through" class="anchor" href="#Walk-Through" aria-hidden="true"><span class="octicon octicon-link"></span></a>Walk Through</h3>
+<a id="walk-through" class="anchor" href="#walk-through" aria-hidden="true"><span class="octicon octicon-link"></span></a>Walk Through</h3>
+
 <p>The website is written with PHP classes. There are two main classes: Player and Team.</p>
 
 <pre><code>private $teamId;
@@ -93,20 +76,20 @@ private $groupId;
 
 <p>To create an instance of a class, do the following:</p>
 
-<pre><code>$player = new Player($playerId, $playerName, $playerEmail, $teamId, $playerStatus, $groupId);
+<pre><code>$player = new Player($playerId, $playerName, $playerEmail, $teamId, $playerStatus, $groupId);v
 </code></pre>
 
 <p>To get information from the class, you must call a getter. To do this do:</p>
 
-<pre><code>$player->getPlayerId();
+<pre><code>$player-&gt;getPlayerId();
 </code></pre>
 
 <p>Note: Some getters may not be there as I haven't needed them. Just copy / paste an existing one if you find yourself needing one.</p>
 
-<p>There is almost no need to create a player or team instance manually. You can just call <code>$db->loadPlayer($playerId)</code> or <code>$db->loadTeam($teamId)</code> and it will return an instance ready to use.</p>
+<p>There is almost no need to create a player or team instance manually. You can just call <code>$db-&gt;loadPlayer($playerId)</code> or <code>$db-&gt;loadTeam($teamId)</code> and it will return an instance ready to use.</p>
 
 <pre><code>$db = new Database();
-$player = $db->loadPlayer($playerId);
+$player = $db-&gt;loadPlayer($playerId);
 </code></pre>
 
 <p>There are a lot of functions in the Database class. Most could be removed and probably will be. Right now every function is being used somewhere but I am going to remove functions that don't need to be there and can be done using the loadPlayer or loadTeam.</p>
@@ -115,18 +98,18 @@ $player = $db->loadPlayer($playerId);
 
 <p>The following is an example of a page that displays the header, footer and displays a simple message:</p>
 
-<pre><code>&#60;?PHP
+<pre><code>&lt;?PHP
 
 include './src/Constants.php';
 include './autoloader.php';
 
 $html = new Html("Simple Message");
 
-$html->printHeader();
+$html-&gt;printHeader();
 
 echo "Hello, how are you!";
 
-$html->printFooter();
+$html-&gt;printFooter();
 </code></pre>
 
 <p>The autoloader is a class that automatically loads a class when you use it. Without this, you would have to include every php class file every time. The literal passed into the HTML class is what the title of the HTML page will be set to.</p>
@@ -134,7 +117,8 @@ $html->printFooter();
 <p>Only two things are stored in SESSION: playerName and playerId.</p>
 
 <h3>
-<a id="Naming-Conventions" class="anchor" href="#Naming-Conventions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naming Conventions</h3>
+<a id="naming-conventions" class="anchor" href="#naming-conventions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naming Conventions</h3>
+
 <p>PHP files that output HTML should be lowercase with underscores for spaces. PHP files that are used as scripts should be camel casing. PHP varibles should be camel casing. SQL names should be lowercase with underscores for spaces. PHP classes should start with an uppercase and be camel casing. Here are some examples:</p>
 
 <pre><code>$thisIsANumber
@@ -145,12 +129,19 @@ player_coolness (SQL name)
 </code></pre>
 
 <h3>
-<a id="Plans" class="anchor" href="#Naming-Conventions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Plans</h3>
-<p>Currently, I am not too sure where this project will go. Right now I am going to be concentrating on points. Displaying them, adding them, etc. One thing I do have on my mind to add is md5 sum checking when submitting a form to stop remote site injection.</p>
-      </section>
+<a id="plans" class="anchor" href="#plans" aria-hidden="true"><span class="octicon octicon-link"></span></a>Plans</h3>
 
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+<p>Currently, I am not too sure where this project will go. Right now I am going to be concentrating on points. Displaying them, adding them, etc. One thing I do have on my mind to add is md5 sum checking when submitting a form to stop remote site injection.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/LoganRickert/PHP-Game-Ranking">Game Rankings</a> is maintained by <a href="https://github.com/LoganRickert">LoganRickert</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
   </body>
 </html>
+
