@@ -17,7 +17,15 @@ define("DB_PASSWORD","");
 
 To give an account admin status, go to the database 'groups' and create two groups, a default group and an admin group. Go to 'players' and set the group_id = the group_id of the admin group. Currently, you can only do this manually.
 
+If the admin group id is not 2, please update the src/Constants file.
+
+```
+// The admin group
+define("ADMIN_GROUP", 2);
+```
+
 ## Basics
+#### Defaults
 * You can create accounts
 * You can log into accounts
 * You can log out of accounts
@@ -30,10 +38,10 @@ To give an account admin status, go to the database 'groups' and create two grou
 * If the team is empty and you join, you are the leader of the team
 * If you are the team leader, you can kick people from the team
 * If you are the team leader, you can promote another team member to leader (You lose your leader position).
-* Default group / Admin group name colors can be customized.
 * The site uses a .htaccess that uses clean URLs.
 
-* Admin Group can kick anyone from any team and promote anyone to team leader
+#### Admins
+* Admins can kick anyone from any team and promote anyone to team leader
 * Admins can a list of events and change their name, password or point amount (view events.php)
 * Admins can create a new event
 
@@ -67,10 +75,10 @@ private $pointEvent;	// The id of the overall event that the site is currently o
 private $eventName;		// The name of the event.
 ```
 
-### Create Event:
+Create Event:
 To create a new event, first create an account. Manually set the group_id for that user to the group_id of the admin group inside of the SQL database. Back at the website, at the very top right hand corner, click on 'Events'. If any events have already been created, you will see them listed here. You can very easily edit any event and click the submit button to save the changes. Click on 'create new event'. Type in the information. Once done, click submit. Your event has now been added to the unlockable event list.
 
-### Unlock Event:
+Unlock Event:
 To unlock an event, go to the sub header bar and click on the 'enter password' input box. Type in a password and press enter. If the password is in the events list and the team you are in has not already activated the password, the team will unlock the event. This will add a row into the points_obtained table, recording which event was unlocked, by whom, by which team, and the unix ephoch time it was unlocked.
 
 To create an instance of a class, do the following:
@@ -131,3 +139,4 @@ player_coolness (SQL name)
 ```
 
 ## Plans
+Not too sure yet.
