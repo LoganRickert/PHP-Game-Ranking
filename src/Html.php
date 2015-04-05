@@ -144,7 +144,7 @@ class Html {
 			} else {
 				echo "<li><a href=\"" . $this->fullSiteRoot . "/player/" . $player->getPlayerId() . "\">" . $player->getPlayerName() . "</a>";
 
-				if($teamLeader == $_SESSION['playerId']) {
+				if(isset($_SESSION['playerId']) && $teamLeader == $_SESSION['playerId']) {
 					echo " - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
 					&middot; <a href=\"" . $this->fullSiteRoot . "/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
 				} else {
