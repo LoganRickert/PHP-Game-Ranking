@@ -19,6 +19,8 @@ To give an account admin status, go to the database 'groups' and create two grou
 
 If the admin group id is not 2, please update the src/Constants file.
 
+The SQL database user only needs SELECT, UPDATE and INSERT. The JOIN, SUM and COUNT commands are also used.
+
 ```
 // The admin group
 define("ADMIN_GROUP", 2);
@@ -42,8 +44,10 @@ define("ADMIN_GROUP", 2);
 
 #### Admins
 * Admins can kick anyone from any team and promote anyone to team leader
-* Admins can a list of events and change their name, password or point amount (view events.php)
-* Admins can create a new event
+* Admins can see a list of challenges
+* Admins can change the name, password or point amount for challenges. (view challenges.php)
+* Admins can create a new challenges
+* Admins can delete challenges (This actually just sets event_id = -1)
 
 ## Walk Through
 The website is written with PHP classes. There are three main classes: Player, Event and Team.
