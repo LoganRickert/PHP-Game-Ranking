@@ -17,13 +17,6 @@ if(!(in_array($groupId, $canUpdateChallengeInfo))) {
 	exit();
 }
 
-// Checks to make sure all fields were filled out.
-if(!isset($_POST['playerName']) || !isset($_POST['playerPassword']) || !isset($_POST['playerEmail'])) {
-	$error_message = htmlspecialchars("You did not fill in all of the fields!");
-	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
-	exit();
-}
-
 $db = new Database();
 
 if(count($_POST) > 0) {
