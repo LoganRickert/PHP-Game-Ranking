@@ -15,16 +15,7 @@ define("DB_USER","root");
 define("DB_PASSWORD","");
 ```
 
-To give an account admin status, go to the database 'groups' and create two groups, a default group and an admin group. Go to 'players' and set the group_id = the group_id of the admin group. Currently, you can only do this manually.
-
-If the admin group id is not 2, please update the src/Constants file.
-
 The SQL database user only needs SELECT, UPDATE and INSERT. The JOIN, SUM and COUNT commands are also used.
-
-```
-// The admin group
-define("ADMIN_GROUP", 2);
-```
 
 ## Basics
 #### Defaults
@@ -48,6 +39,36 @@ define("ADMIN_GROUP", 2);
 * Admins can change the name, password or point amount for challenges. (view challenges.php)
 * Admins can create a new challenges
 * Admins can delete challenges (This actually just sets event_id = -1)
+
+## Default permissions
+You can find these options in src/Constants.php. The default group for a new account is 1.
+
+If you would like for groups to have a custom link color, create an entry in the groups table and change the colors entry.
+
+```
+// The Player Group
+define("PLAYER_GROUP", 1);
+
+// The admin group
+define("ADMIN_GROUP", 2);
+
+// Admins
+const canCreateChallenges = array(ADMIN_GROUP);
+const canViewChallengeInfo = array(ADMIN_GROUP);
+const canUpdateChallengeInfo = array(ADMIN_GROUP);
+const canDeleteChallenge = array(ADMIN_GROUP);
+const canViewChallengePassword = array(ADMIN_GROUP);
+const canKickAnyone = array(ADMIN_GROUP);
+const canMakeAnyoneLeader = array(ADMIN_GROUP);
+
+// Admins and Players
+const canJoinTeam = array(PLAYER_GROUP, ADMIN_GROUP);
+const canCreateTeam = array(PLAYER_GROUP, ADMIN_GROUP);
+const canLeaveTeam = array(PLAYER_GROUP, ADMIN_GROUP);
+const canKick = array(PLAYER_GROUP, ADMIN_GROUP);
+const canMakeLeader = array(PLAYER_GROUP, ADMIN_GROUP);
+const canSubmitPasswords = array(PLAYER_GROUP, ADMIN_GROUP);
+```
 
 ## Walk Through
 The website is written with PHP classes. There are three main classes: Player, Event and Team.
