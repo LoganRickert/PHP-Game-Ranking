@@ -40,10 +40,12 @@ The SQL database user only needs SELECT, UPDATE and INSERT. The JOIN, SUM and CO
 * Admins can create a new challenges
 * Admins can delete challenges (This actually just sets event_id = -1)
 
-## Default permissions
+## Permissions
 You can find these options in src/Constants.php. The default group for a new account is 1.
 
 If you would like for groups to have a custom link color, create an entry in the groups table and change the colors entry.
+
+More groups can be defined, such as moderators, staff, etc. If a boolean is set to false, it is disabled for all groups, no matter what.
 
 ```
 // The Player Group
@@ -68,6 +70,16 @@ const canLeaveTeam = array(PLAYER_GROUP, ADMIN_GROUP);
 const canKick = array(PLAYER_GROUP, ADMIN_GROUP);
 const canMakeLeader = array(PLAYER_GROUP, ADMIN_GROUP);
 const canSubmitPasswords = array(PLAYER_GROUP, ADMIN_GROUP);
+
+define("SIGNUP_ENABLED", true);
+define("SIGNIN_ENABLED", true);
+define("JOIN_TEAM_ENABLED", true);
+define("CREATE_TEAM_ENABLED", true);
+define("TEAM_KICKING", true);
+define("LEAVE_TEAM_ENABLED", true);
+define("CAN_MAKE_LEADER_ENABLED", true);
+define("CAN_SUBMIT_PASSWORDS", true);
+define("VIEW_CHALLENGES_ENABLED", true);
 ```
 
 ## Walk Through
