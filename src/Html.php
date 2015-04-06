@@ -11,8 +11,11 @@ class Html {
 	}
 
 	public function printHeader($forumName = "", $threadName = "", $forumId = 0) {
+
 		$db = new Database();
-		$playerGroupId = $db->getGroupId(intval($_SESSION['playerId']));
+		if(isset($_SESSION['playerId'])) {
+			$playerGroupId = $db->getGroupId(intval($_SESSION['playerId']));
+		}
 		echo "
 <!DOCTYPE html>
 <html>
@@ -42,7 +45,7 @@ class Html {
 					<li><a href=\"$this->fullSiteRoot\">FAQ</a></li>";
 
 					// If they are an admin, give them this option.
-					if(isset($_SESSION['playerId']) && in_array($playerGroupId, $canViewChallengeInfo)) {
+					if(isset($_SESSION['playerId']) && in_array($playerGroupId, canViewChallengeInfo)) {
 						echo "<li><a href=\"$this->fullSiteRoot/challenges\">Edit Challenges</a></li>";
 					}
 
@@ -54,7 +57,7 @@ class Html {
 	<div id=\"wrapper\">
 		<div class=\"nav-search\">
 			";
-			if(!(in_array($playerGroupId, $canSubmitPasswords))) {
+			if(isset($_SESSION['playerId']) && in_array($playerGroupId, canSubmitPasswords)) {
 				echo "
 				<form method=\"POST\" action=\"$this->fullSiteRoot/scripts/passwordCheckSubmit.php\">
 					<fieldset>
@@ -79,14 +82,14 @@ class Html {
 				$player = $db->loadPlayer(intval($_SESSION['playerId']));
 
 				if($db->getTeamId(intval($_SESSION['playerId'])) == 0) {
-					if(in_array($playerGroupId, $canCreateTeam)) {
+					if(in_array($playerGroupId, canCreateTeam)) {
 						echo "<li><a href=\"$this->fullSiteRoot/create_team\">Create Team</a></li>";
 					}
-					if(in_array($playerGroupId, $canJoinTeam)) {
+					if(in_array($playerGroupId, canJoinTeam)) {
 						echo "<li><a href=\"$this->fullSiteRoot/join_team\">Join Team</a></li>";
 					}
 				} else {
-					if(in_array($playerGroupId, $canLeaveTeam)) {
+					if(in_array($playerGroupId, canLeaveTeam)) {
 						echo "<li><a href=\"$this->fullSiteRoot/scripts/leaveTeamSubmit.php\">Leave " . $db->loadTeam($player->getTeamId())->getTeamname() . "</a></li>";
 					}
 				}
@@ -235,7 +238,7 @@ class Html {
 			$playerName = $this->getPlayerOut($player->getPlayerName(), $player->getPlayerId(), $player->getGroupId());
 
 			// If they can kick anyone or make anyone leader
-			if(isset($_SESSION['playerId']) && (in_array($playerGroupId, $canKickAnyone) || in_array($playerGroupId, $canMakeAnyoneLeader)) {
+			if(isset($_SESSION['playerId']) && (in_array($playerGroupId, canKickAnyone) || in_array($playerGroupId, canMakeAnyoneLeader))) {
 				// If the current player is the leader
 				if($player->getPlayerId() == $teamLeader) {
 					echo "<li>- [Leader] $playerName
@@ -244,13 +247,13 @@ class Html {
 					echo "<li>- $playerName
 					 - ";
 				}
-				if(in_array($playerGroupId, $canKickAnyone)) {
+				if(in_array($playerGroupId, canKickAnyone)) {
 					echo "<a href=\"$this->fullSiteRoot/scripts/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a>";
 				}
-				if(in_array($playerGroupId, $canKickAnyone) && in_array($playerGroupId, $canMakeAnyoneLeader)) {
+				if(in_array($playerGroupId, canKickAnyone) && in_array($playerGroupId, canMakeAnyoneLeader)) {
 					echo " &middot; ";
 				}
-				if(in_array($playerGroupId, $canMakeAnyoneLeader)) {
+				if(in_array($playerGroupId, canMakeAnyoneLeader)) {
 					echo "<a href=\"$this->fullSiteRoot/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a>";
 				}
 				echo "</li>";
@@ -396,7 +399,7 @@ $challengeDescription
 							<label for=\"challenge". $count ."b\">Challenge ". $count .":</label>
 							<input type=\"hidden\" style=\"display: hidden\" name=\"challenge". $count ."a\" id=\"challenge". $count ."a\" value=\"". $challenge->getChallengeId() ."\">
 							<input type=\"text\" name=\"challenge". $count ."b\" id=\"challenge". $count ."b\" value=\"". $challenge->getChallengeName() ."\">";
-							if(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canViewChallengePassword)) {
+							if(in_array($db->getGroupId(intval($_SESSION['playerId'])), canViewChallengePassword)) {
 								echo "<input type=\"text\" name=\"challenge". $count ."c\" id=\"challenge". $count ."c\" value=\"". $challenge->getChallengePassword() ."\">";
 							}
 							echo "<input type=\"text\" name=\"challenge". $count ."d\" id=\"challenge". $count ."d\" value=\"". $challenge->getChallengeAmount() ."\">

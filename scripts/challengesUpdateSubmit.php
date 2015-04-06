@@ -9,21 +9,21 @@ if(!isset($_SESSION['playerId'])) {
 	exit();
 }
 
+$db = new Database();
+
 $groupId = $db->getGroupId(intval($_SESSION['playerId']));
 
 // Make sure they have permission.
-if(!(in_array($groupId, $canUpdateChallengeInfo))) {
+if(!(in_array($groupId, canUpdateChallengeInfo))) {
 	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
-
-$db = new Database();
 
 if(count($_POST) > 0) {
 	$i = 1;
 
 	while($i <= count($_POST) / 5) {
-		if(!in_array($groupId, $canViewChallengePassword)) {
+		if(!in_array($groupId, canViewChallengePassword)) {
 			// Loads the challenge
 			$challengePassword = $db->loadChallenge(intval($_POST["challenge" . $i . "a"]))->getChallengePassword();
 			$db->updateChallenge($_POST["challenge" . $i . "a"], $_POST["challenge" . $i . "b"], $challengePassword, $_POST["challenge" . $i . "d"], $_POST["challenge" . $i . "e"]);

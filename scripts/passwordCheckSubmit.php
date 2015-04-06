@@ -15,8 +15,10 @@ if(!isset($_SESSION['playerId'])) {
 	exit();
 }
 
+$db = new Database();
+
 // Make sure they have permission.
-if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canSubmitPasswords))) {
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), canSubmitPasswords))) {
 	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
@@ -26,8 +28,6 @@ if(!isset($_REQUEST['passwordCheck'])) {
 	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
-
-$db = new Database();
 
 // Get the team id for the player trying to do this action.
 $teamId = $db->getTeamId(intval($_SESSION['playerId']));

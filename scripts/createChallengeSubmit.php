@@ -12,7 +12,7 @@ if(!isset($_SESSION['playerId'])) {
 $db = new Database();
 
 // Make sure they have permission.
-if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canCreateChallenges))) {
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), canCreateChallenges))) {
 	header("Location: " . SITE_ROOT . "/");
 	exit();
 }

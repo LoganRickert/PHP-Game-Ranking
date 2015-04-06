@@ -15,13 +15,13 @@ if(!isset($_SESSION['playerId'])) {
 	exit();
 }
 
+$db = new Database();
+
 // Make sure they have permission.
-if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canMakeLeader))) {
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), canMakeLeader))) {
 	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
-
-$db = new Database();
 
 // Checks to make sure the playerId is valid.
 if(intval($_REQUEST['playerId']) <= 0) {
@@ -39,7 +39,7 @@ if(!$db->doesPlayerIdExist(intval($_REQUEST['playerId']))) {
 $player = $db->loadPlayer(intval($_REQUEST['playerId']));
 
 // If they are an admin, don't check this stuff.
-if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canMakeAnyoneLeader))) {
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), canMakeAnyoneLeader))) {
 
 	// Get the team id for the player trying to do this action.
 	$teamId = $db->getTeamId(intval($_SESSION['playerId']));

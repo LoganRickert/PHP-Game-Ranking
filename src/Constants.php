@@ -28,21 +28,21 @@ define("PLAYER_GROUP", 1);
 define("ADMIN_GROUP", 2);
 
 // Admins
-$canCreateChallenges = array(ADMIN_GROUP);
-$canViewChallengeInfo = array(ADMIN_GROUP);
-$canUpdateChallengeInfo = array(ADMIN_GROUP);
-$canDeleteChallenge = array(ADMIN_GROUP);
-$canViewChallengePassword = array(ADMIN_GROUP);
-$canKickAnyone = array(ADMIN_GROUP);
-$canMakeAnyoneLeader = array(ADMIN_GROUP);
+const canCreateChallenges = array(ADMIN_GROUP);
+const canViewChallengeInfo = array(ADMIN_GROUP);
+const canUpdateChallengeInfo = array(ADMIN_GROUP);
+const canDeleteChallenge = array(ADMIN_GROUP);
+const canViewChallengePassword = array(ADMIN_GROUP);
+const canKickAnyone = array(ADMIN_GROUP);
+const canMakeAnyoneLeader = array(ADMIN_GROUP);
 
 // Admins and Players
-$canJoinTeam = array(PLAYER_GROUP, ADMIN_GROUP);
-$canCreateTeam = array(PLAYER_GROUP, ADMIN_GROUP);
-$canLeaveTeam = array(PLAYER_GROUP, ADMIN_GROUP);
-$canKick = array(PLAYER_GROUP, ADMIN_GROUP);
-$canMakeLeader = array(PLAYER_GROUP, ADMIN_GROUP);
-$canSubmitPasswords = array(PLAYER_GROUP, ADMIN_GROUP);
+const canJoinTeam = array(PLAYER_GROUP, ADMIN_GROUP);
+const canCreateTeam = array(PLAYER_GROUP, ADMIN_GROUP);
+const canLeaveTeam = array(PLAYER_GROUP, ADMIN_GROUP);
+const canKick = array(PLAYER_GROUP, ADMIN_GROUP);
+const canMakeLeader = array(PLAYER_GROUP, ADMIN_GROUP);
+const canSubmitPasswords = array(PLAYER_GROUP, ADMIN_GROUP);
 
 define("SIGNUP_ENABLED", true);
 define("SIGNIN_ENABLED", true);

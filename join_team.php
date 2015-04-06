@@ -15,13 +15,13 @@ if(!isset($_SESSION['playerId'])) {
 	exit();
 }
 
+$db = new Database();
+
 // Make sure they have permission.
-if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canJoinTeam))) {
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), canJoinTeam))) {
 	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
-
-$db = new Database();
 
 // If they are already on a team, don't let them try to join one.
 if($db->getTeamId(intval($_SESSION['playerId'])) != 0) {
