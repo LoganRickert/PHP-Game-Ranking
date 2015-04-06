@@ -104,3 +104,18 @@ ALTER TABLE `players`
 --
 ALTER TABLE `teams`
  ADD PRIMARY KEY (`team_id`), ADD UNIQUE KEY `team_name` (`team_name`);
+
+--
+-- AUTO_INCREMENT for table `teams`
+--
+ALTER TABLE `teams`
+MODIFY `team_id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `groups`
+MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `challenges`
+MODIFY `challenge_id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `players`
+MODIFY `player_id` int(11) NOT NULL AUTO_INCREMENT;
