@@ -375,7 +375,7 @@ $challengeDescription
 		echo "
 		</section>
 		<footer>
-			<h1><a href=\"https://github.com/LoganRickert/PHP-Game-Ranking\" target=\"_blank\">Game Ranking</a><br />Created by Logan Rickert</h1>
+			<h1><a href=\"https://github.com/LoganRickert/PHP-Game-Ranking\" target=\"_blank\">Game Rankings</a><br />Created by Logan Rickert</h1>
 		</footer>
 	</div>   
 </body>
