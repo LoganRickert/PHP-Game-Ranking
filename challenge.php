@@ -3,13 +3,17 @@
 include './src/Constants.php';
 include './autoloader.php';
 
+// Make sure they are an admin
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canViewChallenges))) {
+	header("Location: " . SITE_ROOT . "/");
+	exit();
+}
+
 $html = new Html("View Challenge");
 
 $html->printHeader();
 
 $db = new Database();
-
-
 
 // If a challenge number isn't given, list all.
 if(!isset($_REQUEST['challengeId'])) {

@@ -3,6 +3,18 @@
 include './src/Constants.php';
 include './autoloader.php';
 
+// Checks to make sure joining team is enabled.
+if(!JOIN_TEAM_ENABLED) {
+	header("Location: " . SITE_ROOT . "/");
+	exit();
+}
+
+// Make sure they have permission.
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canJoinTeam))) {
+	header("Location: " . SITE_ROOT . "/");
+	exit();
+}
+
 // Checks to make sure they are logged in.
 if(!isset($_SESSION['playerId'])) {
 	header("Location: " . SITE_ROOT . "/");

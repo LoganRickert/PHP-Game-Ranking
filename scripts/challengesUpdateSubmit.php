@@ -9,13 +9,13 @@ if(!isset($_SESSION['playerId'])) {
 	exit();
 }
 
-$db = new Database();
-
-// Make sure they are an admin.
-if(!($db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP)) {
-	header("Location: " . SITE_ROOT . "/index.php");
+// Make sure they have permission.
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canUpdateChallengeInfo))) {
+	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
+
+$db = new Database();
 
 if(count($_POST) > 0) {
 	$i = 1;

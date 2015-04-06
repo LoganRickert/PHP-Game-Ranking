@@ -9,6 +9,18 @@ if(!isset($_SESSION['playerId'])) {
 	exit();
 }
 
+// Checks to make sure signing up is enabled.
+if(!TEAM_KICKING) {
+	header("Location: " . SITE_ROOT . "/");
+	exit();
+}
+
+// Make sure they have permission.
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canKick))) {
+	header("Location: " . SITE_ROOT . "/");
+	exit();
+}
+
 $db = new Database();
 
 // Checks to make sure the playerId is valid.
@@ -27,7 +39,7 @@ if(!$db->doesPlayerIdExist(intval($_REQUEST['playerId']))) {
 $player = $db->loadPlayer(intval($_REQUEST['playerId']));
 
 // If they are an admin, don't check this stuff.
-if(!($db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP)) {
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canKickAnyone))) {
 
 	// Get the team id for the player trying to do this action.
 	$teamId = $db->getTeamId(intval($_SESSION['playerId']));

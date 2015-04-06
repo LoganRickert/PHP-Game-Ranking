@@ -9,6 +9,18 @@ if(!isset($_SESSION['playerId'])) {
 	exit();
 }
 
+// Checks to make sure signing up is enabled.
+if(!JOIN_TEAM_ENABLED) {
+	header("Location: " . SITE_ROOT . "/");
+	exit();
+}
+
+// Make sure they have permission.
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canJoinTeam))) {
+	header("Location: " . SITE_ROOT . "/");
+	exit();
+}
+
 $db = new Database();
 
 // Checks to make sure they are not on a team. If they are on a team, their team id will not be equal to 0.

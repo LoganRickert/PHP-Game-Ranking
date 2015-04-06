@@ -9,13 +9,13 @@ if(!isset($_SESSION['playerId'])) {
 	exit();
 }
 
-$db = new Database();
-
-// Make sure they are an admin.
-if(!($db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP)) {
-	header("Location: " . SITE_ROOT . "/index.php");
+// Make sure they have permission.
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canDeleteChallenge))) {
+	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
+
+$db = new Database();
 
 if(!isset($_REQUEST['challengeId'])) {
 	$error_message = htmlspecialchars("There is no challenge id set!");
