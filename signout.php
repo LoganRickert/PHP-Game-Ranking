@@ -1,5 +1,7 @@
 <?PHP
 
+include '../src/Constants.php';
+
 session_start();
 
 session_destroy();

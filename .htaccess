@@ -17,9 +17,6 @@ RewriteRule ^join_team$ join_team.php
 RewriteRule ^create_team/$ create_team.php
 RewriteRule ^create_team$ create_team.php
 
-RewriteRule ^signout/$ signout.php
-RewriteRule ^signout$ signout.php
-
 RewriteRule ^login/$ login.php
 RewriteRule ^login$ login.php
 

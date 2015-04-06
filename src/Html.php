@@ -78,7 +78,7 @@ class Html {
 				echo "
 				<li>Hello " . $this->getPlayerOut($player->getPlayerName(), $player->getPlayerId(), $player->getGroupId()) . "!
 				 - 
-				 <a href=\"$this->fullSiteRoot/signout\">Sign Out</a>
+				 <a href=\"$this->fullSiteRoot/scripts/signoutSubmit.php\">Sign Out</a>
 				 </li>";
 			}
 			echo "</ul>
