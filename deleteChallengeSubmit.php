@@ -17,15 +17,14 @@ if(!($db->getGroupId(intval($_SESSION['playerId'])) == ADMIN_GROUP)) {
 	exit();
 }
 
-if(count($_POST) > 3) {
-	$i = 1;
-
-	while($i <= count($_POST) / 4) {
-		$db->updateEvent($_POST["event" . $i . "a"], $_POST["event" . $i . "b"], $_POST["event" . $i . "c"], $_POST["event" . $i . "d"]);
-		$i++;
-	}
+if(!isset($_REQUEST['challengeId'])) {
+	$error_message = htmlspecialchars("There is no challenge id set!");
+	header("Location: error.php?error_message=".$error_message);
+	exit();
 }
 
+$db->deleteChallenge(intval($_REQUEST['challengeId']));
+
 // Go back to team page.
-header("Location: events.php");
+header("Location: challenges");
 exit();

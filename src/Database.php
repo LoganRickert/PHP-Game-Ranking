@@ -216,6 +216,26 @@ class Database {
 	}
 
 	/*
+		Deletes the challenge with the id.
+	*/
+	public function deleteChallenge($challengeId) {
+		// Updates the information
+		try {
+			$query = $this->db->prepare("
+				UPDATE challenges
+				SET event_id = -1
+				WHERE challenge_id = :challengeId
+			");
+			$query->execute(array(
+				"challengeId" => $challengeId,
+				));
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+	}
+
+	/*
 		Loads an instance of a player with a player id of playerId and returns it.
 	*/
 	public function loadPlayer($playerId) {

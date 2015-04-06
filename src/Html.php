@@ -18,10 +18,10 @@ class Html {
 <head>
 	<meta charset=\"utf-8\" />
 	<title>$this->title</title>
-	<script type=\"text/javascript\" src=\"http://code.jquery.com/jquery-latest.min.js\"></script>
-	<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+	<script type=\"text/javascript\" src=\"https://code.jquery.com/jquery-latest.min.js\"></script>
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 	<!--[if lt IE 9]>
-		<script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script>
+		<script src=\"https://html5shiv.googlecode.com/svn/trunk/html5.js\"></script>
 	<![endif]-->
 	<link rel=\"StyleSheet\" href=\"$this->fullSiteRoot/css/reset.css\" type=\"text/css\">
 	<link rel=\"StyleSheet\" href=\"$this->fullSiteRoot/css/style.css\" type=\"text/css\">
@@ -90,7 +90,7 @@ class Html {
 	public function printCreateUser() {
 		echo "
 		<div class=\"post-reply\">
-			<form method=\"post\" action=\"signupSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/signupSubmit.php\">
 				<fieldset>
 					<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
 					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
@@ -106,7 +106,7 @@ class Html {
 	public function printCreateTeam() {
 		echo "
 		<div class=\"post-reply\">
-			<form method=\"post\" action=\"createTeamSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/createTeamSubmit.php\">
 				<fieldset>
 					<div class=\"input\"><label for=\"teamName\">Team name:</label><input type=\"text\" name=\"teamName\" placeholder=\"Le Boffin Team\" id=\"teamName\"></div>
 				</fieldset>
@@ -120,7 +120,7 @@ class Html {
 	public function printLogin() {
 		echo "
 		<div class=\"post-reply\">
-			<form method=\"post\" action=\"loginSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/loginSubmit.php\">
 				<fieldset>
 					<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
 					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
@@ -324,7 +324,7 @@ $challengeDescription
 	public function printJoinTeam() {
 		echo "
 		<div class=\"post-reply\">
-			<form method=\"post\" action=\"joinTeamSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/joinTeamSubmit.php\">
 				<fieldset>
 					<div class=\"input\">
 						<label for=\"teamId\">Team:</label>
@@ -357,7 +357,7 @@ $challengeDescription
 		echo "
 		<div class=\"post-reply\">
 			<h1>Update Challenge information</h1>
-			<form method=\"post\" action=\"challengesUpdateSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/challengesUpdateSubmit.php\">
 				<fieldset>";
 					$count = 1;
 					foreach($challenges as $challenge) {
@@ -373,13 +373,14 @@ $challengeDescription
 						<label for=\"challenge". $count ."e\">Description:</label>
 						<div class=\"challenge-edit-textarea\">
 							<textarea name=\"challenge". $count ."e\" id=\"challenge". $count ."e\">". $challenge->getChallengeDescription() ."</textarea>
-						</div>";
+						</div>
+						<p><a style=\"font-size: 14px\" href=\"$this->fullSiteRoot/deleteChallengeSubmit.php?challengeId=". $challenge->getChallengeId() ."\">Delete Challenge</a></p>";
 						$count++;
 					}
 		  echo "</fieldset>
 				<input type=\"submit\" class=\"submit\">
 			</form>
-			<p><a href=\"create_challenge\">Create New Challenge</a></p>
+			<p><a href=\"$this->fullSiteRoot/create_challenge\">Create New Challenge</a></p>
 		</div>
 		";
 	}
@@ -388,7 +389,7 @@ $challengeDescription
 		echo "
 		<div class=\"post-reply\">
 			<h1>Create Challenge</h1>
-			<form method=\"post\" action=\"createChallengeSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/createChallengeSubmit.php\">
 				<fieldset>
 					<div class=\"input\">
 						<label for=\"challengeName\">Name:</label>
