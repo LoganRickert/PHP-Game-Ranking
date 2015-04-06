@@ -3,6 +3,12 @@
 include './src/Constants.php';
 include './autoloader.php';
 
+// Checks to make sure joining team is enabled.
+if(!VIEW_CHALLENGES_ENABLED) {
+	header("Location: " . SITE_ROOT . "/");
+	exit();
+}
+
 $html = new Html("View Challenge");
 
 $html->printHeader();

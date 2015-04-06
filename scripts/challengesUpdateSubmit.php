@@ -21,7 +21,13 @@ if(count($_POST) > 0) {
 	$i = 1;
 
 	while($i <= count($_POST) / 5) {
-		$db->updateChallenge($_POST["challenge" . $i . "a"], $_POST["challenge" . $i . "b"], $_POST["challenge" . $i . "c"], $_POST["challenge" . $i . "d"], $_POST["challenge" . $i . "e"]);
+		if(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canViewChallengePassword)) {
+			// Loads the challenge
+			$challengePassword = $db->loadChallenge(intval($_POST["challenge" . $i . "a"]))->getChallengePassword();
+			$db->updateChallenge($_POST["challenge" . $i . "a"], $_POST["challenge" . $i . "b"], $challengePassword, $_POST["challenge" . $i . "d"], $_POST["challenge" . $i . "e"]);
+		} else {
+			$db->updateChallenge($_POST["challenge" . $i . "a"], $_POST["challenge" . $i . "b"], $_POST["challenge" . $i . "c"], $_POST["challenge" . $i . "d"], $_POST["challenge" . $i . "e"]);
+		}
 		$i++;
 	}
 }

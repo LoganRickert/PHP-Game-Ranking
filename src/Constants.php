@@ -32,6 +32,7 @@ $canCreateChallenges = array(ADMIN_GROUP);
 $canViewChallengeInfo = array(ADMIN_GROUP);
 $canUpdateChallengeInfo = array(ADMIN_GROUP);
 $canDeleteChallenge = array(ADMIN_GROUP);
+$canViewChallengePassword = array(ADMIN_GROUP);
 $canKickAnyone = array(ADMIN_GROUP);
 $canMakeAnyoneLeader = array(ADMIN_GROUP);
 
@@ -51,6 +52,7 @@ define("TEAM_KICKING", true);
 define("LEAVE_TEAM_ENABLED", true);
 define("CAN_MAKE_LEADER_ENABLED", true);
 define("CAN_SUBMIT_PASSWORDS", true);
+define("VIEW_CHALLENGES_ENABLED", true);
 
 // Which event are we currently on
 define("CURRENT_EVENT", 1);
