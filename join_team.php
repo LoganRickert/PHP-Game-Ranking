@@ -9,14 +9,14 @@ if(!JOIN_TEAM_ENABLED) {
 	exit();
 }
 
-// Make sure they have permission.
-if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canJoinTeam))) {
+// Checks to make sure they are logged in.
+if(!isset($_SESSION['playerId'])) {
 	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
 
-// Checks to make sure they are logged in.
-if(!isset($_SESSION['playerId'])) {
+// Make sure they have permission.
+if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canJoinTeam))) {
 	header("Location: " . SITE_ROOT . "/");
 	exit();
 }

@@ -36,9 +36,6 @@ $canKickAnyone = array(ADMIN_GROUP);
 $canMakeAnyoneLeader = array(ADMIN_GROUP);
 
 // Admins and Players
-$canViewChallenges = array(PLAYER_GROUP, ADMIN_GROUP);
-$canViewTeamInfo = array(PLAYER_GROUP, ADMIN_GROUP);
-$canViewPlayerInfo = array(PLAYER_GROUP, ADMIN_GROUP);
 $canJoinTeam = array(PLAYER_GROUP, ADMIN_GROUP);
 $canCreateTeam = array(PLAYER_GROUP, ADMIN_GROUP);
 $canLeaveTeam = array(PLAYER_GROUP, ADMIN_GROUP);

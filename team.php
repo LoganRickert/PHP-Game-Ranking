@@ -3,12 +3,6 @@
 include './src/Constants.php';
 include './autoloader.php';
 
-// Make sure they have permission.
-if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canViewTeamInfo))) {
-	header("Location: " . SITE_ROOT . "/");
-	exit();
-}
-
 $html = new Html("View Team");
 
 $html->printHeader();
