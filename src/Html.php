@@ -254,7 +254,7 @@ class Html {
 					echo " &middot; ";
 				}
 				if(in_array($playerGroupId, canMakeAnyoneLeader)) {
-					echo "<a href=\"$this->fullSiteRoot/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a>";
+					echo "<a href=\"$this->fullSiteRoot/scripts/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a>";
 				}
 				echo "</li>";
 			// If they are an average person viewing this
@@ -408,16 +408,19 @@ $challengeDescription
 						<label for=\"challenge". $count ."e\">Description:</label>
 						<div class=\"challenge-edit-textarea\">
 							<textarea name=\"challenge". $count ."e\" id=\"challenge". $count ."e\">". $challenge->getChallengeDescription() ."</textarea>
-						</div>
-						<p><a style=\"font-size: 14px\" href=\"$this->fullSiteRoot/scripts/deleteChallengeSubmit.php?challengeId=". $challenge->getChallengeId() ."\">Delete Challenge</a></p>";
+						</div>";
+						if(in_array($db->getGroupId(intval($_SESSION['playerId'])), canDeleteChallenge)) {
+							echo "<p><a style=\"font-size: 14px\" href=\"$this->fullSiteRoot/scripts/deleteChallengeSubmit.php?challengeId=". $challenge->getChallengeId() ."\">Delete Challenge</a></p>";
+						}
 						$count++;
 					}
 		  echo "</fieldset>
 				<input type=\"submit\" class=\"submit\">
-			</form>
-			<p><a href=\"$this->fullSiteRoot/create_challenge\">Create New Challenge</a></p>
-		</div>
-		";
+			</form>";
+			if(in_array($db->getGroupId(intval($_SESSION['playerId'])), canCreateChallenges)) {
+				echo "<p><a href=\"$this->fullSiteRoot/create_challenge\">Create New Challenge</a></p>";
+			}
+		echo "</div>";
 	}
 
 	public function printCreateEvents() {
