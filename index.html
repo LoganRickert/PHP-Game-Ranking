@@ -44,6 +44,8 @@ define("DB_PASSWORD","");
 
 <p>If the admin group id is not 2, please update the src/Constants file.</p>
 
+<p>The SQL database user only needs SELECT, UPDATE and INSERT. The JOIN, SUM and COUNT commands are also used.</p>
+
 <pre><code>// The admin group
 define("ADMIN_GROUP", 2);
 </code></pre>
@@ -75,8 +77,10 @@ define("ADMIN_GROUP", 2);
 
 <ul>
 <li>Admins can kick anyone from any team and promote anyone to team leader</li>
-<li>Admins can a list of events and change their name, password or point amount (view events.php)</li>
-<li>Admins can create a new event</li>
+<li>Admins can see a list of challenges</li>
+<li>Admins can change the name, password or point amount for challenges. (view challenges.php)</li>
+<li>Admins can create a new challenges</li>
+<li>Admins can delete challenges (This actually just sets event_id = -1)</li>
 </ul>
 
 <h2>
