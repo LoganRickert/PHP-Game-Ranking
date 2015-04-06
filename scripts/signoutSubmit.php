@@ -1,6 +1,6 @@
 <?PHP
 
-include './src/Constants.php';
+include '../src/Constants.php';
 
 session_start();
 
