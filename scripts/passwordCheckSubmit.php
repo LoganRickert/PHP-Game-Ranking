@@ -11,7 +11,7 @@ if(!CAN_SUBMIT_PASSWORDS) {
 
 // Checks to make sure they are logged in.
 if(!isset($_SESSION['playerId'])) {
-	header("Location: " . SITE_ROOT . "/index.php");
+	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
 
@@ -23,7 +23,7 @@ if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canSubmitPassword
 
 // Checks to make sure the passwordCheck is set.
 if(!isset($_REQUEST['passwordCheck'])) {
-	header("Location: " . SITE_ROOT . "/index.php");
+	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
 
@@ -34,7 +34,7 @@ $teamId = $db->getTeamId(intval($_SESSION['playerId']));
 
 // Has no team or is trying to kick theirselves.
 if($teamId == 0) {
-	header("Location: " . SITE_ROOT . "/index.php");
+	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
 

@@ -5,13 +5,22 @@ include '../autoloader.php';
 
 // Checks to make sure they are logged in.
 if(!isset($_SESSION['playerId'])) {
-	header("Location: " . SITE_ROOT . "/index.php");
+	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
 
+$groupId = $db->getGroupId(intval($_SESSION['playerId']));
+
 // Make sure they have permission.
-if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), $canUpdateChallengeInfo))) {
+if(!(in_array($groupId, $canUpdateChallengeInfo))) {
 	header("Location: " . SITE_ROOT . "/");
+	exit();
+}
+
+// Checks to make sure all fields were filled out.
+if(!isset($_POST['playerName']) || !isset($_POST['playerPassword']) || !isset($_POST['playerEmail'])) {
+	$error_message = htmlspecialchars("You did not fill in all of the fields!");
+	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }
 
@@ -21,7 +30,7 @@ if(count($_POST) > 0) {
 	$i = 1;
 
 	while($i <= count($_POST) / 5) {
-		if(!in_array($db->getGroupId(intval($_SESSION['playerId'])), $canViewChallengePassword)) {
+		if(!in_array($groupId, $canViewChallengePassword)) {
 			// Loads the challenge
 			$challengePassword = $db->loadChallenge(intval($_POST["challenge" . $i . "a"]))->getChallengePassword();
 			$db->updateChallenge($_POST["challenge" . $i . "a"], $_POST["challenge" . $i . "b"], $challengePassword, $_POST["challenge" . $i . "d"], $_POST["challenge" . $i . "e"]);
