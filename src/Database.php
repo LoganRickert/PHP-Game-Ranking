@@ -317,9 +317,12 @@ class Database {
 				SELECT challenge_id, challenge_password, challenge_amount, event_id, challenge_name, challenge_description
 				FROM challenges
 				WHERE challenge_password = ?
+				AND event_id = ?
 				LIMIT 1
 			");
 			$query->bindParam(1, $challengePassword);
+			$currentEvent = CURRENT_EVENT;
+			$query->bindParam(2, $currentEvent);
 			$query->execute();
 		} catch (Exception $e) {
 			echo "Could not connect to database! ".$e;
