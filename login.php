@@ -5,7 +5,7 @@ include './autoloader.php';
 
 // Checks to make sure they are not logged in.
 if(isset($_SESSION['playerId'])) {
-	header("Location: index.php");
+	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
 

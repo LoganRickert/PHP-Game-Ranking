@@ -1,11 +1,11 @@
 <?PHP
 
-include './src/Constants.php';
-include './autoloader.php';
+include '../src/Constants.php';
+include '../autoloader.php';
 
 // Checks to make sure they are not logged in.
 if(isset($_SESSION['playerId'])) {
-	header("Location: index.php");
+	header("Location: " . SITE_ROOT . "/index.php");
 	exit();
 }
 
@@ -14,7 +14,7 @@ $db = new Database();
 // Checks to make sure all fields were filled out.
 if(!isset($_POST['playerName']) || !isset($_POST['playerPassword']) || !isset($_POST['playerEmail'])) {
 	$error_message = htmlspecialchars("You did not fill in all of the fields!");
-	header("Location: error.php?error_message=".$error_message);
+	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }
 
@@ -25,7 +25,7 @@ $username = htmlspecialchars(trim(($_POST['playerName'])));
 if(strlen($username) > 30){
 	$thread_name_length = htmlspecialchars(strlen($username));
 	$error_message = htmlspecialchars("Your username is too long! The limit is 30 characters. You currently have ".$thread_name_length." characters.");
-	header("Location: error.php?error_message=".$error_message);
+	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }
 
@@ -33,14 +33,14 @@ if(strlen($username) > 30){
 if(strlen($username) < 3) {
 	$thread_name_length = htmlspecialchars(strlen($username));
 	$error_message = htmlspecialchars("Your username is too short! The minimum is 3 characters. You currently have ".$thread_name_length." characters.");
-	header("Location: error.php?error_message=".$error_message);
+	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }
 
 // Checks to make sure the player name doesn't already exist
 if($db->doesPlayerNameExist($username)) {
 	$error_message = htmlspecialchars("That username already exists!");
-	header("Location: error.php?error_message=".$error_message);
+	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }
 
@@ -51,7 +51,7 @@ $password = htmlspecialchars(trim($_POST['playerPassword']));
 if(strlen($password) < 4) {
 	$thread_name_length = htmlspecialchars(strlen($password));
 	$error_message = htmlspecialchars("Your password is too short! The minimum is 4 characters. You currently have ".$thread_name_length." characters.");
-	header("Location: error.php?error_message=".$error_message);
+	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }
 
@@ -62,21 +62,21 @@ $email = htmlspecialchars(trim($_POST['playerEmail']));
 if(strlen($email) > 50){
 	$thread_name_length = htmlspecialchars(strlen($email));
 	$error_message = htmlspecialchars("Your email is too long! The limit is 50 characters. You currently have ".$thread_name_length." characters.");
-	header("Location: error.php?error_message=".$error_message);
+	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }
 
 // Makes sure email is valid
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 	$error_message = htmlspecialchars("Your email is invalid!");
-	header("Location: error.php?error_message=".$error_message);
+	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }
 
 // Makes sure the email hasn't already been used.
 if($db->doesEmailExist($email)) {
 	$error_message = htmlspecialchars("That email already exist!");
-	header("Location: error.php?error_message=".$error_message);
+	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }
 
@@ -96,5 +96,5 @@ $_SESSION['playerName'] = $username;
 $_SESSION['playerId'] = $db->getUserId($username);
 
 // Goto index
-header("Location: index.php");
+header("Location: " . SITE_ROOT . "/index.php");
 exit();

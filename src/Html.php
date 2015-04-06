@@ -52,7 +52,7 @@ class Html {
 	</header>
 	<div id=\"wrapper\">
 		<div class=\"nav-search\">
-			<form method=\"POST\" action=\"$this->fullSiteRoot/passwordCheckSubmit.php\">
+			<form method=\"POST\" action=\"$this->fullSiteRoot/scripts/passwordCheckSubmit.php\">
 				<fieldset>
 					<input type=\"text\" name=\"passwordCheck\" placeholder=\"Enter Password\">
 				</fieldset>
@@ -72,7 +72,7 @@ class Html {
 					echo "<li><a href=\"$this->fullSiteRoot/create_team\">Create Team</a></li>
 						  <li><a href=\"$this->fullSiteRoot/join_team\">Join Team</a></li>";
 				} else {
-					echo "<li><a href=\"$this->fullSiteRoot/leaveTeamSubmit.php\">Leave " . $db->loadTeam($player->getTeamId())->getTeamname() . "</a></li>";
+					echo "<li><a href=\"$this->fullSiteRoot/scripts/leaveTeamSubmit.php\">Leave " . $db->loadTeam($player->getTeamId())->getTeamname() . "</a></li>";
 				}
 				
 				echo "
@@ -90,7 +90,7 @@ class Html {
 	public function printCreateUser() {
 		echo "
 		<div class=\"post-reply\">
-			<form method=\"post\" action=\"$this->fullSiteRoot/signupSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/signupSubmit.php\">
 				<fieldset>
 					<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
 					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
@@ -106,7 +106,7 @@ class Html {
 	public function printCreateTeam() {
 		echo "
 		<div class=\"post-reply\">
-			<form method=\"post\" action=\"$this->fullSiteRoot/createTeamSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/createTeamSubmit.php\">
 				<fieldset>
 					<div class=\"input\"><label for=\"teamName\">Team name:</label><input type=\"text\" name=\"teamName\" placeholder=\"Le Boffin Team\" id=\"teamName\"></div>
 				</fieldset>
@@ -120,7 +120,7 @@ class Html {
 	public function printLogin() {
 		echo "
 		<div class=\"post-reply\">
-			<form method=\"post\" action=\"$this->fullSiteRoot/loginSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/loginSubmit.php\">
 				<fieldset>
 					<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
 					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
@@ -219,12 +219,12 @@ class Html {
 			if(isset($_SESSION['playerId']) && $db->getGroupId($_SESSION['playerId']) == ADMIN_GROUP) {
 				if($player->getPlayerId() == $teamLeader) {
 					echo "<li>- [Leader] $playerName
-					 - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
-					&middot; <a href=\"" . $this->fullSiteRoot . "/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
+					 - <a href=\"$this->fullSiteRoot/scripts/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
+					&middot; <a href=\"$this->fullSiteRoot/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
 				} else {
 					echo "<li>- $playerName
-					 - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
-					&middot; <a href=\"" . $this->fullSiteRoot . "/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
+					 - <a href=\"$this->fullSiteRoot/scripts/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
+					&middot; <a href=\"$this->fullSiteRoot/scripts/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
 				}
 			} else if($player->getPlayerId() == $teamLeader) {
 				echo "<li>- [Leader] $playerName</li>";
@@ -232,8 +232,8 @@ class Html {
 				echo "<li>- $playerName";
 
 				if(isset($_SESSION['playerId']) && $teamLeader == $_SESSION['playerId']) {
-					echo " - <a href=\"" . $this->fullSiteRoot . "/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
-					&middot; <a href=\"" . $this->fullSiteRoot . "/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
+					echo " - <a href=\"$this->fullSiteRoot/scripts/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
+					&middot; <a href=\"$this->fullSiteRoot/scripts/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
 				} else {
 					echo "</li>";
 				}
@@ -324,7 +324,7 @@ $challengeDescription
 	public function printJoinTeam() {
 		echo "
 		<div class=\"post-reply\">
-			<form method=\"post\" action=\"$this->fullSiteRoot/joinTeamSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/joinTeamSubmit.php\">
 				<fieldset>
 					<div class=\"input\">
 						<label for=\"teamId\">Team:</label>
@@ -357,7 +357,7 @@ $challengeDescription
 		echo "
 		<div class=\"post-reply\">
 			<h1>Update Challenge information</h1>
-			<form method=\"post\" action=\"$this->fullSiteRoot/challengesUpdateSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/challengesUpdateSubmit.php\">
 				<fieldset>";
 					$count = 1;
 					foreach($challenges as $challenge) {
@@ -374,7 +374,7 @@ $challengeDescription
 						<div class=\"challenge-edit-textarea\">
 							<textarea name=\"challenge". $count ."e\" id=\"challenge". $count ."e\">". $challenge->getChallengeDescription() ."</textarea>
 						</div>
-						<p><a style=\"font-size: 14px\" href=\"$this->fullSiteRoot/deleteChallengeSubmit.php?challengeId=". $challenge->getChallengeId() ."\">Delete Challenge</a></p>";
+						<p><a style=\"font-size: 14px\" href=\"$this->fullSiteRoot/scripts/deleteChallengeSubmit.php?challengeId=". $challenge->getChallengeId() ."\">Delete Challenge</a></p>";
 						$count++;
 					}
 		  echo "</fieldset>
@@ -389,7 +389,7 @@ $challengeDescription
 		echo "
 		<div class=\"post-reply\">
 			<h1>Create Challenge</h1>
-			<form method=\"post\" action=\"$this->fullSiteRoot/createChallengeSubmit.php\">
+			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/createChallengeSubmit.php\">
 				<fieldset>
 					<div class=\"input\">
 						<label for=\"challengeName\">Name:</label>

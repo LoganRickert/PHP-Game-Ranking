@@ -5,7 +5,7 @@ include './autoloader.php';
 
 // Checks to make sure they are logged in.
 if(!isset($_SESSION['playerId'])) {
-	header("Location: index.php");
+	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
 
@@ -13,7 +13,7 @@ $db = new Database();
 
 // Checks to make sure they are not already in a team.
 if($db->getTeamId(intval($_SESSION['playerId'])) != 0) {
-	header("Location: index.php");
+	header("Location: " . SITE_ROOT . "/");
 	exit();
 }
 
