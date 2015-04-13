@@ -1,4 +1,8 @@
 RewriteEngine On
+
+RewriteCond %{HTTPS} !^on$
+RewriteRule (.*) https://boffin.rickertcorp.com/$1 [R,L]
+
 RewriteRule ^team/$ team.php
 RewriteRule ^team$ team.php
 

@@ -109,6 +109,7 @@ class Html {
 	public function printCreateUser() {
 		echo "
 		<div class=\"post-reply\">
+			<h1>Create An Account</h1>
 			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/signupSubmit.php\">
 				<fieldset>
 					<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
@@ -125,6 +126,7 @@ class Html {
 	public function printCreateTeam() {
 		echo "
 		<div class=\"post-reply\">
+	 		<h1>Create A Team</h1>
 			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/createTeamSubmit.php\">
 				<fieldset>
 					<div class=\"input\"><label for=\"teamName\">Team name:</label><input type=\"text\" name=\"teamName\" placeholder=\"Le Boffin Team\" id=\"teamName\"></div>
@@ -139,6 +141,7 @@ class Html {
 	public function printLogin() {
 		echo "
 		<div class=\"post-reply\">
+			<h1>Login</h1>
 			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/loginSubmit.php\">
 				<fieldset>
 					<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
@@ -357,6 +360,7 @@ $challengeDescription
 	public function printJoinTeam() {
 		echo "
 		<div class=\"post-reply\">
+			<h1>Join A Team</h1>
 			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/joinTeamSubmit.php\">
 				<fieldset>
 					<div class=\"input\">
@@ -395,8 +399,7 @@ $challengeDescription
 					$count = 1;
 					foreach($challenges as $challenge) {
 						echo "
-						<div class=\"input\">
-							<label for=\"challenge". $count ."b\">Challenge ". $count .":</label>
+						<div class=\"input\"><label for=\"challenge". $count ."b\">Challenge ". $count .":</label>
 							<input type=\"hidden\" style=\"display: hidden\" name=\"challenge". $count ."a\" id=\"challenge". $count ."a\" value=\"". $challenge->getChallengeId() ."\">
 							<input type=\"text\" name=\"challenge". $count ."b\" id=\"challenge". $count ."b\" value=\"". $challenge->getChallengeName() ."\">";
 							if(in_array($db->getGroupId(intval($_SESSION['playerId'])), canViewChallengePassword)) {
@@ -405,7 +408,7 @@ $challengeDescription
 							echo "<input type=\"text\" name=\"challenge". $count ."d\" id=\"challenge". $count ."d\" value=\"". $challenge->getChallengeAmount() ."\">
 						</div>
 						
-						<label for=\"challenge". $count ."e\">Description:</label>
+						<label for=\"challenge". $count ."e\" class=\"textarea-label\">Description:</label>
 						<div class=\"challenge-edit-textarea\">
 							<textarea name=\"challenge". $count ."e\" id=\"challenge". $count ."e\">". $challenge->getChallengeDescription() ."</textarea>
 						</div>";
@@ -445,7 +448,7 @@ $challengeDescription
 						<label for=\"eventId\">Event ID:</label>
 						<input type=\"text\" name=\"eventId\" id=\"eventId\" placeholder=\"1\" value=\"". CURRENT_EVENT ."\">
 					</div>
-					<label for=\"challengeDescription\">Description:</label>
+					<label for=\"challengeDescription\" class=\"textarea-label\">Description:</label>
 						<div class=\"challenge-edit-textarea\">
 							<textarea name=\"challengeDescription\" id=\"challengeDescription\"></textarea>
 						</div>

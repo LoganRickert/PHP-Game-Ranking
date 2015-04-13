@@ -102,10 +102,28 @@ section ul ul li {
 	padding: 10px 20px;
 }
 
+section form fieldset label {
+	float: left;
+	text-align: left;
+	width: 120px;
+	padding: 4px 0 0 0;
+}
+
+section form fieldset .textarea-label {
+	float: left;
+	text-align: left;
+	width: 120px;
+	padding: 20px 0 0 0;
+}
+
 section form fieldset input {
 	padding: 5px;
-	margin: 10px;
+	margin: 0 10px 0 0;
 	clear: both;
+}
+
+section form fieldset .input {
+	padding: 10px 0;
 }
 
 section form fieldset select {
