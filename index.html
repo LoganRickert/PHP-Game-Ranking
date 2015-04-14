@@ -28,6 +28,26 @@
 <p>You can view the Github page here: <a href="https://loganrickert.github.io/PHP-Game-Ranking/">https://loganrickert.github.io/PHP-Game-Ranking/</a></p>
 
 <h2>
+<a id="setting-up-config-files" class="anchor" href="#setting-up-config-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up config files</h2>
+
+<p>There are two configuration files you need to change. The first is the .htaccess in the root directory. Rename the file from .htaccess.example to .htaccess. You should see this line near the top:</p>
+
+<pre><code>RewriteCond %{HTTPS} !^on$
+RewriteRule (.*) https://localhost/$1 [R,L]
+</code></pre>
+
+<p>If you will be running the website on HTTPS, keep this line and change <code>https://localhost/$1</code> to reflect the directory (If you are in html/ctf, change to https://localhost/ctf/$1). You should also replace localhost with your domain name or IP.</p>
+
+<p>You should also rename the file Constants.php.example to Constants.php and change the following lines:</p>
+
+<pre><code>define("SITE_ROOT", "http://localhost");
+
+define("SITE_NAME", "Rankings");
+</code></pre>
+
+<p>The Site name is the name of the site and the site root is the URL to the site. Do not include the trailing slash for the site root.</p>
+
+<h2>
 <a id="setting-up-sql-database" class="anchor" href="#setting-up-sql-database" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up SQL database</h2>
 
 <p>The SQL was written for MySQL. To set up the database from PHPMyAdmin, goto PHPMyAdmin, click on the 'SQL' tab, and paste in the contents of the file DatabaseCreate and press go in the bottom right-hand corner.</p>
@@ -35,9 +55,9 @@
 <p>To enter the SQL information, goto src/Constants and change the information:</p>
 
 <pre><code>define("DB_HOST","localhost");
-define("DB_NAME","mike");
-define("DB_USER","root");
-define("DB_PASSWORD","");
+define("DB_NAME","db_name");
+define("DB_USER","db_user");
+define("DB_PASSWORD","db_password");
 </code></pre>
 
 <p>The SQL database user only needs SELECT, UPDATE and INSERT. The JOIN, SUM and COUNT commands are also used.</p>
