@@ -24,7 +24,7 @@ define("SITE_NAME", "Rankings");
 The Site name is the name of the site and the site root is the URL to the site. Do not include the trailing slash for the site root.
 
 ## Setting up SQL database
-The SQL was written for MySQL. To set up the database from PHPMyAdmin, goto PHPMyAdmin, click on the 'SQL' tab, and paste in the contents of the file DatabaseCreate and press go in the bottom right-hand corner.
+The SQL was written for MySQL. To set up the database from PHPMyAdmin, goto PHPMyAdmin, click on the 'SQL' tab, and paste in the contents of the file DatabaseCreate and press go in the bottom right-hand corner. The default name for the SQL database is mike.
 
 To enter the SQL information, goto src/Constants and change the information:
 
