@@ -154,7 +154,7 @@ class Html {
 	}
 
 	public function getTeamOut($teamName, $teamPoints, $teamId) {
-		return "<a href=\"" . $this->fullSiteRoot . "/team/$teamId\">$teamName</a> - $teamPoints points";
+		return array("<a href=\"" . $this->fullSiteRoot . "/team/$teamId\">$teamName</a>", "$teamPoints points");
 	}
 
 	public function printTeamStats($teamName, $teamPoints, $teamId, $teamLeader) {
@@ -287,16 +287,24 @@ class Html {
 	public function printTeamsAndPlayers() {
 		$db = new Database();
 		$teamsAndPlayers = $db->getTeamsAndPlayers();
-		echo "<ul>";
+		echo "<table>
+		<tr style=\"border-bottom: 1px solid #999;\">
+			<td style=\"padding: 20px; background: white; font-weight: bold;\">Teams</td><td style=\"padding: 20px; background: white; font-weight: bold\">Points</td>
+		</tr>";
 		foreach($teamsAndPlayers as $team) {
-			echo "<li>" . $this->getTeamOut($team[0]->getTeamName(), $team[0]->getTeamPoints(), $team[0]->getTeamId()) . "</li>
-			<ul>";
+			$teamData = $this->getTeamOut($team[0]->getTeamName(), $team[0]->getTeamPoints(), $team[0]->getTeamId());
+			echo "<tr>
+			<td>" . $teamData[0] . "</td><td>" . $teamData[1] . "</td>
+			</tr>
+			";
 			foreach($team[1] as $player) {
-				echo "<li>" . $this->getPlayerOut($player->getPlayerName(), $player->getPlayerId(), $player->getGroupId()) . "</li>";
+				echo "<tr>
+				<td class=\"player\" colspan=\"2\">" . $this->getPlayerOut($player->getPlayerName(), $player->getPlayerId(), $player->getGroupId()) . "</td>
+				</tr>
+				";
 			}
-			echo "</ul>";
 		}
-		echo "</ul>";
+		echo "</table>";
 	}
 
 	public function getPlayerOut($playerName, $playerId, $groupId) {
@@ -341,7 +349,8 @@ class Html {
 			echo "<p>Not part of a team.<p>";
 		} else {
 			$team = $db->loadteam($teamId);
-			echo "<p>" . $this->getTeamOut($team->getTeamName(), $team->getTeamPoints(), $teamId) . "</p>";
+			$teamData = $this->getTeamOut($team->getTeamName(), $team->getTeamPoints(), $teamId);
+			echo "<p>" . $teamData[0] . " - " . $teamData[1] . "</p>";
 		}
 	}
 
