@@ -8,7 +8,7 @@ date_default_timezone_set('America/New_York');
 define("DEBUG_MODE", true);
 
 // Site root
-define("SITE_ROOT", "https://boffin.rickertcorp.com/ctf");
+define("SITE_ROOT", "http://localhost");
 
 define("SITE_NAME", "Rankings");
 
