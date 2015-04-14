@@ -116,9 +116,65 @@ class Html {
 					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
 					<div class=\"input\"><label for=\"playerEmail\">Email:</label><input type=\"email\" name=\"playerEmail\" placeholder=\"cool.email@email.com\" id=\"playerEmail\"></div>
 				</fieldset>
-				<input type=\"submit\" class=\"submit\">
+				<input type=\"submit\" class=\"submit\" value=\"Create!\">
+				<div class=\"message\"></div>
 			</form>
 		</div>
+		<script>
+			$(document).ready(function() {
+				$('.message').hide()
+				$('form').keyup(function(evt) {
+					var url = '$this->fullSiteRoot/scripts/signupValidate.php';
+					var formData = $(this).serialize();
+					$.ajax(url, {
+						data: formData,
+						type: 'POST',
+						success: function(html) {
+							if(html == 'good') {
+								$('.message').html('')
+								$('.message').hide()
+								$('.submit').show()
+							} else {
+								$('.message').html(escapeHtml(html))
+								$('.message').show()
+								$('.submit').hide()
+							}
+						}
+					});
+				});
+				$('form').submit(function(evt) {
+					var url = '$this->fullSiteRoot/scripts/signupValidate.php';
+					var formData = $(this).serialize();
+					var check = false;
+					$.ajax(url, {
+						data: formData,
+						type: 'POST',
+						async: false,
+						success: function(html) {
+							if(html == 'good') {
+								check = true;
+							}
+						}
+					});
+
+					if(!check) {
+						evt.preventDefault();
+					}
+				});
+			});
+
+			function escapeHtml(text) {
+			  var map = {
+			    '&': '&amp;',
+			    '<': '&lt;',
+			    '>': '&gt;',
+			    '\"': '&quot;',
+			    \"'\": '&#039;'
+			  };
+
+			  return text.replace(/[&<>\"']/g, function(m) { return map[m]; });
+			}
+		</script>
 		";
 	}
 
@@ -131,9 +187,65 @@ class Html {
 				<fieldset>
 					<div class=\"input\"><label for=\"teamName\">Team name:</label><input type=\"text\" name=\"teamName\" placeholder=\"Le Boffin Team\" id=\"teamName\"></div>
 				</fieldset>
-				<input type=\"submit\" class=\"submit\">
+				<input type=\"submit\" class=\"submit\" value=\"Create Team!\">
+				<div class=\"message\"></div>
 			<form>
 		</div>
+		<script>
+			$(document).ready(function() {
+				$('.message').hide()
+				$('form').keyup(function(evt) {
+					var url = '$this->fullSiteRoot/scripts/createTeamValidate.php';
+					var formData = $(this).serialize();
+					$.ajax(url, {
+						data: formData,
+						type: 'POST',
+						success: function(html) {
+							if(html == 'good') {
+								$('.message').html('')
+								$('.message').hide()
+								$('.submit').show()
+							} else {
+								$('.message').html(escapeHtml(html))
+								$('.message').show()
+								$('.submit').hide()
+							}
+						}
+					});
+				});
+				$('form').submit(function(evt) {
+					var url = '$this->fullSiteRoot/scripts/createTeamValidate.php';
+					var formData = $(this).serialize();
+					var check = false;
+					$.ajax(url, {
+						data: formData,
+						type: 'POST',
+						async: false,
+						success: function(html) {
+							if(html == 'good') {
+								check = true;
+							}
+						}
+					});
+
+					if(!check) {
+						evt.preventDefault();
+					}
+				});
+			});
+
+			function escapeHtml(text) {
+			  var map = {
+			    '&': '&amp;',
+			    '<': '&lt;',
+			    '>': '&gt;',
+			    '\"': '&quot;',
+			    \"'\": '&#039;'
+			  };
+
+			  return text.replace(/[&<>\"']/g, function(m) { return map[m]; });
+			}
+		</script>
 		";
 	}
 
@@ -147,9 +259,8 @@ class Html {
 					<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
 					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
 				</fieldset>
-				<input type=\"submit\" class=\"submit\">
-				<div class=\"message\">
-				</div>
+				<input type=\"submit\" class=\"submit\" value=\"Login!\">
+				<div class=\"message\"></div>
 			</form>
 		</div>
 		<script>
