@@ -126,6 +126,10 @@ section form fieldset .input {
 	padding: 10px 0;
 }
 
+section form fieldset .select-label {
+	padding: 15px 0 0 0;
+}
+
 section form fieldset select {
 	padding: 5px;
 	margin: 10px;

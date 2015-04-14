@@ -363,8 +363,8 @@ $challengeDescription
 			<h1>Join A Team</h1>
 			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/joinTeamSubmit.php\">
 				<fieldset>
-					<div class=\"input\">
-						<label for=\"teamId\">Team:</label>
+					<div class=\"select\">
+						<label for=\"teamId\" class=\"select-label\">Team:</label>
 						<select type=\"text\" name=\"teamId\" id=\"teamid\"></div>";
 						$this->printTeamsOptions();
 				echo "</select>
