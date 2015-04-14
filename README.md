@@ -3,6 +3,26 @@
 ## Github Pages
 You can view the Github page here: https://loganrickert.github.io/PHP-Game-Ranking/
 
+## Setting up config files
+There are two configuration files you need to change. The first is the .htaccess in the root directory. Rename the file from .htaccess.example to .htaccess. You should see this line near the top:
+
+```
+RewriteCond %{HTTPS} !^on$
+RewriteRule (.*) https://localhost/$1 [R,L]
+```
+
+If you will be running the website on HTTPS, keep this line and change ```https://localhost/$1``` to reflect the directory (If you are in html/ctf, change to https://localhost/ctf/$1). You should also replace localhost with your domain name or IP.
+
+You should also rename the file Constants.php.example to Constants.php and change the following lines:
+
+```
+define("SITE_ROOT", "http://localhost");
+
+define("SITE_NAME", "Rankings");
+```
+
+The Site name is the name of the site and the site root is the URL to the site. Do not include the trailing slash for the site root.
+
 ## Setting up SQL database
 The SQL was written for MySQL. To set up the database from PHPMyAdmin, goto PHPMyAdmin, click on the 'SQL' tab, and paste in the contents of the file DatabaseCreate and press go in the bottom right-hand corner.
 
@@ -10,9 +30,9 @@ To enter the SQL information, goto src/Constants and change the information:
 
 ```
 define("DB_HOST","localhost");
-define("DB_NAME","mike");
-define("DB_USER","root");
-define("DB_PASSWORD","");
+define("DB_NAME","db_name");
+define("DB_USER","db_user");
+define("DB_PASSWORD","db_password");
 ```
 
 The SQL database user only needs SELECT, UPDATE and INSERT. The JOIN, SUM and COUNT commands are also used.
