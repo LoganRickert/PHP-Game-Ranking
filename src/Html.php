@@ -175,20 +175,23 @@ class Html {
 					});
 				});
 				$('form').submit(function(evt) {
-					evt.preventDefault()
 					var url = '$this->fullSiteRoot/scripts/loginValidate.php';
 					var formData = $(this).serialize();
+					var check = false;
 					$.ajax(url, {
 						data: formData,
 						type: 'POST',
+						async: false,
 						success: function(html) {
 							if(html == 'good') {
-								return true;
-							} else {
-								return false;
+								check = true;
 							}
 						}
 					});
+
+					if(!check) {
+						evt.preventDefault();
+					}
 				});
 			});
 
