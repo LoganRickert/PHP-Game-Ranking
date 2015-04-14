@@ -124,6 +124,18 @@ section table .player {
 	padding: 20px 0 20px 50px;
 }
 
+section form .message {
+	padding: 15px;
+	margin: 10px 0;
+	border: 1px solid #FF0000;
+	background: #FFBABA;
+	color: #FF0000;
+	font-weight: bold;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
 section form fieldset label {
 	float: left;
 	text-align: left;

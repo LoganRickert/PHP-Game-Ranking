@@ -148,8 +148,44 @@ class Html {
 					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
 				</fieldset>
 				<input type=\"submit\" class=\"submit\">
-				</form>
+				<div class=\"message\">
+				</div>
+			</form>
 		</div>
+		<script>
+			$(document).ready(function() {
+				$('.message').hide()
+				$('form').keyup(function(evt) {
+					var url = '$this->fullSiteRoot/scripts/loginValidate.php';
+					var formData = $(this).serialize();
+					$.ajax(url, {
+						data: formData,
+						type: 'POST',
+						success: function(html) {
+							if(html == 'good') {
+								$('.message').html('')
+								$('.message').hide()
+							} else {
+								$('.message').html(escapeHtml(html))
+								$('.message').show()
+							}
+						}
+					});
+				});
+			});
+
+			function escapeHtml(text) {
+			  var map = {
+			    '&': '&amp;',
+			    '<': '&lt;',
+			    '>': '&gt;',
+			    '\"': '&quot;',
+			    \"'\": '&#039;'
+			  };
+
+			  return text.replace(/[&<>\"']/g, function(m) { return map[m]; });
+			}
+		</script>
 		";
 	}
 
