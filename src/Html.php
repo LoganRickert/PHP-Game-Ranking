@@ -165,9 +165,27 @@ class Html {
 							if(html == 'good') {
 								$('.message').html('')
 								$('.message').hide()
+								$('.submit').show()
 							} else {
 								$('.message').html(escapeHtml(html))
 								$('.message').show()
+								$('.submit').hide()
+							}
+						}
+					});
+				});
+				$('form').submit(function(evt) {
+					evt.preventDefault()
+					var url = '$this->fullSiteRoot/scripts/loginValidate.php';
+					var formData = $(this).serialize();
+					$.ajax(url, {
+						data: formData,
+						type: 'POST',
+						success: function(html) {
+							if(html == 'good') {
+								return true;
+							} else {
+								return false;
 							}
 						}
 					});

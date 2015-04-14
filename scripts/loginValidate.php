@@ -25,15 +25,15 @@ if(!isset($_POST['playerName']) || !isset($_POST['playerPassword'])) {
 $username = htmlspecialchars(trim(($_POST['playerName'])));
 
 // Checks to make sure player name is less than 30 characters.
-if((strlen($username) + 1) > 30){
-	$thread_name_length = strlen($username) + 1;
+if(strlen($username) > 30){
+	$thread_name_length = strlen($username);
 	echo "Your username is too long! The limit is 30 characters. You currently have " . $thread_name_length . " characters.";
 	exit();
 }
 
 // Checks to make sure player name is at least 4 characters.
-if((strlen($username) + 1) < 4) {
-	$thread_name_length = strlen($username) + 1;
+if(strlen($username) < 4) {
+	$thread_name_length = strlen($username);
 	echo "Your username is too short! The minimum is 4 characters. You currently have " . $thread_name_length . " characters.";
 	exit();
 }
@@ -42,8 +42,8 @@ if((strlen($username) + 1) < 4) {
 $password = htmlspecialchars(trim($_POST['playerPassword']));
 
 // Makes sure password is not too short
-if((strlen($password) + 1) < 4) {
-	$thread_name_length = strlen($password) + 1;
+if(strlen($password) < 4) {
+	$thread_name_length = strlen($password);
 	echo "Your password is too short! The minimum is 4 characters. You currently have " . $thread_name_length . " characters.";
 	exit();
 }
