@@ -8,7 +8,11 @@ date_default_timezone_set('America/New_York');
 define("DEBUG_MODE", true);
 
 // Site root
+<<<<<<< HEAD:src/Constants.php.example
 define("SITE_ROOT", "http://localhost/");
+=======
+define("SITE_ROOT", "http://localhost");
+>>>>>>> 826be0d0c2f284c0f211a367631158fcb23c399f:src/Constants.php
 
 define("SITE_NAME", "Rankings");
 
