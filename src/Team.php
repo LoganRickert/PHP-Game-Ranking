@@ -32,6 +32,10 @@ class Team {
 		return $this->teamLeader;
 	}
 
+	public function getTeamStatus() {
+		return $this->teamStatus;
+	}
+
 	/*
 		<a href=team/$teamId\">$teamName</a> - $teamPoints points
 	*/

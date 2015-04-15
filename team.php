@@ -13,7 +13,13 @@ $db = new Database();
 if(!isset($_REQUEST['teamId']) || !$db->doesTeamIdExist(intval($_REQUEST['teamId']))) {
 	echo "Team not found!";
 } else {
-	$db->loadTeam(intval($_REQUEST['teamId']))->printStats();
+	$team = $db->loadTeam(intval($_REQUEST['teamId']));
+
+	if($team->getTeamStatus() >= 0) {
+		$team->printStats();
+	} else {
+		echo "Team not found!";
+	}
 }
 
 $html->printFooter();
