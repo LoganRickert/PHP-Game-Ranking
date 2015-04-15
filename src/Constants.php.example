@@ -35,6 +35,7 @@ const canDeleteChallenge = array(ADMIN_GROUP);
 const canViewChallengePassword = array(ADMIN_GROUP);
 const canKickAnyone = array(ADMIN_GROUP);
 const canMakeAnyoneLeader = array(ADMIN_GROUP);
+const canDeleteTeam = array(ADMIN_GROUP);
 
 // Admins and Players
 const canJoinTeam = array(PLAYER_GROUP, ADMIN_GROUP);
@@ -53,6 +54,7 @@ define("LEAVE_TEAM_ENABLED", true);
 define("CAN_MAKE_LEADER_ENABLED", true);
 define("CAN_SUBMIT_PASSWORDS", true);
 define("VIEW_CHALLENGES_ENABLED", true);
+define("TEAM_DELETING", true);
 
 // Which event are we currently on
 define("CURRENT_EVENT", 1);

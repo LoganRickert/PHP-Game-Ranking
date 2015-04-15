@@ -31,6 +31,7 @@ class Database {
 			$query = $this->db->prepare("
 				SELECT team_id, team_name, team_leader, team_status
 				FROM teams
+				WHERE team_status >= 0
 				ORDER BY team_id ASC
 			");
 			$query->execute();
@@ -512,6 +513,27 @@ class Database {
 			");
 			$query->execute(array(
 				"playerId" => $playerId,
+				"teamId" => $teamId,
+				));
+		} catch (Exception $e) {
+			echo "Could not connect to database! ".$e;
+			exit;
+		}
+	}
+
+	/*
+		Updates the team status of a team.
+	*/
+	public function updateTeamStatus($teamId, $teamStatus) {
+		// Updates the information
+		try {
+			$query = $this->db->prepare("
+				UPDATE teams
+				SET team_status = :teamStatus
+				WHERE team_id = :teamId
+			");
+			$query->execute(array(
+				"teamStatus" => $teamStatus,
 				"teamId" => $teamId,
 				));
 		} catch (Exception $e) {

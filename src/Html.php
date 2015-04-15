@@ -449,7 +449,17 @@ class Html {
 		foreach($pointsObtained as $pointObtained) {
 			echo "<li>- <a href=\"" . $this->fullSiteRoot . "/challenge/$pointObtained[3]\">$pointObtained[2]</a> ($pointObtained[1] points)</li>";
 		}
+
 		echo "</ul>";
+
+		if(TEAM_DELETING && in_array($db->getGroupId(intval($_SESSION['playerId'])), canDeleteTeam)) {
+			echo "
+			<div>
+				<ul>
+					<li><a href=\"$this->fullSiteRoot/scripts/deleteTeam.php?teamId=$teamId\">Delete Team</a></li>
+				</ul>
+			</div>";
+		}
 	}
 
 	public function printTeamsAndPlayers() {

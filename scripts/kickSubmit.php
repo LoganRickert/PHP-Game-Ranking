@@ -23,6 +23,11 @@ if(!(in_array($db->getGroupId(intval($_SESSION['playerId'])), canKick))) {
 	exit();
 }
 
+if(!isset($_REQUEST['playerId'])) {
+	header("Location: " . SITE_ROOT . "/index.php");
+	exit();
+}
+
 // Checks to make sure the playerId is valid.
 if(intval($_REQUEST['playerId']) <= 0) {
 	header("Location: " . SITE_ROOT . "/index.php");
