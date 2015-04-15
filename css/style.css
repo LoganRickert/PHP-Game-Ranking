@@ -187,6 +187,10 @@ section form .challenge-edit-textarea textarea {
 	font-size: 14px;
 }
 
+section form .submit {
+	cursor: pointer;
+}
+
 section h1 {
 	font-size: 20px;
 	padding: 10px 0;
