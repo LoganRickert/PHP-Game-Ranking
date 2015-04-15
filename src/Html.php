@@ -620,7 +620,7 @@ $challengeDescription
 						$count++;
 					}
 		  echo "</fieldset>
-				<input type=\"submit\" class=\"submit\">
+				<input type=\"submit\" class=\"submit\" value=\"Update Challenges!\">
 			</form>";
 			if(in_array($db->getGroupId(intval($_SESSION['playerId'])), canCreateChallenges)) {
 				echo "<p><a href=\"$this->fullSiteRoot/create_challenge\">Create New Challenge</a></p>";
@@ -655,7 +655,7 @@ $challengeDescription
 							<textarea name=\"challengeDescription\" id=\"challengeDescription\"></textarea>
 						</div>
 				</fieldset>
-				<input type=\"submit\" class=\"submit\">
+				<input type=\"submit\" class=\"submit\" value=\"Create Challenge!\">
 			</form>
 			<p><a href=\"challenges\">Update Challenges</a></p>
 		</div>
