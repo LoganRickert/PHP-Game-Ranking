@@ -35,10 +35,10 @@ if(strlen($username) > 30){
 	exit();
 }
 
-// Checks to make sure player name is at least 3 characters.
-if(strlen($username) < 3) {
+// Checks to make sure player name is at least 4 characters.
+if(strlen($username) < 4) {
 	$thread_name_length = htmlspecialchars(strlen($username));
-	$error_message = htmlspecialchars("Your username is too short! The minimum is 3 characters. You currently have ".$thread_name_length." characters.");
+	$error_message = htmlspecialchars("Your username is too short! The minimum is 4 characters. You currently have ".$thread_name_length." characters.");
 	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }

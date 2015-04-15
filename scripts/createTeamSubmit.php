@@ -49,9 +49,9 @@ if(strlen($teamName) > 30){
 }
 
 // Checks to make sure the team name isn't too short
-if(strlen($teamName) < 3) {
+if(strlen($teamName) < 4) {
 	$thread_name_length = htmlspecialchars(strlen($teamName));
-	$error_message = htmlspecialchars("Your team name is too short! The minimum is 3 characters. You currently have ".$thread_name_length." characters.");
+	$error_message = htmlspecialchars("Your team name is too short! The minimum is 4 characters. You currently have ".$thread_name_length." characters.");
 	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }

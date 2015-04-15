@@ -546,7 +546,7 @@ $challengeDescription
 						$this->printTeamsOptions();
 				echo "</select>
 				</fieldset>
-				<input type=\"submit\" class=\"submit\">
+				<input type=\"submit\" class=\"submit\" value=\"Join Team!\">
 				</form>
 		</div>
 		";
