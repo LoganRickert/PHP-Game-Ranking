@@ -106,7 +106,7 @@ class Html {
 		
 	}
 
-	public function printCreateUser() {
+	public function printCreateUser($hash) {
 		echo "
 		<div class=\"post-reply\">
 			<h1>Create An Account</h1>
@@ -115,6 +115,7 @@ class Html {
 					<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
 					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
 					<div class=\"input\"><label for=\"playerEmail\">Email:</label><input type=\"email\" name=\"playerEmail\" placeholder=\"cool.email@email.com\" id=\"playerEmail\"></div>
+					<input type=\"hidden\" name=\"hash\" value=\"$hash\" /> 
 				</fieldset>
 				<input type=\"submit\" class=\"submit\" value=\"Create!\">
 				<div class=\"message\"></div>
@@ -179,13 +180,14 @@ class Html {
 	}
 
 	
-	public function printCreateTeam() {
+	public function printCreateTeam($hash) {
 		echo "
 		<div class=\"post-reply\">
 	 		<h1>Create A Team</h1>
 			<form method=\"post\" action=\"$this->fullSiteRoot/scripts/createTeamSubmit.php\">
 				<fieldset>
 					<div class=\"input\"><label for=\"teamName\">Team name:</label><input type=\"text\" name=\"teamName\" placeholder=\"Le Boffin Team\" id=\"teamName\"></div>
+					<input type=\"hidden\" name=\"hash\" value=\"$hash\" /> 
 				</fieldset>
 				<input type=\"submit\" class=\"submit\" value=\"Create Team!\">
 				<div class=\"message\"></div>
@@ -250,7 +252,7 @@ class Html {
 	}
 
 
-	public function printLogin() {
+	public function printLogin($hash) {
 		echo "
 		<div class=\"post-reply\">
 			<h1>Login</h1>
@@ -258,6 +260,7 @@ class Html {
 				<fieldset>
 					<div class=\"input\"><label for=\"playerName\">Username:</label><input type=\"text\" name=\"playerName\" placeholder=\"James T Kirk\" id=\"playerName\"></div>
 					<div class=\"input\"><label for=\"playerPassword\">Password:</label><input type=\"password\" name=\"playerPassword\" placeholder=\"Password\" id=\"playerPassword\"></div>
+					<input type=\"hidden\" name=\"hash\" value=\"$hash\" /> 
 				</fieldset>
 				<input type=\"submit\" class=\"submit\" value=\"Login!\">
 				<div class=\"message\"></div>
@@ -555,7 +558,7 @@ $challengeDescription
 		</pre></p>";
 	}
 
-	public function printJoinTeam() {
+	public function printJoinTeam($hash) {
 		echo "
 		<div class=\"post-reply\">
 			<h1>Join A Team</h1>
@@ -566,6 +569,7 @@ $challengeDescription
 						<select type=\"text\" name=\"teamId\" id=\"teamid\"></div>";
 						$this->printTeamsOptions();
 				echo "</select>
+					<input type=\"hidden\" name=\"hash\" value=\"$hash\" /> 
 				</fieldset>
 				<input type=\"submit\" class=\"submit\" value=\"Join Team!\">
 				</form>

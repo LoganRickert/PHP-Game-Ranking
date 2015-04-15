@@ -15,6 +15,17 @@ if(!isset($_SESSION['playerId'])) {
 	exit();
 }
 
+// Credit for hashing: http://www.webmasterworld.com/php/4191716.htm
+$hash = $_SESSION['joinTeam_hash'][md5('join_team.php')];
+// You MUST unset the hash so that they only get one try
+unset($_SESSION['joinTeam_hash'][md5('join_team.php')]);
+
+if(!($hash === $_POST['hash'])) {
+	$error_message = htmlspecialchars("Your form session is not valid!");
+	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
+	exit();
+}
+
 $db = new Database();
 
 // Make sure they have permission.

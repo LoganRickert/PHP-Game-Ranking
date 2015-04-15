@@ -15,10 +15,14 @@ if(isset($_SESSION['playerId'])) {
 	exit();
 }
 
+// Credit for hashing: http://www.webmasterworld.com/php/4191716.htm
+$hash = md5(date(str_shuffle('aAbBCcDdEeFf...')));
+$_SESSION['signup_hash'][md5('signup.php')] = $hash;
+
 $html = new Html("Create An Account");
 
 $html->printHeader();
 
-$html->printCreateUser();
+$html->printCreateUser($hash);
 
 $html->printFooter();

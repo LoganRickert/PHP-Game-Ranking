@@ -15,10 +15,14 @@ if(isset($_SESSION['playerId'])) {
 	exit();
 }
 
+// Credit for hashing: http://www.webmasterworld.com/php/4191716.htm
+$hash = md5(date(str_shuffle('aAbBCcDdEeFf...')));
+$_SESSION['login_hash'][md5('login.php')] = $hash;
+
 $html = new Html("Login");
 
 $html->printHeader();
 
-$html->printLogin();
+$html->printLogin($hash);
 
 $html->printFooter();

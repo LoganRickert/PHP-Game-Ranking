@@ -29,10 +29,14 @@ if($db->getTeamId(intval($_SESSION['playerId'])) != 0) {
 	exit();
 }
 
+// Credit for hashing: http://www.webmasterworld.com/php/4191716.htm
+$hash = md5(date(str_shuffle('aAbBCcDdEeFf...')));
+$_SESSION['createTeam_hash'][md5('create_team.php')] = $hash;
+
 $html = new Html("Create A Team");
 
 $html->printHeader();
 
-$html->printCreateTeam();
+$html->printCreateTeam($hash);
 
 $html->printFooter();

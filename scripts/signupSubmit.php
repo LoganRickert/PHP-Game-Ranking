@@ -15,7 +15,16 @@ if(isset($_SESSION['playerId'])) {
 	exit();
 }
 
-$db = new Database();
+// Credit for hashing: http://www.webmasterworld.com/php/4191716.htm
+$hash = $_SESSION['signup_hash'][md5('signup.php')];
+// You MUST unset the hash so that they only get one try
+unset($_SESSION['signup_hash'][md5('signup.php')]);
+
+if(!($hash === $_POST['hash'])) {
+	$error_message = htmlspecialchars("Your form session is not valid!");
+	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
+	exit();
+}
 
 // Checks to make sure all fields were filled out.
 if(!isset($_POST['playerName']) || !isset($_POST['playerPassword']) || !isset($_POST['playerEmail'])) {
@@ -42,6 +51,8 @@ if(strlen($username) < 4) {
 	header("Location: " . SITE_ROOT . "/error.php?error_message=".$error_message);
 	exit();
 }
+
+$db = new Database();
 
 // Checks to make sure the player name doesn't already exist
 if($db->doesPlayerNameExist($username)) {
