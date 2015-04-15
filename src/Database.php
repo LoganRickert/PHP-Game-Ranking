@@ -132,6 +132,7 @@ class Database {
 			$query = $this->db->prepare("
 				SELECT team_id, team_name, team_leader, team_status
 				FROM teams
+				WHERE team_status >= 0
 				ORDER BY team_id ASC
 			");
 			$query->execute();
