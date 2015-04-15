@@ -452,12 +452,19 @@ class Html {
 
 		echo "</ul>";
 
-		if(TEAM_DELETING && in_array($db->getGroupId(intval($_SESSION['playerId'])), canDeleteTeam)) {
+		if((TEAM_DELETING || KICKING_ALL_TEAM_PLAYERS) && 
+			(in_array($db->getGroupId(intval($_SESSION['playerId'])), canDeleteTeam) ||
+				in_array($db->getGroupId(intval($_SESSION['playerId'])), canKickAllTeamPlayers))) {
 			echo "
 			<div>
-				<ul>
-					<li><a href=\"$this->fullSiteRoot/scripts/deleteTeam.php?teamId=$teamId\">Delete Team</a></li>
-				</ul>
+				<ul>";
+				if(TEAM_DELETING && in_array($db->getGroupId(intval($_SESSION['playerId'])), canDeleteTeam)) {
+					echo "<li><a href=\"$this->fullSiteRoot/scripts/deleteTeam.php?teamId=$teamId\">Delete Team</a></li>";
+				}
+				if(KICKING_ALL_TEAM_PLAYERS && in_array($db->getGroupId(intval($_SESSION['playerId'])), canKickAllTeamPlayers)) {
+					echo "<li><a href=\"$this->fullSiteRoot/scripts/kickAllTeamPlayers.php?teamId=$teamId\">Kick All Team Players</a></li>";
+				}
+			echo "</ul>
 			</div>";
 		}
 	}
