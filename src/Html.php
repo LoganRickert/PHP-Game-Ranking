@@ -325,7 +325,7 @@ class Html {
 		return array("<a href=\"" . $this->fullSiteRoot . "/team/$teamId\">$teamName</a>", "$teamPoints points");
 	}
 
-	public function printTeamStats($teamName, $teamPoints, $teamId, $teamLeader) {
+	public function printTeamStats($teamName, $teamPoints, $teamId, $teamLeader, $teamStatus) {
 		$db = new Database();
 		$players = $db->getPlayers($teamId);
 		echo "
@@ -452,16 +452,20 @@ class Html {
 
 		echo "</ul>";
 
-		if((TEAM_DELETING || KICKING_ALL_TEAM_PLAYERS) && 
-			(in_array($db->getGroupId(intval($_SESSION['playerId'])), canDeleteTeam) ||
-				in_array($db->getGroupId(intval($_SESSION['playerId'])), canKickAllTeamPlayers))) {
+		if((TEAM_DELETING || KICKING_ALL_TEAM_PLAYERS || TEAM_UNDELETING) && 
+			(in_array($playerGroupId, canDeleteTeam) ||
+				in_array($playerGroupId, canKickAllTeamPlayers) ||
+				in_array($playerGroupId, canUndeleteTeam))) {
 			echo "
 			<div>
 				<ul>";
-				if(TEAM_DELETING && in_array($db->getGroupId(intval($_SESSION['playerId'])), canDeleteTeam)) {
+				if($teamStatus == 0 && TEAM_DELETING && in_array($playerGroupId, canDeleteTeam)) {
 					echo "<li><a href=\"$this->fullSiteRoot/scripts/deleteTeam.php?teamId=$teamId\">Delete Team</a></li>";
 				}
-				if(KICKING_ALL_TEAM_PLAYERS && in_array($db->getGroupId(intval($_SESSION['playerId'])), canKickAllTeamPlayers)) {
+				if($teamStatus == -1 && TEAM_UNDELETING && in_array($playerGroupId, canUndeleteTeam)) {
+					echo "<li><a href=\"$this->fullSiteRoot/scripts/undeleteTeam.php?teamId=$teamId\">Undelete Team</a></li>";
+				}
+				if(KICKING_ALL_TEAM_PLAYERS && in_array($playerGroupId, canKickAllTeamPlayers)) {
 					echo "<li><a href=\"$this->fullSiteRoot/scripts/kickAllTeamPlayers.php?teamId=$teamId\">Kick All Team Players</a></li>";
 				}
 			echo "</ul>

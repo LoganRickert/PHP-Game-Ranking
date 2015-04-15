@@ -18,7 +18,12 @@ if(!isset($_REQUEST['teamId']) || !$db->doesTeamIdExist(intval($_REQUEST['teamId
 	if($team->getTeamStatus() >= 0) {
 		$team->printStats();
 	} else {
-		echo "Team not found!";
+		if(in_array($db->getGroupId(intval($_SESSION['playerId'])), canSeeDeletedTeams)) {
+			echo "<span style=\"color: red\">This team has been deleted!</span>";
+			$team->printStats();
+		} else {
+			echo "Team not found!";
+		}
 	}
 }
 
