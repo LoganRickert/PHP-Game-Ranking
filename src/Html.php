@@ -332,10 +332,15 @@ class Html {
 		$db = new Database();
 		$players = $db->getPlayers($teamId);
 		echo "
-		<h1>Team Name</h1>
-		<p>$teamName</p>
-		<h1>Points</h1>
-		<p>Total Points: $teamPoints</p>";
+		<table>
+			<tr style=\"border-bottom: 1px solid #999;\">
+				<td style=\"padding: 20px; background: white; font-weight: bold;\">Team Name</td><td style=\"padding: 20px; background: white; font-weight: bold\">Total Points</td>
+			</tr>
+			<tr>
+				<td>$teamName</td>
+				<td>$teamPoints</td>
+			</tr>
+		</table>";
 
 		$pointsObtained = $db->getPointsObtained($teamId);
 
@@ -404,21 +409,27 @@ class Html {
 		    ";
 		}
 
-		echo "
-		<h1>Team Members</h1>
-		<ul>";
+		if($points == 0) {
+			echo "<table style=\"margin: 25px 0 0 0\">";
+		} else {
+			echo "<table>";
+		}
+		echo "<tr style=\"border-bottom: 1px solid #999;\">
+			<td style=\"padding: 20px; background: white; font-weight: bold;\">Teams Members</td><!--td style=\"padding: 20px; background: white; font-weight: bold\">Points</td>-->
+		</tr>";
 		$playerGroupId = $db->getGroupId(intval($_SESSION['playerId']));
 		foreach($players as $player) {
+			echo "<tr>";
 			$playerName = $this->getPlayerOut($player->getPlayerName(), $player->getPlayerId(), $player->getGroupId());
 
 			// If they can kick anyone or make anyone leader
 			if(isset($_SESSION['playerId']) && (in_array($playerGroupId, canKickAnyone) || in_array($playerGroupId, canMakeAnyoneLeader))) {
 				// If the current player is the leader
 				if($player->getPlayerId() == $teamLeader) {
-					echo "<li>- [Leader] $playerName
+					echo "<td>[Leader] $playerName
 					 - ";
 				} else {
-					echo "<li>- $playerName
+					echo "<td>$playerName
 					 - ";
 				}
 				if(in_array($playerGroupId, canKickAnyone)) {
@@ -430,30 +441,33 @@ class Html {
 				if(in_array($playerGroupId, canMakeAnyoneLeader)) {
 					echo "<a href=\"$this->fullSiteRoot/scripts/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a>";
 				}
-				echo "</li>";
+				echo "</td>";
 			// If they are an average person viewing this
 			// If the current player is the leader
 			} else if($player->getPlayerId() == $teamLeader) {
-				echo "<li>- [Leader] $playerName</li>";
+				echo "<td>- [Leader] $playerName</td>";
 			} else {
-				echo "<li>- $playerName";
+				echo "<td>- $playerName";
 
 				if(isset($_SESSION['playerId']) && $teamLeader == $_SESSION['playerId']) {
 					echo " - <a href=\"$this->fullSiteRoot/scripts/kickSubmit.php?playerId=" . $player->getPlayerId() . "\">Kick</a> 
 					&middot; <a href=\"$this->fullSiteRoot/scripts/makeLeaderSubmit.php?playerId=" . $player->getPlayerId() . "\">Make Leader</a></li>";
 				} else {
-					echo "</li>";
+					echo "</td>";
 				}
 			}
+			echo "</tr>";
 		}
-		echo "</ul>
-		<h1>Completed Challenges</h1>
-		<ul>";
+		echo "</table>
+		<table style=\"margin: 50px 0 0 0\">
+		<tr style=\"border-bottom: 1px solid #999;\">
+			<td style=\"padding: 20px; background: white; font-weight: bold;\">Completed Challenges</td><td style=\"padding: 20px; background: white; font-weight: bold\">Points</td>
+		</tr>";
 		foreach($pointsObtained as $pointObtained) {
-			echo "<li>- <a href=\"" . $this->fullSiteRoot . "/challenge/$pointObtained[3]\">$pointObtained[2]</a> ($pointObtained[1] points)</li>";
+			echo "<tr><td><a href=\"" . $this->fullSiteRoot . "/challenge/$pointObtained[3]\">$pointObtained[2]</a></td><td>$pointObtained[1] points</td></tr>";
 		}
 
-		echo "</ul>";
+		echo "</table>";
 
 		if((TEAM_DELETING || KICKING_ALL_TEAM_PLAYERS || TEAM_UNDELETING) && 
 			(in_array($playerGroupId, canDeleteTeam) ||
