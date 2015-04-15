@@ -42,7 +42,7 @@ if(strlen($teamName) > 30){
 // Checks to make sure the team name isn't too short
 if(strlen($teamName) < 4) {
 	$thread_name_length = strlen($teamName);
-	echo "Your team name is too short! The minimum is 3 characters. You currently have ".$thread_name_length." characters.";
+	echo "Your team name is too short! The minimum is 4 characters. You currently have ".$thread_name_length." characters.";
 	exit();
 }
 
