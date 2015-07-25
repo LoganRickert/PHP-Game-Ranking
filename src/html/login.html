@@ -1,0 +1,67 @@
+<div class="post-reply">
+	<h1>Login</h1>
+	<form method="post" action="{{ fullSiteRoot }}/scripts/loginSubmit.php">
+		<fieldset>
+			<div class="input"><label for="playerName">Username:</label><input type="text" name="playerName" placeholder="James T Kirk" id="playerName"></div>
+			<div class="input"><label for="playerPassword">Password:</label><input type="password" name="playerPassword" placeholder="Password" id="playerPassword"></div>
+			<input type="hidden" name="hash" value="{{ hash }}" /> 
+		</fieldset>
+		<input type="submit" class="submit" value="Login!">
+		<div class="message"></div>
+	</form>
+</div>
+<script>
+	$(document).ready(function() {
+		$('.message').hide()
+		$('form').keyup(function(evt) {
+			var url = '{{ fullSiteRoot }}/scripts/loginValidate.php';
+			var formData = $(this).serialize();
+			$.ajax(url, {
+				data: formData,
+				type: 'POST',
+				success: function(html) {
+					if(html == 'good') {
+						$('.message').html('')
+						$('.message').hide()
+						$('.submit').show()
+					} else {
+						$('.message').html(escapeHtml(html))
+						$('.message').show()
+						$('.submit').hide()
+					}
+				}
+			});
+		});
+		$('form').submit(function(evt) {
+			var url = '{{ fullSiteRoot }}/scripts/loginValidate.php';
+			var formData = $(this).serialize();
+			var check = false;
+			$.ajax(url, {
+				data: formData,
+				type: 'POST',
+				async: false,
+				success: function(html) {
+					if(html == 'good') {
+						check = true;
+					}
+				}
+			});
+
+			if(!check) {
+				evt.preventDefault();
+			}
+		});
+	});
+
+	function escapeHtml(text) {
+	  var map = {
+	    '&': '&amp;',
+	    '<': '&lt;',
+	    '>': '&gt;',
+	    '"': '&quot;',
+	    "'": '&#039;'
+	  };
+
+	  return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+	}
+</script>

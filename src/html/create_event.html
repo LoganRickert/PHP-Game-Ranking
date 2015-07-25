@@ -1,0 +1,29 @@
+<div class="post-reply">
+	<h1>Create Challenge</h1>
+	<form method="post" action="{{ this->fullSiteRoot }}/scripts/createChallengeSubmit.php">
+		<fieldset>
+			<div class="input">
+				<label for="challengeName">Name:</label>
+				<input type="text" name="challengeName" id="challengeName" placeholder="Hack Vim">
+			</div>
+			<div class="input">
+				<label for="challengePassword">Password:</label>
+				<input type="text" name="challengePassword" id="challengePassword" placeholder="superCoolPassword123">
+			</div>
+			<div class="input">
+				<label for="challengeAmount">Points Amount:</label>
+				<input type="text" name="challengeAmount" id="challengeAmount" placeholder="9001">
+			</div>
+			<div class="input">
+				<label for="eventId">Event ID:</label>
+				<input type="text" name="eventId" id="eventId" placeholder="1" value="{{ CURRENT_EVENT }}">
+			</div>
+			<label for="challengeDescription" class="textarea-label">Description:</label>
+				<div class="challenge-edit-textarea">
+					<textarea name="challengeDescription" id="challengeDescription"></textarea>
+				</div>
+		</fieldset>
+		<input type="submit" class="submit" value="Create Challenge!">
+	</form>
+	<p><a href="challenges">Update Challenges</a></p>
+</div>

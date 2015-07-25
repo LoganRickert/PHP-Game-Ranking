@@ -1,0 +1,15 @@
+<div class="post-reply">
+	<h1>Join A Team</h1>
+	<form method="post" action="{{ fullSiteRoot }}/scripts/joinTeamSubmit.php">
+		<fieldset>
+			<div class="select">
+				<label for="teamId" class="select-label">Team:</label>
+				<select type="text" name="teamId" id="teamid"></div>";
+				$this->printTeamsOptions();
+		echo "</select>
+			<input type="hidden" name="hash" value="{{ hash }}" /> 
+		</fieldset>
+		<input type="submit" class="submit" value="Join Team!">
+		</form>
+</div>
+		

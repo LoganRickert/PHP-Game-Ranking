@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>{{ title }}</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+	<!--[if lt IE 9]>
+		<script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link rel="StyleSheet" href="{{ fullSiteRoot }}/css/reset.css" type="text/css">
+	<link rel="StyleSheet" href="{{ fullSiteRoot }}/css/style.css" type="text/css">
+	<link rel="stylesheet" media="(max-width: 1200px)" href="{{ fullSiteRoot }}/css/tablet.css" />
+	<link rel="stylesheet" media="(max-width: 1250px)" href="{{ fullSiteRoot }}/css/phone.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+<body>
+	<header>
+		<div id="wrapper">
+			<div class="header-left">
+				<a href="{{ fullSiteRoot }}">{{ siteName }}</a>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="{{ fullSiteRoot }}/challenge">Challenges</a></li>
+					<li><a href="{{ fullSiteRoot }}">FAQ</a></li>
+					{{ editChallenges }}
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<div id="wrapper">
+		<div class="nav-search">
+			{{ submitPasswordForm }}
+			<ul>
+				{{ navlist }}
+			</ul>
+		</div>
+		<section>
