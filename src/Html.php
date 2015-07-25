@@ -325,9 +325,13 @@ class Html {
 
 		$teams = $db->getTeams();
 
+		$stringToReturn = "";
+
 		foreach($teams as $team) {
-			echo "<option value=" . $team->getTeamId() . ">" . $team->getTeamName() . "</option>";	
+			$stringToReturn .= "<option value=" . $team->getTeamId() . ">" . $team->getTeamName() . "</option>";	
 		}
+
+		return $stringToReturn;
 	}
 
 	public function printPlayerStats($playerName, $teamId, $playerId) {
@@ -346,10 +350,10 @@ class Html {
 	}
 
 	public function printChallengeStats($challengeName, $challengeAmount, $challengeDescription) {
-		$html = file_get_contents(FILE_ROOT . "/src/html/join_team.html");
+		$html = file_get_contents(FILE_ROOT . "/src/html/challenge_stats.html");
 
 		$html = str_replace("{{ challengeName }}", $challengeName, $html);
-		$html = str_replace("{{ challengeName }}", $challengeName, $html);
+		$html = str_replace("{{ challengeAmount }}", $challengeAmount, $html);
 		$html = str_replace("{{ challengeDescription }}", $challengeDescription, $html);
 
 		echo $html;
@@ -366,7 +370,7 @@ class Html {
 	}
 
 	public function printFooter() {
-		echo file_get_contents(FILE_ROOT . "/src/html/footer.html")
+		echo file_get_contents(FILE_ROOT . "/src/html/footer.html");
 	}
 
 	public function printEvents() {

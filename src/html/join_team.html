@@ -4,9 +4,9 @@
 		<fieldset>
 			<div class="select">
 				<label for="teamId" class="select-label">Team:</label>
-				<select type="text" name="teamId" id="teamid"></div>";
-				$this->printTeamsOptions();
-		echo "</select>
+				<select type="text" name="teamId" id="teamid"></div>
+				{{ teamOptions }}
+				</select>
 			<input type="hidden" name="hash" value="{{ hash }}" /> 
 		</fieldset>
 		<input type="submit" class="submit" value="Join Team!">
